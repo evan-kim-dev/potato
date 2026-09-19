@@ -19,11 +19,12 @@ function insightLabel(src) {
 
 const AGENT_WELCOME =
   "안녕하세요! 저는 **강원 온도 AI**예요. (팀 · 샤이한 열정 감자들)\n\n" +
-  "공모 제안서처럼 **인구감소 지역의 숨은 명소(블루오션)** 를 우선하고, " +
-  "취향(테마·동반·예산)을 TourAPI 분류(cat)와 맞춰 코스를 짜요. " +
-  "지도의 혼잡 신호로 **덜 붐비는 인접 지역으로 분산**하는 2안과, " +
-  "**디지털 관광주민증·강원상품권** 안내도 함께 드려요.\n\n" +
-  "MVP 타겟은 **영월·정선**이에요. 아래 취향을 고르거나 「영월 1박2일, 조용한 숲길」처럼 적어 주세요.";
+  "공모 제안서처럼 **인구감소 지역의 숨은 명소**를 우선하고, " +
+  "취향을 TourAPI 분류(cat)와 맞춰 코스를 짜요. " +
+  "여기에 **친환경 여행**을 한 축으로 더했어요 — 붐비는 핫플 대신 " +
+  "생태·저밀도·걷기 좋은 동선으로 분산하고, KTO 생태관광 데이터도 활용해요.\n\n" +
+  "지도 혼잡 신호로 **2안 분산**, **관광주민증·강원상품권** 안내도 함께 드려요. " +
+  "MVP는 **영월·정선**. 취향에서 「친환경·생태」를 고르거나 「영월 조용한 숲길」처럼 적어 주세요.";
 
 const MVP_PRIORITY_REGIONS = ["영월군", "정선군", "태백시", "삼척시"];
 
@@ -336,7 +337,8 @@ function detectPromptThemes(prompt) {
   const themes = [];
   if (/바다|해변|해수욕|일몰|서핑|오션|물놀이/.test(msg)) themes.push("sea");
   if (/맛|먹|음식|카페|커피|맛집|시장|디저트|회|해산물|먹거리/.test(msg)) themes.push("food");
-  if (/자연|산|숲|트레킹|생태|힐링|계곡/.test(msg)) themes.push("nature");
+  if (/자연|산|숲|트레킹|생태|힐링|계곡|친환경|걷기|저밀도/.test(msg)) themes.push("nature");
+  if (/친환경|생태|걷기|탄소|저밀도|그린/.test(msg)) themes.push("eco");
   if (/문화|역사|박물관|축제|체험/.test(msg)) themes.push("culture");
   return themes;
 }
@@ -603,6 +605,7 @@ function buildThemePromptBlock(prompt) {
     nature: "자연·힐링",
     culture: "문화·체험",
     leisure: "레저·체험",
+    eco: "친환경·생태",
   };
   const catMap = typeof THEME_CAT_MAP !== "undefined" ? THEME_CAT_MAP : {};
   const catLines = merged
@@ -616,6 +619,11 @@ function buildThemePromptBlock(prompt) {
     lines.push(`Themes (KorService cat1 match): ${catLines.join(", ")}.`);
     lines.push("- option_1 MUST prioritize matching spots from <main_destination>.");
     lines.push("- option_2: quieter <transit_area> gems first (혼잡 분산), still theme-aware.");
+  }
+  if (merged.includes("eco") || userPrefs.themes.has("eco")) {
+    lines.push(
+      "Eco travel mode ON: prefer GreenTour/ecological spots, walking-friendly low-density areas, avoid overcrowded landmarks; mention 친환경 briefly in intro."
+    );
   }
   if (userPrefs.companion) lines.push(`Companion: ${userPrefs.companion}`);
   if (userPrefs.budget) lines.push(`Budget: ${userPrefs.budget}`);
@@ -1094,6 +1102,9 @@ function collectQuietGemSpots(limit = 8) {
     if (level === "high") continue;
     const spots = agg[region] || collectKtoCatalogEntries(region);
     for (const s of spots.slice(0, 3)) {
+      const isEco =
+        String(s.source || "").includes("생태") ||
+        /생태|숲|자연/.test(String(s.categoryLabel || s.theme || ""));
       rows.push({
         name: s.name,
         region,
@@ -1101,6 +1112,7 @@ function collectQuietGemSpots(limit = 8) {
         image: s.imageUrl || "",
         level,
         rank: s.rank ?? 999,
+        ecoBoost: isEco ? 0 : 1,
       });
     }
   }
@@ -1108,6 +1120,7 @@ function collectQuietGemSpots(limit = 8) {
     const pa = MVP_PRIORITY_REGIONS.includes(a.region) ? 0 : 1;
     const pb = MVP_PRIORITY_REGIONS.includes(b.region) ? 0 : 1;
     if (pa !== pb) return pa - pb;
+    if ((a.ecoBoost || 0) !== (b.ecoBoost || 0)) return (a.ecoBoost || 0) - (b.ecoBoost || 0);
     const la = { low: 0, unknown: 1, mid: 2, high: 3 }[a.level] ?? 2;
     const lb = { low: 0, unknown: 1, mid: 2, high: 3 }[b.level] ?? 2;
     if (la !== lb) return la - lb;
@@ -2791,6 +2804,16 @@ function buildAccessGuide(meta, steps, prompt) {
     });
   }
 
+  const wantsEco =
+    userPrefs.themes.has("eco") ||
+    /친환경|생태|걷기|저밀도|그린/.test(String(prompt || ""));
+  if (wantsEco) {
+    tips.push({
+      title: "친환경 동선 팁",
+      body: "핫플 과밀을 피하고 생태·숲길·한산 권역을 우선했어요. 짧은 구간은 걷기·대중교통을 쓰고, 당일 과다 이동은 줄이는 편이 발자국도 작아요.",
+    });
+  }
+
   const tourists = itinerarySteps(steps);
   const infraNotes = [];
   for (const s of tourists.slice(0, 6)) {
@@ -3705,7 +3728,15 @@ function parseTwoTrackCuration(parsed, prompt) {
   if (opt1Raw.days?.length || opt1Raw.itinerary || steps1.length) {
     courseOptions.push({
       key: "option_1",
-      title: opt1Raw.title || (main ? `1안: ${regionShortName(main)} 자연·휴양 집중 코스` : "1안: 자연·휴양 집중 코스"),
+      title:
+        opt1Raw.title ||
+        (userPrefs.themes.has("eco")
+          ? main
+            ? `1안: ${regionShortName(main)} 친환경·휴양 맞춤`
+            : "1안: 친환경·휴양 맞춤 코스"
+          : main
+            ? `1안: ${regionShortName(main)} 자연·휴양 집중 코스`
+            : "1안: 자연·휴양 집중 코스"),
       summary: "",
       steps: steps1,
       days: opt1Raw.days || [],
@@ -3720,8 +3751,10 @@ function parseTwoTrackCuration(parsed, prompt) {
       key: "option_2",
       title:
         opt2Raw.title ||
-        `2안: ${quietLabel} 경유 · 혼잡 분산·상생`,
-      summary: opt2Raw.storytelling || "붐비는 랜드마크 대신 인접 한산·인구감소 지역으로 분산하는 동선",
+        `2안: ${quietLabel} 경유 · 친환경 분산·상생`,
+      summary:
+        opt2Raw.storytelling ||
+        "붐비는 랜드마크 대신 인접 한산·생태 권역으로 발자국을 줄이는 동선",
       steps: steps2,
       days: opt2Raw.days || [],
       dayPlans: buildDayPlansFromOption(opt2Raw),

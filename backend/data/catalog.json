@@ -501,6 +501,7 @@
   },
   "theme_cat_map": {
     "nature": { "label": "자연·힐링", "cat1": "A01", "keywords": ["자연", "산", "숲", "계곡", "해변"] },
+    "eco": { "label": "친환경·생태", "cat1": "A01", "keywords": ["생태", "친환경", "트레킹", "걷기", "저밀도"] },
     "culture": { "label": "문화·역사", "cat1": "A02", "keywords": ["문화", "역사", "박물관", "사찰"] },
     "leisure": { "label": "레저·체험", "cat1": "A03", "keywords": ["레저", "체험", "트레킹", "스포츠"] },
     "food": { "label": "맛집·시장", "cat1": "A05", "keywords": ["음식", "맛집", "시장", "카페"] },
@@ -508,6 +509,7 @@
   },
   "preference_options": {
     "themes": [
+      { "id": "eco", "label": "친환경·생태" },
       { "id": "nature", "label": "자연·힐링" },
       { "id": "sea", "label": "바다·해안" },
       { "id": "culture", "label": "문화·역사" },

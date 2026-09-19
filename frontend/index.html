@@ -19,11 +19,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="referrer" content="origin" />
   <title>강원 온도(ON道) · 자연은 가깝게, 길은 더 쉽게</title>
-  <meta name="description" content="강원 온도(ON道) — 인구감소 지역 숨은 명소 발굴, GIS 혼잡 분산, 취향 맞춤 코스, 로컬 혜택까지. KTO OpenAPI·AI 기반 초개인화 로컬 관광." />
+  <meta name="description" content="강원 온도(ON道) — 인구감소 지역 숨은 명소, 친환경·생태 동선, GIS 혼잡 분산, 취향 맞춤 코스, 로컬 혜택. KTO OpenAPI·AI 기반 초개인화 로컬 관광." />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css?v=13" />
+  <link rel="stylesheet" href="style.css?v=14" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
   <link rel="apple-touch-icon" href="assets/mascot-icon.png" />
 </head>
@@ -104,7 +104,7 @@
             <span class="chat-dot"></span>
             <div class="chat-shell-title">
               <strong>강원 온도 AI</strong>
-              <span>인구감소 지역 숨은 명소 · 혼잡 분산 · 로컬 혜택</span>
+              <span>숨은 명소 · 친환경 분산 · 로컬 혜택</span>
             </div>
           </div>
           <div class="chat-body" id="agent-messages" role="log" aria-live="polite"></div>
@@ -138,12 +138,12 @@
         <section class="quiet-gems" id="quiet-gems" aria-labelledby="quiet-gems-title">
           <div class="quiet-gems-head">
             <h2 id="quiet-gems-title">이번 주 핫하지 않은 명소</h2>
-            <p>인구감소·한산 권역의 숨은 코스 · MVP 타겟 영월·정선</p>
+            <p>인구감소·한산·생태 권역의 저밀도 코스 · MVP 영월·정선</p>
           </div>
           <div class="quiet-gems-rail" id="quiet-gems-rail"></div>
           <aside class="local-benefit-banner" id="local-benefit-banner">
             <strong>로컬 상생 혜택</strong>
-            <span>영월·정선 등 소외 지역 방문 확정 시 디지털 관광주민증·강원상품권 안내를 일정에 붙여 드려요.</span>
+                <span>소외 지역 방문 시 관광주민증·상품권으로 상생하고, 한산 권역 선택이 곧 친환경 여행이에요.</span>
             <a href="https://www.tour.go.kr/" target="_blank" rel="noopener">관광주민증</a>
             <a href="https://www.gwgs.kr.kr.kr/" target="_blank" rel="noopener">강원상품권</a>
           </aside>
@@ -172,7 +172,7 @@
         <div class="page-head">
           <div>
             <h1><span class="page-logo vico vico-info" data-vico="info"></span> 서비스 소개</h1>
-            <p>인구감소 지역의 숨은 명소를 발굴하고, 혼잡을 분산하는 초개인화 로컬 관광</p>
+            <p>숨은 명소 · 혼잡 분산 · 친환경 동선 · 로컬 혜택</p>
           </div>
           <span class="chip">소개</span>
         </div>
@@ -183,7 +183,7 @@
             <p class="about-lead">
               <strong>강원 온도(ON道)</strong>는 한국관광공사 OpenAPI·AI·GIS를 융합해
               강원도 <strong>인구 감소 지역의 숨은 명소</strong>를 발굴하고,
-              개인 맞춤형 여행 코스를 제안하는 <em>초개인화 로컬 관광</em> 서비스입니다.
+              개인 맞춤형·<strong>친환경</strong> 여행 코스를 제안하는 <em>초개인화 로컬 관광</em> 서비스입니다.
             </p>
           </div>
 
@@ -196,6 +196,10 @@
             <p>
               <strong>GIS 혼잡도·분산 라우팅</strong> — 지도에 예상 밀집도를 시각화하고,
               덜 붐비는 인접·소외 지역으로의 <strong>2안 분산 동선</strong>을 안내합니다.
+            </p>
+            <p>
+              <strong>친환경 여행</strong> — 핫플 과밀을 피하고 KTO <em>생태관광</em>·걷기·저밀도 권역을 우선해
+              발자국을 줄인 동선을 제안합니다. 혼잡 분산 자체가 지속가능한 여행입니다.
             </p>
             <p>
               <strong>로컬 경제 혜택</strong> — 인구감소 지역 방문 시
@@ -440,8 +444,8 @@
 
   <script src="config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="data.js?v=9"></script>
+  <script src="data.js?v=10"></script>
   <script src="icons.js?v=1"></script>
-  <script src="app.js?v=27"></script>
+  <script src="app.js?v=28"></script>
 </body>
 </html>
