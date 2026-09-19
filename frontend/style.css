@@ -3327,17 +3327,17 @@ body.mode-planner .planner-grid {
   color: #fff;
 }
 
-/* —— Congestion map —— */
+/* —— Congestion map (teal scale — no alarm red) —— */
 .landing-map-art .gw-cong-high {
-  fill: #f2c7b8 !important;
-  stroke: #c45c3e !important;
+  fill: #c5d5d1 !important;
+  stroke: #6a8580 !important;
 }
 .landing-map-art .gw-cong-mid {
-  fill: #f3e6c4 !important;
-  stroke: #b8963a !important;
+  fill: #d9e8e3 !important;
+  stroke: #7aa89c !important;
 }
 .landing-map-art .gw-cong-low {
-  fill: #cfe8df !important;
+  fill: #dff3ec !important;
   stroke: #2f8f78 !important;
 }
 .landing-map-art .gw-cong-unknown {
@@ -3374,11 +3374,11 @@ body.mode-planner .planner-grid {
   margin-right: 0.28rem;
   vertical-align: -0.05rem;
 }
-.cong-dot.high::before { background: #c45c3e; }
-.cong-dot.mid::before { background: #b8963a; }
+.cong-dot.high::before { background: #6a8580; }
+.cong-dot.mid::before { background: #7aa89c; }
 .cong-dot.low::before { background: #2f8f78; }
-.landing-region-tip-meta-item.cong-high { color: #a3452c; }
-.landing-region-tip-meta-item.cong-mid { color: #8a6f20; }
+.landing-region-tip-meta-item.cong-high { color: #4d6560; }
+.landing-region-tip-meta-item.cong-mid { color: #4f7a6e; }
 .landing-region-tip-meta-item.cong-low { color: #1f6f5c; }
 
 .local-benefits-list {
