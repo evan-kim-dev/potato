@@ -11,7 +11,7 @@
 | 생태관광 정보서비스_GW | `TourAPI_Guide_(생태관광)v4.2` | 시·군 **생태관광** 명소 |
 | 국문 관광정보 서비스_GW | `한국관광공사_개방데이터_활용매뉴얼(국문)_v4.4` | **공식 관광지**·**축제** |
 
-시·군구 코드: `한국관광공사_TourAPI_관광지_시군구_코드정보_v1.0.xlsx` → `data/gangwon_sigungu_codes.json`  
+시·군구 코드: `한국관광공사_TourAPI_관광지_시군구_코드정보_v1.0.xlsx` → `backend/data/gangwon_sigungu_codes.json`  
 국문·생태 API용 **법정동·생태 시군구 코드**는 `sync_tour_ldong.py`가 API에서 조회해 같은 JSON에 병합합니다.
 
 ## 환경 변수
@@ -21,8 +21,8 @@ TourAPI 키는 **GitHub Actions Secret** `TOUR_API_SERVICE_KEY`로만 설정합�
 ## 한 번에 동기화
 
 ```bash
-python scripts/sync_tour_all.py
-python scripts/sync_content.py generate       # docs/data.js 반영
+python backend/scripts/sync_tour_all.py
+python backend/scripts/sync_content.py generate       # frontend/data.js 반영
 ```
 
 > **Note:** 개별 API 스크립트(`sync_tour_hub.py` 등)는 제거되었습니다. 부분 재동기화가 필요하면 `sync_tour_parallel_fetch.py`를 참고하거나 `sync_tour_ldong.py`만 단독 실행하세요.
@@ -30,28 +30,28 @@ python scripts/sync_content.py generate       # docs/data.js 반영
 법정동·생태 시군구 코드만 보강:
 
 ```bash
-python scripts/sync_tour_ldong.py
+python backend/scripts/sync_tour_ldong.py
 ```
 
 엑셀에서 시군구 코드 재가져오기:
 
 ```bash
 pip install openpyxl
-python scripts/import_sigungu_codes.py
+python backend/scripts/import_sigungu_codes.py
 ```
 
 ## 생성되는 데이터
 
 | 파일 | API | UI 반영 |
 |------|-----|---------|
-| `data/tour_visitor_stats.json` | DataLab `locgoRegnVisitrDDList` | 지도 툴팁 **방문** |
-| `data/tour_hub_spots.json` | `LocgoHubTarService1/areaBasedList1` | 지도 툴팁 **중심 관광지** |
-| `data/tour_relate_spots.json` | `TarRlteTarService1/areaBasedList1` | 툴팁·AI **연관 관광지** (기준→연관) |
-| `data/tour_region_photos.json` | `PhotoGalleryService1/gallerySearchList1` | 툴팁 사진·관광지 카드 썸네일 |
-| `data/tour_kor_spots.json` | `KorService2/areaBasedList2` | 툴팁 **공식 관광지**·카드 썸네일 |
-| `data/tour_kor_festivals.json` | `KorService2/searchFestival2` | 축제 탭·지역 툴팁 |
-| `data/tour_eco_spots.json` | `GreenTourService1/areaBasedList1` | 지도 툴팁 **생태관광** |
-| `data/gangwon_sigungu_codes.json` | 엑셀 + `ldongCode2` + `areaCode1` | API 요청용 코드 |
+| `backend/data/tour_visitor_stats.json` | DataLab `locgoRegnVisitrDDList` | 지도 툴팁 **방문** |
+| `backend/data/tour_hub_spots.json` | `LocgoHubTarService1/areaBasedList1` | 지도 툴팁 **중심 관광지** |
+| `backend/data/tour_relate_spots.json` | `TarRlteTarService1/areaBasedList1` | 툴팁·AI **연관 관광지** (기준→연관) |
+| `backend/data/tour_region_photos.json` | `PhotoGalleryService1/gallerySearchList1` | 툴팁 사진·관광지 카드 썸네일 |
+| `backend/data/tour_kor_spots.json` | `KorService2/areaBasedList2` | 툴팁 **공식 관광지**·카드 썸네일 |
+| `backend/data/tour_kor_festivals.json` | `KorService2/searchFestival2` | 축제 탭·지역 툴팁 |
+| `backend/data/tour_eco_spots.json` | `GreenTourService1/areaBasedList1` | 지도 툴팁 **생태관광** |
+| `backend/data/gangwon_sigungu_codes.json` | 엑셀 + `ldongCode2` + `areaCode1` | API 요청용 코드 |
 
 ## API 상세
 

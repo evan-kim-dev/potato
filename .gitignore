@@ -22,7 +22,7 @@ env/
 .streamlit/
 
 # GitHub Actions 배포 시 Secret으로 주입 (저장소에 커밋 금지)
-docs/config.js
+frontend/config.js
 
 # OS / IDE
 .DS_Store

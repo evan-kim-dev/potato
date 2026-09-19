@@ -1,28 +1,28 @@
----
-description: GitHub Pages 배포 전용 — 로컬 실행·로컬 설정 파일 금지
-alwaysApply: true
----
-
 # Deploy-only workflow
 
 This project is **GitHub Pages only**. Do not set up or rely on local preview.
 
+## Folder layout
+
+- `frontend/` — static site published to Pages
+- `backend/` — data JSON, Python sync scripts, Supabase Edge Functions
+
 ## After code changes
 
-1. Run `python scripts/sync_content.py generate` only when `data/*.json` changed (CI also runs this).
+1. Run `python backend/scripts/sync_content.py generate` only when `backend/data/*.json` changed (CI also runs this).
 2. **Always commit and push to `main`** — deployment is triggered by GitHub Actions (`Deploy GitHub Pages`).
-3. Do **not** run `python -m http.server`, local `docs/config.js`, or `.env` for verification.
+3. Do **not** run `python -m http.server`, local `frontend/config.js`, or `.env` for verification.
 4. Verify on https://evan-kim-dev.github.io/potato/ after Actions succeeds (hard refresh).
 
 ## Secrets & config
 
-- API keys: GitHub Repository Secrets → injected as `docs/config.js` at deploy time.
-- Never add `docs/config.js`, `docs/config.example.js`, or `.env` to the repo.
+- API keys: GitHub Repository Secrets → injected as `frontend/config.js` at deploy time.
+- Never add `frontend/config.js`, `frontend/config.example.js`, or `.env` to the repo.
 - TourAPI key: `TOUR_API_SERVICE_KEY` in Actions secrets only.
 
 ## Cache busting
 
-Bump `?v=N` in `docs/index.html` (style, data, icons, app) when static assets change; increment from current version.
+Bump `?v=N` in `frontend/index.html` (style, data, icons, app) when static assets change; increment from current version.
 
 ## Local-only files
 

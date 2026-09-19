@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""TourAPI 전체 동기화 — ldong 선행 후 6 API 병렬 fetch + docs/data.js 생성."""
+"""TourAPI 전체 동기화 — ldong 선행 후 6 API 병렬 fetch + frontend/data.js 생성."""
 
 from __future__ import annotations
 

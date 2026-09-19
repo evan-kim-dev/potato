@@ -1,6 +1,6 @@
-// VoyageAI · 강원 — canonical data lives in data/*.json
+// VoyageAI · 강원 — canonical data lives in backend/data/*.json
 // // === CANONICAL DATA (auto-generated from data/*.json) ===
-// Regenerate: python scripts/sync_content.py generate
+// Regenerate: python backend/scripts/sync_content.py generate
 "use strict";
 
 const SPOTS = [
@@ -1985,7 +1985,7 @@ const TOUR_KOR_FESTIVALS = {
 };
 
 const TOUR_AGGREGATED_SPOTS = {
-  "updated_at": "2026-06-18",
+  "updated_at": "2026-09-19",
   "source_status": {
     "eco": {
       "ok": true,
@@ -4767,4 +4767,4 @@ function enrichSpot(raw) {
 
 const ENRICHED_SPOTS = SPOTS.map(enrichSpot);
 
-// API 키는 GitHub Actions Secret → docs/config.js (저장소·로컬 파일 없음)
+// API 키는 GitHub Actions Secret → frontend/config.js (저장소·로컬 파일 없음)

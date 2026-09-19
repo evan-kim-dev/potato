@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Sync canonical data/*.json → docs/data.js.
+"""Sync canonical backend/data/*.json → frontend/data.js.
 
-SSoT: data/spots.json, data/catalog.json, data/prompts.json
-Generated: docs/data.js (do not hand-edit the JSON blocks)
+SSoT: backend/data/spots.json, catalog.json, prompts.json
+Generated: frontend/data.js (do not hand-edit the JSON blocks)
 
 Usage:
-  python scripts/sync_content.py generate    # write docs/data.js
-  python scripts/sync_content.py --check     # CI: fail if data.js is stale
+  python backend/scripts/sync_content.py generate
+  python backend/scripts/sync_content.py --check
 """
 
 from __future__ import annotations
@@ -16,9 +16,11 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT / "data"
-DOCS_DATA = ROOT / "docs" / "data.js"
+BACKEND_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = BACKEND_ROOT.parent
+DATA_DIR = BACKEND_ROOT / "data"
+FRONTEND_DATA = REPO_ROOT / "frontend" / "data.js"
+ROOT = BACKEND_ROOT  # import path for kto_aggregation_service
 MARKER = "// === CANONICAL DATA (auto-generated from data/*.json) ==="
 
 
@@ -186,14 +188,14 @@ function enrichSpot(raw) {
 const ENRICHED_SPOTS = SPOTS.map(enrichSpot);
 """
 
-    header = f"""// VoyageAI · 강원 — canonical data lives in data/*.json
+    header = f"""// VoyageAI · 강원 — canonical data lives in backend/data/*.json
 // {MARKER}
-// Regenerate: python scripts/sync_content.py generate
+// Regenerate: python backend/scripts/sync_content.py generate
 "use strict";
 
 """
     footer = """
-// API 키는 GitHub Actions Secret → docs/config.js (저장소·로컬 파일 없음)
+// API 키는 GitHub Actions Secret → frontend/config.js (저장소·로컬 파일 없음)
 """
     return header + "\n\n".join(blocks) + runtime + footer
 
@@ -202,19 +204,19 @@ def main() -> int:
     args = sys.argv[1:]
     if not args or args[0] == "generate":
         content = generate_data_js()
-        DOCS_DATA.write_text(content, encoding="utf-8")
-        print(f"Wrote {DOCS_DATA}")
+        FRONTEND_DATA.write_text(content, encoding="utf-8")
+        print(f"Wrote {FRONTEND_DATA}")
         return 0
     if args[0] == "--check":
-        if not DOCS_DATA.exists():
-            print("docs/data.js missing — run sync_content.py generate", file=sys.stderr)
+        if not FRONTEND_DATA.exists():
+            print("frontend/data.js missing — run sync_content.py generate", file=sys.stderr)
             return 1
-        current = DOCS_DATA.read_text(encoding="utf-8")
+        current = FRONTEND_DATA.read_text(encoding="utf-8")
         expected = generate_data_js()
         if current != expected:
-            print("docs/data.js is stale — run: python scripts/sync_content.py generate", file=sys.stderr)
+            print("frontend/data.js is stale — run: python backend/scripts/sync_content.py generate", file=sys.stderr)
             return 1
-        print("docs/data.js is up to date")
+        print("frontend/data.js is up to date")
         return 0
     print("Usage: generate | --check", file=sys.stderr)
     return 2

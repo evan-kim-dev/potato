@@ -1,7 +1,7 @@
 # GitHub 브랜치 관리 규칙 (potato / VoyageAI)
 
 > 저장소 기본 브랜치: **`main`** (원격 `origin/main`)  
-> 레포: `https://github.com/rlarlgns-evan/potato`  
+> 레포: `https://github.com/evan-kim-dev/potato`  
 > 작업 브랜치 접두어: **`vinnie`** (고정)
 
 ## 명명 규칙
@@ -33,7 +33,7 @@ main                          ← 프로덕션 (GitHub Pages 배포)
 
 | 브랜치 | 용도 |
 |--------|------|
-| `main` | GitHub Pages 정적 앱 (`docs/`) · 프로덕션 |
+| `main` | GitHub Pages 정적 앱 (`frontend/`) · 프로덕션 |
 
 `develop` 및 `release/*`, `feature/*`, `hotfix/*` 는 필요 시 `main`에서 분기해 생성합니다.
 

@@ -4,14 +4,17 @@ on:
   push:
     branches: [main]
     paths:
-      - "supabase/functions/**"
-      - "supabase/config.toml"
+      - "backend/supabase/functions/**"
+      - "backend/supabase/config.toml"
       - ".github/workflows/supabase-functions.yml"
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - uses: actions/checkout@v4
 

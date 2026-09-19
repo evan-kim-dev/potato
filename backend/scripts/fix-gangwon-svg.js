@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const svgPath = path.join(__dirname, "../docs/assets/gangwon-hero.svg");
+const svgPath = path.join(__dirname, "../../frontend/assets/gangwon-hero.svg");
 let svg = fs.readFileSync(svgPath, "utf8");
 
 const regions = [
