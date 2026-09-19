@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch all 6 KTO APIs in parallel and write data/tour_*.json."""
+"""Fetch KTO APIs in parallel and write data/tour_*.json (+ regional insights)."""
 
 from __future__ import annotations
 
@@ -22,6 +22,15 @@ OUTPUT_MAP = {
     "kor": "tour_kor_spots.json",
     "eco": "tour_eco_spots.json",
     "festivals": "tour_kor_festivals.json",
+    "insights": "tour_regional_insights.json",
+}
+
+# Intermediate payloads kept for debugging / re-aggregation
+EXTRA_MAP = {
+    "concentration": "tour_concentration.json",
+    "demand": "tour_demand_intensity.json",
+    "diversity": "tour_diversity.json",
+    "resource": "tour_resource_demand.json",
 }
 
 
@@ -38,14 +47,26 @@ def main() -> int:
         err = f" ({status.error})" if status and status.error else ""
         print(f"[{flag}] {fname}{err}")
 
+    for key, fname in EXTRA_MAP.items():
+        payload = loaded.get(key) or {}
+        if not payload:
+            continue
+        (DATA / fname).write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        status = svc.source_status.get(key)
+        flag = "OK" if status and status.ok else "FAIL"
+        err = f" ({status.error})" if status and status.error else ""
+        print(f"[{flag}] {fname}{err}")
+
     agg = svc.build_aggregated_export()
     (DATA / "kto_aggregated_spots.json").write_text(
         json.dumps(agg, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print("Wrote kto_aggregated_spots.json")
 
-    failed = [k for k, st in svc.source_status.items() if not st.ok]
-    return 1 if failed and len(failed) == len(OUTPUT_MAP) else 0
+    core_failed = [
+        k for k in OUTPUT_MAP if k != "insights" and not (svc.source_status.get(k) and svc.source_status[k].ok)
+    ]
+    return 1 if core_failed and len(core_failed) >= 6 else 0
 
 
 if __name__ == "__main__":

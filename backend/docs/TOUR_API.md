@@ -10,6 +10,10 @@
 | 관광사진갤러리 서비스_GW | `TourAPI_Guide_(관광사진)v4.2` | 지역 **관광 사진** |
 | 생태관광 정보서비스_GW | `TourAPI_Guide_(생태관광)v4.2` | 시·군 **생태관광** 명소 |
 | 국문 관광정보 서비스_GW | `한국관광공사_개방데이터_활용매뉴얼(국문)_v4.4` | **공식 관광지**·**축제** |
+| **관광지 집중률 방문자 추이 예측** | `TatsCnctrRateService` | 향후 30일 **혼잡·집중률** |
+| **지역별 관광 수요 강도** | `AreaTarDemDsService` | 체류·수요 **강도** |
+| **지역별 관광 다양성** | `AreaTarDivService` | 관광객·국제 **다양성** |
+| **지역별 관광 자원 수요** | `AreaTarResDemService` | 서비스·자원 **수요** |
 
 시·군구 코드: `한국관광공사_TourAPI_관광지_시군구_코드정보_v1.0.xlsx` → `backend/data/gangwon_sigungu_codes.json`  
 국문·생태 API용 **법정동·생태 시군구 코드**는 `sync_tour_ldong.py`가 API에서 조회해 같은 JSON에 병합합니다.
@@ -51,6 +55,7 @@ python backend/scripts/import_sigungu_codes.py
 | `backend/data/tour_kor_spots.json` | `KorService2/areaBasedList2` | 툴팁 **공식 관광지**·카드 썸네일 |
 | `backend/data/tour_kor_festivals.json` | `KorService2/searchFestival2` | 축제 탭·지역 툴팁 |
 | `backend/data/tour_eco_spots.json` | `GreenTourService1/areaBasedList1` | 지도 툴팁 **생태관광** |
+| `backend/data/tour_regional_insights.json` | 집중률+수요+다양성+자원+방문 매시업 | 지도 **혼잡·한산**·2안 분산 |
 | `backend/data/gangwon_sigungu_codes.json` | 엑셀 + `ldongCode2` + `areaCode1` | API 요청용 코드 |
 
 ## API 상세

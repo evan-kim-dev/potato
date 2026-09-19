@@ -19,10 +19,9 @@ function insightLabel(src) {
 
 const AGENT_WELCOME =
   "안녕하세요! 저는 **강원 온도 AI**예요.\n\n" +
-  "강원은 **자연·휴양**의 매력이 크지만, **교통·접근·인프라**가 약해 가기 어려운 곳도 많아요. " +
-  "그래서 저는 한국관광공사(KTO) 데이터로 일정을 짜되, **출발지→거점→명소** 동선과 이동 안내를 함께 드려요.\n\n" +
-  "목적지 일정을 요청하시면 **1안(자연·휴양 집중)** 과 **2안(접근·상생 경유)** 두 가지를 제안해요. " +
-  "「서울에서 KTX로 강릉 1박2일」「속초 바다 코스」처럼 출발·교통·기간을 넣어 주세요.";
+  "기안서처럼 **인구감소 지역의 숨은 명소**를 발굴하고, 취향(테마·동반·예산)에 맞춘 코스를 제안해요. " +
+  "지도의 혼잡·한산 신호를 보고 **덜 붐비는 인접 지역으로 분산**하는 **2안**도 함께 드려요.\n\n" +
+  "아래에 취향을 고르거나 「서울에서 KTX로 강릉 1박2일, 바다·알뜰」처럼 적어 주세요.";
 
 const P = typeof TOUR_PROMPTS !== "undefined" ? TOUR_PROMPTS : {};
 const ROUTING = P.routing || {};
@@ -40,6 +39,30 @@ const MAIN_DESTINATION_REGIONS = ROUTING.main_destination_regions || [];
 const POPULATION_DECLINE_REGIONS = ROUTING.population_decline_regions || [];
 const TRANSIT_BY_DESTINATION = ROUTING.transit_by_destination || {};
 
+const userPrefs = {
+  themes: new Set(),
+  companion: "",
+  budget: "",
+};
+
+function regionInsight(region) {
+  const insights =
+    typeof TOUR_REGIONAL_INSIGHTS !== "undefined" ? TOUR_REGIONAL_INSIGHTS : null;
+  return insights?.regions?.[region] || null;
+}
+
+function congestionLevel(region) {
+  return regionInsight(region)?.congestion_level || "unknown";
+}
+
+function pickQuieterTransit(mainRegion) {
+  const insight = regionInsight(mainRegion);
+  const targets = insight?.dispersion_targets || [];
+  const low = targets.find((t) => t.level === "low") || targets[0];
+  if (low?.region) return low.region;
+  return null;
+}
+
 function pickMainDestination(prompt) {
   const regions = regionsInPrompt(prompt);
   if (!regions.length) return null;
@@ -51,6 +74,8 @@ function pickMainDestination(prompt) {
 
 function resolveTransitArea(mainRegion) {
   if (!mainRegion) return null;
+  const quieter = pickQuieterTransit(mainRegion);
+  if (quieter && quieter !== mainRegion) return quieter;
   if (TRANSIT_BY_DESTINATION[mainRegion]) return TRANSIT_BY_DESTINATION[mainRegion];
   return null;
 }
@@ -563,19 +588,71 @@ function buildTwoTrackKtoXml(prompt, maxEach = 3) {
 
 function buildThemePromptBlock(prompt) {
   const themes = detectPromptThemes(prompt);
-  if (!themes.length) return "";
+  const prefThemes = [...userPrefs.themes];
+  const merged = [...new Set([...themes, ...prefThemes])];
+  if (!merged.length && !userPrefs.companion && !userPrefs.budget) return "";
   const labels = {
     sea: "바다·해변",
     food: "맛집·음식",
     nature: "자연·힐링",
     culture: "문화·체험",
+    leisure: "레저·체험",
   };
+  const catMap = typeof THEME_CAT_MAP !== "undefined" ? THEME_CAT_MAP : {};
+  const catLines = merged
+    .map((t) => {
+      const meta = catMap[t];
+      return meta ? `${meta.label}(cat1=${meta.cat1})` : labels[t] || t;
+    })
+    .filter(Boolean);
+  const lines = ["# USER PREFS / THEME"];
+  if (catLines.length) {
+    lines.push(`Themes (KorService cat1 match): ${catLines.join(", ")}.`);
+    lines.push("- option_1 MUST prioritize matching spots from <main_destination>.");
+    lines.push("- option_2: quieter <transit_area> gems first (혼잡 분산), still theme-aware.");
+  }
+  if (userPrefs.companion) lines.push(`Companion: ${userPrefs.companion}`);
+  if (userPrefs.budget) lines.push(`Budget: ${userPrefs.budget}`);
+  return lines.join("\n") + "\n";
+}
+
+function buildCongestionPromptBlock(prompt) {
+  const main = pickMainDestination(prompt);
+  if (!main) return "";
+  const transit = resolveTransitArea(main);
+  const mainInfo = regionInsight(main);
+  const transitInfo = transit ? regionInsight(transit) : null;
+  const targets = (mainInfo?.dispersion_targets || [])
+    .slice(0, 3)
+    .map((t) => `${regionShortName(t.region)}(${t.level})`)
+    .join(", ");
   return (
-    "# USER THEME\n" +
-    `User request themes: ${themes.map((t) => labels[t] || t).join(", ")}.\n` +
-    "- option_1 MUST prioritize spots matching these themes from <main_destination>.\n" +
-    "- option_2: start with <transit_area> gems, then main destination highlights.\n"
+    "<congestion>\n" +
+    `main=${regionShortName(main)} level=${mainInfo?.congestion_level || "unknown"}` +
+    (mainInfo?.label ? ` label="${mainInfo.label}"` : "") +
+    "\n" +
+    (transit
+      ? `transit=${regionShortName(transit)} level=${transitInfo?.congestion_level || "unknown"}\n`
+      : "") +
+    (targets ? `dispersion_targets=${targets}\n` : "") +
+    "option_2 must disperse toward quieter adjacent / population-decline areas.\n" +
+    "</congestion>\n"
   );
+}
+
+function composePromptWithPrefs(raw) {
+  const base = String(raw || "").trim();
+  const bits = [];
+  if (userPrefs.themes.size) {
+    const catMap = typeof THEME_CAT_MAP !== "undefined" ? THEME_CAT_MAP : {};
+    const labels = [...userPrefs.themes].map((id) => catMap[id]?.label || id);
+    bits.push(`테마 ${labels.join("·")}`);
+  }
+  if (userPrefs.companion) bits.push(`동반 ${userPrefs.companion}`);
+  if (userPrefs.budget) bits.push(`예산 ${userPrefs.budget}`);
+  if (!bits.length) return base;
+  if (!base) return bits.join(", ") + " 맞춤 코스 짜줘";
+  return `${base} (${bits.join(", ")})`;
 }
 
 function buildKtoDataXml(prompt, maxRows = 8) {
@@ -936,9 +1013,9 @@ function autoResizeAgentInput() {
 }
 
 function submitAgentPrompt(raw) {
-  const prompt = String(raw ?? "").trim();
+  const prompt = composePromptWithPrefs(raw);
   if (!prompt) {
-    toast("여행 조건을 입력해 주세요.");
+    toast("여행 조건이나 취향을 골라 주세요.");
     return;
   }
   const input = $("agent-input");
@@ -947,6 +1024,55 @@ function submitAgentPrompt(raw) {
     autoResizeAgentInput();
   }
   runCuration(prompt);
+}
+
+function initPreferenceBar() {
+  const opts = typeof PREFERENCE_OPTIONS !== "undefined" ? PREFERENCE_OPTIONS : null;
+  if (!opts) return;
+
+  const fill = (hostId, items, mode) => {
+    const host = $(hostId);
+    if (!host || !items?.length) return;
+    host.innerHTML = items
+      .map(
+        (item) =>
+          `<button type="button" class="pref-chip" data-pref-mode="${mode}" data-pref-id="${esc(item.id)}" data-pref-label="${esc(item.label)}">${esc(item.label)}</button>`
+      )
+      .join("");
+  };
+
+  fill("pref-themes", opts.themes, "theme");
+  fill("pref-companions", opts.companions, "companion");
+  fill("pref-budgets", opts.budgets, "budget");
+
+  $("pref-bar")?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".pref-chip");
+    if (!btn) return;
+    const mode = btn.dataset.prefMode;
+    const id = btn.dataset.prefId;
+    const label = btn.dataset.prefLabel || id;
+    if (mode === "theme") {
+      if (userPrefs.themes.has(id)) userPrefs.themes.delete(id);
+      else userPrefs.themes.add(id);
+      btn.classList.toggle("on", userPrefs.themes.has(id));
+      return;
+    }
+    if (mode === "companion") {
+      const same = userPrefs.companion === label;
+      userPrefs.companion = same ? "" : label;
+      $("pref-companions")?.querySelectorAll(".pref-chip").forEach((el) => {
+        el.classList.toggle("on", !same && el.dataset.prefId === id);
+      });
+      return;
+    }
+    if (mode === "budget") {
+      const same = userPrefs.budget === label;
+      userPrefs.budget = same ? "" : label;
+      $("pref-budgets")?.querySelectorAll(".pref-chip").forEach((el) => {
+        el.classList.toggle("on", !same && el.dataset.prefId === id);
+      });
+    }
+  });
 }
 
 /* ==================== Toast ==================== */
@@ -2562,12 +2688,24 @@ function buildAccessGuide(meta, steps, prompt) {
         ? `${short}은 접근이 비교적 나은 거점이에요. 숙소·식사를 여기에 두고 바다·산 명소는 당일 왕복으로 묶으면 인프라 부담이 줄어요.`
         : `${short}은 외진 구간이 있을 수 있어요. 가까운 거점(춘천·원주·강릉·속초 등)에서 숙박·환승한 뒤 당일 방문하는 편이 안전해요.`,
     });
+    const insight = regionInsight(dest);
+    if (insight?.dispersion_targets?.length) {
+      const alts = insight.dispersion_targets
+        .slice(0, 2)
+        .map((t) => `${regionShortName(t.region)}(${t.level})`)
+        .join(", ");
+      tips.push({
+        title: "덜 붐비는 대안",
+        body: `${short}이(가) 붐빌 때는 2안에서 ${alts} 쪽으로 분산해 보세요.`,
+      });
+    }
   }
 
   if (transitArea && transitArea !== dest) {
+    const tLevel = congestionLevel(transitArea);
     tips.push({
-      title: "접근·상생 경유",
-      body: `${regionShortName(transitArea)}을(를) 경유하면 인구감소 지역의 숨은 자연을 지나며 메인 목적지까지 이어져요. 이동 시간은 타임라인·지도를 확인하세요.`,
+      title: "혼잡 분산·상생 경유",
+      body: `${regionShortName(transitArea)}(${regionInsight(transitArea)?.label || tLevel})을(를) 경유하면 붐비는 랜드마크 대신 한산·인구감소 지역의 숨은 자연을 지나며 메인 목적지까지 이어져요.`,
     });
   }
 
@@ -2595,6 +2733,33 @@ function buildAccessGuide(meta, steps, prompt) {
   }
 
   return tips;
+}
+
+function buildLocalBenefitsHtml(meta) {
+  const benefits = typeof LOCAL_BENEFITS !== "undefined" ? LOCAL_BENEFITS : null;
+  const items = benefits?.items || [];
+  if (!items.length) return "";
+  const intent = meta?.tripIntent || {};
+  const dest = intent.destination || intent.mainDestination || "";
+  const transit = intent.transitArea || resolveTransitArea(dest) || "";
+  const regions = [dest, transit].filter(Boolean);
+  const matched = items.filter((item) => {
+    const scoped = item.regions || [];
+    if (!scoped.length) return true;
+    return regions.some((r) => scoped.includes(r));
+  });
+  if (!matched.length) return "";
+  let html = `<div class="trip-block local-benefits"><b>🎁 ${esc(benefits.title || "로컬 혜택")}</b><ul class="local-benefits-list">`;
+  matched.forEach((item) => {
+    html +=
+      `<li><b>${esc(item.name)}</b> ${esc(item.summary || "")}` +
+      (item.url
+        ? ` <a href="${esc(item.url)}" target="_blank" rel="noopener">자세히</a>`
+        : "") +
+      `</li>`;
+  });
+  html += `</ul></div>`;
+  return html;
 }
 
 function enrichTransitPlan(meta, prompt) {
@@ -3466,12 +3631,15 @@ function parseTwoTrackCuration(parsed, prompt) {
     });
   }
   if (opt2Raw.days?.length || opt2Raw.itinerary || steps2.length) {
+    const quietLabel = transit
+      ? `${regionShortName(transit)} · ${regionInsight(transit)?.label || "한산"}`
+      : "한산 인접";
     courseOptions.push({
       key: "option_2",
       title:
         opt2Raw.title ||
-        (transit ? `2안: ${regionShortName(transit)} 경유 · 접근·상생 연결` : "2안: 접근·상생 연결 코스"),
-      summary: opt2Raw.storytelling || "",
+        `2안: ${quietLabel} 경유 · 혼잡 분산·상생`,
+      summary: opt2Raw.storytelling || "붐비는 랜드마크 대신 인접 한산·인구감소 지역으로 분산하는 동선",
       steps: steps2,
       days: opt2Raw.days || [],
       dayPlans: buildDayPlansFromOption(opt2Raw),
@@ -3712,9 +3880,10 @@ async function geminiCuration(prompt, key) {
   }
 
   const routeContext = twoTrack
-    ? `# ROUTE CONTEXT\n- main_destination: ${regionShortName(pickMainDestination(prompt) || "")}\n- transit_area: ${regionShortName(resolveTransitArea(pickMainDestination(prompt)) || "")} (인구소멸·상생 경유지)\n`
+    ? `# ROUTE CONTEXT\n- main_destination: ${regionShortName(pickMainDestination(prompt) || "")}\n- transit_area: ${regionShortName(resolveTransitArea(pickMainDestination(prompt)) || "")} (한산·인구감소 · 혼잡 분산 경유지)\n`
     : "";
   const themeBlock = twoTrack ? buildThemePromptBlock(prompt) : "";
+  const congestionBlock = twoTrack ? buildCongestionPromptBlock(prompt) : "";
   const durationBlock = twoTrack ? buildDurationPromptBlock(prompt) : "";
 
   const sys = twoTrack
@@ -3722,6 +3891,7 @@ async function geminiCuration(prompt, key) {
       "\n\n" +
       ktoXml +
       "\n\n" +
+      (congestionBlock ? congestionBlock + "\n" : "") +
       KTO_TWO_TRACK_OUTPUT_FORMAT +
       (routeContext ? "\n\n" + routeContext : "") +
       (durationBlock ? "\n\n" + durationBlock : "") +
@@ -4272,11 +4442,13 @@ function renderTripPlan(meta) {
   const lodge = meta.accommodation || {};
   const days = meta.dayPlans || [];
   const accessTips = buildAccessGuide(meta, state.steps, state.query || "");
+  const benefitHtml = buildLocalBenefitsHtml(meta);
   const hasIntent = intent.origin || intent.destination || intent.mainDestination || intent.transport || intent.duration || intent.companion || (intent.themes || []).length;
   const hasTransit = transit.outbound || transit.return || transit.local_transit;
   const hasLodge = lodge.area || lodge.type || lodge.note;
   const hasAccess = accessTips.length > 0;
-  if (!hasIntent && !hasTransit && !hasLodge && !days.length && !hasAccess) {
+  const hasBenefits = Boolean(benefitHtml);
+  if (!hasIntent && !hasTransit && !hasLodge && !days.length && !hasAccess && !hasBenefits) {
     el.classList.add("hidden");
     el.innerHTML = "";
     return;
@@ -4301,6 +4473,7 @@ function renderTripPlan(meta) {
     });
     html += `</ul></div>`;
   }
+  if (hasBenefits) html += benefitHtml;
   if (hasTransit) {
     html += `<div class="trip-block"><b>🚆 이동 경로</b><ul>`;
     if (transit.outbound) html += `<li><b>가는 길</b> ${esc(transit.outbound)}</li>`;
@@ -5266,6 +5439,7 @@ function buildLandingRegionTipHtml(region) {
   const wx = landingRegionWeather(region);
   const fest = landingRegionFestival(region);
   const visitors = landingRegionVisitors(region);
+  const insight = regionInsight(region);
   const hubs = landingRegionHubSpots(region);
   const relatePairs = landingRegionRelatePairs(region);
   const korSpots = landingRegionKorSpots(region);
@@ -5278,14 +5452,26 @@ function buildLandingRegionTipHtml(region) {
     ? `<span class="landing-region-tip-wx">${esc(wx.icon)} ${wx.temp}° · ${esc(wx.label)}</span>`
     : "";
 
+  const congHtml = insight
+    ? `<span class="landing-region-tip-meta-item cong-${esc(insight.congestion_level || "unknown")}"><span class="landing-region-tip-label">혼잡</span> ${esc(insight.label || insight.congestion_level)}</span>`
+    : "";
+
   const metaHtml =
     `<div class="landing-region-tip-meta">` +
     `<span class="landing-region-tip-meta-item"><span class="landing-region-tip-label">인구</span> ${esc(profile.pop)}</span>` +
     `<span class="landing-region-tip-meta-item"><span class="landing-region-tip-label">특산</span> ${esc(profile.specialty)}</span>` +
+    congHtml +
     (visitors
       ? `<span class="landing-region-tip-meta-item"><span class="landing-region-tip-label">방문</span> ${esc(visitors.label)}${visitors.detail ? ` <span class="landing-region-tip-visit-detail">(${esc(visitors.detail)})</span>` : ""}</span>`
       : "") +
     `</div>`;
+
+  const disperse = (insight?.dispersion_targets || []).slice(0, 2);
+  const disperseHtml = disperse.length
+    ? `<p class="landing-region-tip-spots"><span class="landing-region-tip-label">분산 추천</span> ${esc(
+        disperse.map((t) => `${regionShortName(t.region)}(${t.level})`).join(" · ")
+      )}</p>`
+    : "";
 
   const highlightHtml = profile.highlight
     ? `<p class="landing-region-tip-highlight"><span class="landing-region-tip-label">대표</span> ${esc(profile.highlight)}</p>`
@@ -5346,6 +5532,7 @@ function buildLandingRegionTipHtml(region) {
     metaHtml +
     `<p class="landing-region-tip-blurb">${esc(profile.tagline)}</p>` +
     highlightHtml +
+    disperseHtml +
     hubHtml +
     relateHtml +
     korHtml +
@@ -5480,7 +5667,26 @@ function setupLandingMapFocus(host) {
     const curated = landingRegionSpotCount(region) > 0;
     path.classList.toggle("gw-curated", curated);
     path.classList.remove("gw-muted");
+    const level = congestionLevel(region);
+    path.classList.remove("gw-cong-high", "gw-cong-mid", "gw-cong-low", "gw-cong-unknown");
+    path.classList.add(`gw-cong-${level}`);
   });
+
+  ensureCongestionLegend();
+}
+
+function ensureCongestionLegend() {
+  const frame = document.querySelector(".landing-map-frame");
+  if (!frame || frame.querySelector(".cong-legend")) return;
+  const legend = document.createElement("div");
+  legend.className = "cong-legend";
+  legend.setAttribute("aria-label", "혼잡도 범례");
+  legend.innerHTML =
+    `<span class="cong-legend-title">혼잡·분산</span>` +
+    `<span class="cong-dot high">혼잡</span>` +
+    `<span class="cong-dot mid">보통</span>` +
+    `<span class="cong-dot low">한산</span>`;
+  frame.appendChild(legend);
 }
 
 function hideLandingRegionTip() {
@@ -6861,6 +7067,7 @@ function init() {
       }
     });
     initImageFallback();
+    initPreferenceBar();
     initSpots();
     initCommunity();
     initTrips();

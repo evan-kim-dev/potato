@@ -33,6 +33,7 @@ SOURCE_FILES: dict[str, str] = {
     "kor": "tour_kor_spots.json",
     "eco": "tour_eco_spots.json",
     "festivals": "tour_kor_festivals.json",
+    "insights": "tour_regional_insights.json",
 }
 
 
@@ -200,12 +201,17 @@ class KtoAggregationService:
     ) -> dict[str, Any]:
         """Live fetch from 6 TourAPI endpoints concurrently (sync/refresh)."""
         from tour_api import (
+            build_gangwon_regional_insights,
+            fetch_gangwon_concentration,
+            fetch_gangwon_demand_intensity,
+            fetch_gangwon_diversity,
             fetch_gangwon_eco_spots,
             fetch_gangwon_hub_spots,
             fetch_gangwon_kor_festivals,
             fetch_gangwon_kor_spots,
             fetch_gangwon_region_photos,
             fetch_gangwon_relate_spots,
+            fetch_gangwon_resource_demand,
             fetch_gangwon_visitor_stats,
         )
 
@@ -219,6 +225,18 @@ class KtoAggregationService:
             "kor": lambda: fetch_gangwon_kor_spots(service_key=service_key, throttle_sec=throttle_sec),
             "eco": lambda: fetch_gangwon_eco_spots(service_key=service_key, throttle_sec=throttle_sec),
             "festivals": lambda: fetch_gangwon_kor_festivals(service_key=service_key, throttle_sec=throttle_sec),
+            "concentration": lambda: fetch_gangwon_concentration(
+                service_key=service_key, throttle_sec=throttle_sec
+            ),
+            "demand": lambda: fetch_gangwon_demand_intensity(
+                service_key=service_key, throttle_sec=throttle_sec
+            ),
+            "diversity": lambda: fetch_gangwon_diversity(
+                service_key=service_key, throttle_sec=throttle_sec
+            ),
+            "resource": lambda: fetch_gangwon_resource_demand(
+                service_key=service_key, throttle_sec=throttle_sec
+            ),
         }
 
         loaded: dict[str, Any] = {}
@@ -230,12 +248,22 @@ class KtoAggregationService:
             except (TourApiError, OSError, TimeoutError) as exc:
                 return key, {}, SourceStatus(key, False, str(exc))
 
-        with ThreadPoolExecutor(max_workers=6) as pool:
+        with ThreadPoolExecutor(max_workers=8) as pool:
             futures = {pool.submit(_run, k, fn): k for k, fn in jobs.items()}
             for fut in as_completed(futures):
                 key, data, status = fut.result()
                 loaded[key] = data
                 statuses[key] = status
+
+        insights = build_gangwon_regional_insights(
+            visitor_stats=loaded.get("stats"),
+            concentration=loaded.get("concentration"),
+            demand=loaded.get("demand"),
+            diversity=loaded.get("diversity"),
+            resource=loaded.get("resource"),
+        )
+        loaded["insights"] = insights
+        statuses["insights"] = SourceStatus("insights", True)
 
         self._sources = loaded
         self._status = statuses

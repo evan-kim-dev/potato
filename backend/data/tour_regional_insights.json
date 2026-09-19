@@ -1,0 +1,583 @@
+{
+  "updated_at": "2026-09-19",
+  "sources": [],
+  "legend": {
+    "high": "혼잡·집중 높음",
+    "mid": "보통",
+    "low": "한산·분산 추천",
+    "unknown": "데이터 대기"
+  },
+  "regions": {
+    "강릉시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "동해시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "고성군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "속초시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "동해시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "태백시",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "강릉시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        },
+        {
+          "region": "삼척시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "삼척시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "태백시",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "동해시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "속초시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "고성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "양양군",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "양구군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "고성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "화천군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "양양군": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "강릉시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        },
+        {
+          "region": "속초시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "영월군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "태백시",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "원주시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "영월군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "횡성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "인제군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "고성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "속초시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "정선군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "영월군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "태백시",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "철원군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "화천군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "춘천시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "화천군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "홍천군",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "태백시": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "영월군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "삼척시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "홍천군": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "횡성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "화천군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "철원군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "횡성군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "원주시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        },
+        {
+          "region": "홍천군",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "평창군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "영월군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "횡성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    }
+  }
+}

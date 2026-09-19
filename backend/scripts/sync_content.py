@@ -103,6 +103,12 @@ def generate_data_js() -> str:
         if tour_stats_path.exists()
         else {"regions": {}, "province": None}
     )
+    tour_insights_path = DATA_DIR / "tour_regional_insights.json"
+    tour_insights = (
+        json.loads(tour_insights_path.read_text(encoding="utf-8"))
+        if tour_insights_path.exists()
+        else {"regions": {}, "legend": {}}
+    )
     tour_relate_path = DATA_DIR / "tour_relate_spots.json"
     tour_relate = (
         json.loads(tour_relate_path.read_text(encoding="utf-8"))
@@ -155,7 +161,11 @@ def generate_data_js() -> str:
         _js_array_block("THEME_BADGE", catalog["theme_badge"]),
         f'const GEMINI_MODEL = {json.dumps(catalog["gemini_model"], ensure_ascii=False)};',
         _js_array_block("TRANSIT_ORIGINS", catalog.get("transit_origins") or {}),
+        _js_array_block("LOCAL_BENEFITS", catalog.get("local_benefits") or {}),
+        _js_array_block("PREFERENCE_OPTIONS", catalog.get("preference_options") or {}),
+        _js_array_block("THEME_CAT_MAP", catalog.get("theme_cat_map") or {}),
         f"const TOUR_VISITOR_STATS = {json.dumps(tour_stats, ensure_ascii=False, indent=2)};",
+        f"const TOUR_REGIONAL_INSIGHTS = {json.dumps(tour_insights, ensure_ascii=False, indent=2)};",
         f"const TOUR_RELATE_SPOTS = {json.dumps(tour_relate, ensure_ascii=False, indent=2)};",
         f"const TOUR_KOR_FESTIVALS = {json.dumps(tour_kor_fest, ensure_ascii=False, indent=2)};",
         f"const TOUR_AGGREGATED_SPOTS = {json.dumps(tour_aggregated, ensure_ascii=False, indent=2)};",

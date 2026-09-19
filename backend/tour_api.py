@@ -8,6 +8,10 @@
 - 관광사진 v4.2 → PhotoGalleryService1
 - 생태관광 v4.2 → GreenTourService1
 - 국문 관광정보 v4.4 → KorService2
+- 관광지 집중률 방문자 추이 예측 → TatsCnctrRateService
+- 지역별 관광 수요 강도 → AreaTarDemDsService
+- 지역별 관광 다양성 → AreaTarDivService
+- 지역별 관광 자원 수요 → AreaTarResDemService
 """
 
 from __future__ import annotations
@@ -35,6 +39,10 @@ RELATE_BASE = "http://apis.data.go.kr/B551011/TarRlteTarService1"
 PHOTO_BASE = "http://apis.data.go.kr/B551011/PhotoGalleryService1"
 ECO_BASE = "http://apis.data.go.kr/B551011/GreenTourService1"
 KOR_BASE = "http://apis.data.go.kr/B551011/KorService2"
+CONCNTR_BASE = "http://apis.data.go.kr/B551011/TatsCnctrRateService"
+DEMAND_BASE = "http://apis.data.go.kr/B551011/AreaTarDemDsService"
+DIVERSITY_BASE = "http://apis.data.go.kr/B551011/AreaTarDivService"
+RESOURCE_BASE = "http://apis.data.go.kr/B551011/AreaTarResDemService"
 
 MOBILE_APP = os.getenv("TOUR_API_MOBILE_APP", "GangwonOndo")
 GANGWON_AREA_CD = 51
@@ -147,7 +155,11 @@ def get_service_key() -> str:
             "- 관광지별 연관관광지 정보서비스_GW\n"
             "- 관광사진갤러리 서비스_GW\n"
             "- 생태관광 정보서비스_GW\n"
-            "- 국문 관광정보 서비스_GW"
+            "- 국문 관광정보 서비스_GW\n"
+            "- 관광지 집중률 방문자 추이 예측 정보\n"
+            "- 지역별 관광 수요 강도\n"
+            "- 지역별 관광 다양성\n"
+            "- 지역별 관광 자원 수요"
         )
     return key.strip()
 
@@ -1089,3 +1101,590 @@ def fetch_gangwon_kor_festivals(
     if result.failed_regions:
         result.data["failed_regions"] = result.failed_regions
     return result.data
+
+
+# ---------- 집중률 / 수요강도 / 다양성 / 자원수요 ----------
+
+GANGWON_ADJACENT: dict[str, tuple[str, ...]] = {
+    "춘천시": ("화천군", "양구군", "홍천군"),
+    "원주시": ("횡성군", "평창군", "영월군"),
+    "강릉시": ("평창군", "정선군", "동해시", "양양군"),
+    "동해시": ("삼척시", "강릉시", "태백시"),
+    "태백시": ("삼척시", "정선군", "영월군"),
+    "속초시": ("고성군", "양양군", "인제군"),
+    "삼척시": ("동해시", "태백시", "정선군"),
+    "홍천군": ("춘천시", "인제군", "횡성군", "평창군"),
+    "횡성군": ("원주시", "홍천군", "평창군"),
+    "영월군": ("정선군", "평창군", "태백시", "원주시"),
+    "평창군": ("강릉시", "정선군", "횡성군", "홍천군", "영월군"),
+    "정선군": ("평창군", "영월군", "태백시", "삼척시", "강릉시"),
+    "철원군": ("화천군", "양구군"),
+    "화천군": ("춘천시", "양구군", "인제군", "철원군"),
+    "양구군": ("화천군", "인제군", "고성군", "춘천시"),
+    "인제군": ("속초시", "양양군", "고성군", "양구군", "홍천군"),
+    "고성군": ("속초시", "인제군", "양구군"),
+    "양양군": ("속초시", "강릉시", "인제군"),
+}
+
+POPULATION_DECLINE_REGIONS: frozenset[str] = frozenset(
+    {
+        "고성군",
+        "양구군",
+        "화천군",
+        "인제군",
+        "정선군",
+        "태백시",
+        "평창군",
+        "횡성군",
+        "영월군",
+        "철원군",
+    }
+)
+
+
+def _extract_score(item: dict[str, Any], *keys: str) -> float | None:
+    for key in keys:
+        if key in item:
+            val = _parse_float(item.get(key))
+            if val is not None:
+                return val
+    for key, raw in item.items():
+        lk = str(key).lower()
+        if any(tok in lk for tok in ("rate", "ixval", "idx", "score", "value", "num", "cnctr")):
+            if any(skip in lk for skip in ("cd", "code", "ymd", "ym", "rank", "page")):
+                continue
+            val = _parse_float(raw)
+            if val is not None:
+                return val
+    return None
+
+
+def _congestion_band(score: float | None, *, high: float, mid: float) -> str:
+    if score is None:
+        return "unknown"
+    if score >= high:
+        return "high"
+    if score >= mid:
+        return "mid"
+    return "low"
+
+
+def normalize_concentration_item(item: dict[str, Any]) -> dict[str, Any] | None:
+    name = str(item.get("tAtsNm") or item.get("tatsNm") or item.get("hubTatsNm") or "").strip()
+    rate = _extract_score(
+        item,
+        "cnctrRate",
+        "tatsCnctrRate",
+        "cntrRate",
+        "rate",
+        "cnctrRt",
+        "predictedCnctrRate",
+    )
+    if rate is None and not name:
+        return None
+    return {
+        "name": name or "관광지",
+        "rate": round(rate, 1) if rate is not None else None,
+        "baseYmd": str(item.get("baseYmd") or item.get("baseDe") or item.get("ymd") or ""),
+    }
+
+
+def fetch_concentration_for_sigungu(
+    *,
+    area_cd: int,
+    signgu_cd: int,
+    service_key: str | None = None,
+    top_n: int = 8,
+) -> list[dict[str, Any]]:
+    items = _fetch_all_pages(
+        CONCNTR_BASE,
+        "tatsCnctrRatedList",
+        {"areaCd": area_cd, "signguCd": signgu_cd},
+        service_key=service_key,
+        num_of_rows=100,
+        max_pages=5,
+    )
+    normalized = [n for n in (normalize_concentration_item(i) for i in items) if n]
+    normalized.sort(key=lambda x: (-(x.get("rate") or -1), x.get("name") or ""))
+    return normalized[:top_n]
+
+
+def fetch_gangwon_concentration(
+    *,
+    service_key: str | None = None,
+    throttle_sec: float = 0.12,
+    top_n: int = 8,
+) -> dict[str, Any]:
+    key = service_key or get_service_key()
+
+    def _one(region: str, meta: dict[str, Any]) -> list[dict[str, Any]]:
+        return fetch_concentration_for_sigungu(
+            area_cd=int(meta["areaCd"]),
+            signgu_cd=int(meta["signguCd"]),
+            service_key=key,
+            top_n=top_n,
+        )
+
+    result = fetch_for_all_sigungu(
+        _one,
+        throttle_sec=throttle_sec,
+        extra_meta={"source": "TourAPI TatsCnctrRateService tatsCnctrRatedList"},
+    )
+    regions_summary: dict[str, Any] = {}
+    for region, spots in (result.data.get("regions") or {}).items():
+        rates = [s["rate"] for s in spots if s.get("rate") is not None]
+        avg = round(sum(rates) / len(rates), 1) if rates else None
+        peak = max(rates) if rates else None
+        regions_summary[region] = {
+            "avg_rate": avg,
+            "peak_rate": peak,
+            "spot_count": len(spots),
+            "top_spots": spots[:5],
+            "level": _congestion_band(avg if avg is not None else peak, high=70, mid=40),
+        }
+    result.data["summary"] = regions_summary
+    if result.failed_regions:
+        result.data["failed_regions"] = result.failed_regions
+    return result.data
+
+
+def _fetch_index_items(
+    base: str,
+    operation: str,
+    *,
+    area_cd: int,
+    signgu_cd: int,
+    base_ym: str,
+    extra: dict[str, Any] | None = None,
+    service_key: str | None = None,
+) -> list[dict[str, Any]]:
+    params = {
+        "baseYm": base_ym,
+        "areaCd": area_cd,
+        "signguCd": signgu_cd,
+        **(extra or {}),
+    }
+    return _fetch_all_pages(
+        base,
+        operation,
+        params,
+        service_key=service_key,
+        num_of_rows=50,
+        max_pages=3,
+    )
+
+
+def _score_from_index_items(items: list[dict[str, Any]], prefer_codes: tuple[str, ...] = ()) -> float | None:
+    if not items:
+        return None
+    preferred: list[float] = []
+    others: list[float] = []
+    for item in items:
+        code = str(
+            item.get("tarSjrnDsIxCd")
+            or item.get("touDivIxCd")
+            or item.get("tarSvcDemIxCd")
+            or item.get("ixCd")
+            or item.get("idxCd")
+            or ""
+        )
+        score = _extract_score(
+            item,
+            "tarSjrnDsIxVal",
+            "touDivIxVal",
+            "tarSvcDemIxVal",
+            "ixVal",
+            "idxVal",
+            "value",
+            "score",
+            "num",
+        )
+        if score is None:
+            continue
+        if prefer_codes and code in prefer_codes:
+            preferred.append(score)
+        else:
+            others.append(score)
+    pool = preferred or others
+    if not pool:
+        return None
+    return round(sum(pool) / len(pool), 2)
+
+
+def fetch_gangwon_demand_intensity(
+    *,
+    base_ym: str | None = None,
+    service_key: str | None = None,
+    throttle_sec: float = 0.12,
+) -> dict[str, Any]:
+    key = service_key or get_service_key()
+    ym = base_ym or _default_base_ym()
+
+    def _one(region: str, meta: dict[str, Any]) -> list[dict[str, Any]]:
+        items = _fetch_index_items(
+            DEMAND_BASE,
+            "areaTarSjrnDsList",
+            area_cd=int(meta["areaCd"]),
+            signgu_cd=int(meta["signguCd"]),
+            base_ym=ym,
+            extra={"tarSjrnDsIxCd": "21"},
+            service_key=key,
+        )
+        if not items:
+            items = _fetch_index_items(
+                DEMAND_BASE,
+                "areaTarSjrnDsList",
+                area_cd=int(meta["areaCd"]),
+                signgu_cd=int(meta["signguCd"]),
+                base_ym=ym,
+                service_key=key,
+            )
+        score = _score_from_index_items(items, prefer_codes=("21",))
+        return [{"score": score, "raw_count": len(items)}] if score is not None or items else []
+
+    result = fetch_for_all_sigungu(
+        _one,
+        throttle_sec=throttle_sec,
+        extra_meta={
+            "source": "TourAPI AreaTarDemDsService areaTarSjrnDsList",
+            "baseYm": ym,
+        },
+    )
+    regions: dict[str, Any] = {}
+    for region, rows in (result.data.get("regions") or {}).items():
+        row = rows[0] if rows else {}
+        score = row.get("score")
+        regions[region] = {
+            "stay_intensity": score,
+            "level": _congestion_band(score, high=70, mid=40) if score is not None else "unknown",
+        }
+    result.data["regions"] = regions
+    if result.failed_regions:
+        result.data["failed_regions"] = result.failed_regions
+    return result.data
+
+
+def fetch_gangwon_diversity(
+    *,
+    base_ym: str | None = None,
+    service_key: str | None = None,
+    throttle_sec: float = 0.12,
+) -> dict[str, Any]:
+    key = service_key or get_service_key()
+    ym = base_ym or _default_base_ym()
+
+    def _one(region: str, meta: dict[str, Any]) -> list[dict[str, Any]]:
+        tourist = _fetch_index_items(
+            DIVERSITY_BASE,
+            "areaTouDivList",
+            area_cd=int(meta["areaCd"]),
+            signgu_cd=int(meta["signguCd"]),
+            base_ym=ym,
+            extra={"touDivIxCd": "31"},
+            service_key=key,
+        )
+        if not tourist:
+            tourist = _fetch_index_items(
+                DIVERSITY_BASE,
+                "areaTouDivList",
+                area_cd=int(meta["areaCd"]),
+                signgu_cd=int(meta["signguCd"]),
+                base_ym=ym,
+                service_key=key,
+            )
+        intl = _fetch_index_items(
+            DIVERSITY_BASE,
+            "areaIntlDivList",
+            area_cd=int(meta["areaCd"]),
+            signgu_cd=int(meta["signguCd"]),
+            base_ym=ym,
+            service_key=key,
+        )
+        t_score = _score_from_index_items(tourist, prefer_codes=("31",))
+        i_score = _score_from_index_items(intl)
+        return [{"tourist": t_score, "international": i_score}]
+
+    result = fetch_for_all_sigungu(
+        _one,
+        throttle_sec=throttle_sec,
+        extra_meta={
+            "source": "TourAPI AreaTarDivService areaTouDivList/areaIntlDivList",
+            "baseYm": ym,
+        },
+    )
+    regions: dict[str, Any] = {}
+    for region, rows in (result.data.get("regions") or {}).items():
+        row = rows[0] if rows else {}
+        t_score = row.get("tourist")
+        i_score = row.get("international")
+        blend = None
+        vals = [v for v in (t_score, i_score) if isinstance(v, (int, float))]
+        if vals:
+            blend = round(sum(vals) / len(vals), 2)
+        regions[region] = {
+            "tourist_diversity": t_score,
+            "international_diversity": i_score,
+            "score": blend,
+            "level": _congestion_band(blend, high=70, mid=40) if blend is not None else "unknown",
+        }
+    result.data["regions"] = regions
+    if result.failed_regions:
+        result.data["failed_regions"] = result.failed_regions
+    return result.data
+
+
+def fetch_gangwon_resource_demand(
+    *,
+    base_ym: str | None = None,
+    service_key: str | None = None,
+    throttle_sec: float = 0.12,
+) -> dict[str, Any]:
+    key = service_key or get_service_key()
+    ym = base_ym or _default_base_ym()
+
+    def _one(region: str, meta: dict[str, Any]) -> list[dict[str, Any]]:
+        items = _fetch_index_items(
+            RESOURCE_BASE,
+            "areaTarSvcDemList",
+            area_cd=int(meta["areaCd"]),
+            signgu_cd=int(meta["signguCd"]),
+            base_ym=ym,
+            extra={"tarSvcDemIxCd": "11"},
+            service_key=key,
+        )
+        if not items:
+            items = _fetch_index_items(
+                RESOURCE_BASE,
+                "areaTarSvcDemList",
+                area_cd=int(meta["areaCd"]),
+                signgu_cd=int(meta["signguCd"]),
+                base_ym=ym,
+                service_key=key,
+            )
+        score = _score_from_index_items(items, prefer_codes=("11",))
+        return [{"score": score}] if score is not None or items else []
+
+    result = fetch_for_all_sigungu(
+        _one,
+        throttle_sec=throttle_sec,
+        extra_meta={
+            "source": "TourAPI AreaTarResDemService areaTarSvcDemList",
+            "baseYm": ym,
+        },
+    )
+    regions: dict[str, Any] = {}
+    for region, rows in (result.data.get("regions") or {}).items():
+        row = rows[0] if rows else {}
+        score = row.get("score")
+        regions[region] = {
+            "service_demand": score,
+            "level": _congestion_band(score, high=70, mid=40) if score is not None else "unknown",
+        }
+    result.data["regions"] = regions
+    if result.failed_regions:
+        result.data["failed_regions"] = result.failed_regions
+    return result.data
+
+
+def _visitor_proxy_levels(visitor_stats: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
+    regions = (visitor_stats or {}).get("regions") or {}
+    values: list[tuple[str, float]] = []
+    for region, row in regions.items():
+        raw = row.get("avg_daily") or row.get("total") or 0
+        try:
+            num = float(raw)
+        except (TypeError, ValueError):
+            continue
+        if num > 0:
+            values.append((region, num))
+    if not values:
+        return {}
+    ranked = sorted(values, key=lambda x: x[1])
+    n = len(ranked)
+    out: dict[str, dict[str, Any]] = {}
+    for i, (region, num) in enumerate(ranked):
+        pct = i / max(n - 1, 1)
+        if pct >= 0.66:
+            level = "high"
+        elif pct >= 0.33:
+            level = "mid"
+        else:
+            level = "low"
+        out[region] = {
+            "visitor_avg_daily": int(round(num)),
+            "visitor_level": level,
+            "label": (regions.get(region) or {}).get("label"),
+            "detail": (regions.get(region) or {}).get("detail"),
+        }
+    return out
+
+
+def _pick_dispersion_targets(
+    region: str,
+    levels: dict[str, str],
+    *,
+    limit: int = 3,
+) -> list[dict[str, str]]:
+    neighbors = [n for n in GANGWON_ADJACENT.get(region, ()) if n in GANGWON_REGIONS]
+    scored: list[tuple[int, str]] = []
+    for nb in neighbors:
+        lvl = levels.get(nb, "unknown")
+        rank = {"low": 0, "mid": 1, "unknown": 2, "high": 3}.get(lvl, 2)
+        bonus = -1 if nb in POPULATION_DECLINE_REGIONS else 0
+        scored.append((rank + bonus, nb))
+    scored.sort()
+    out: list[dict[str, str]] = []
+    for _, nb in scored[:limit]:
+        out.append(
+            {
+                "region": nb,
+                "level": levels.get(nb, "unknown"),
+                "reason": "인구감소·한산 인접" if nb in POPULATION_DECLINE_REGIONS else "인접 한산 권역",
+            }
+        )
+    return out
+
+
+def build_gangwon_regional_insights(
+    *,
+    visitor_stats: dict[str, Any] | None = None,
+    concentration: dict[str, Any] | None = None,
+    demand: dict[str, Any] | None = None,
+    diversity: dict[str, Any] | None = None,
+    resource: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """혼잡·분산용 시·군 인사이트 — 프론트 지도/2안 라우팅에 사용."""
+    visitor_proxy = _visitor_proxy_levels(visitor_stats)
+    conc_summary = (concentration or {}).get("summary") or {}
+    demand_regions = (demand or {}).get("regions") or {}
+    diversity_regions = (diversity or {}).get("regions") or {}
+    resource_regions = (resource or {}).get("regions") or {}
+
+    regions: dict[str, Any] = {}
+    level_map: dict[str, str] = {}
+
+    for region in GANGWON_REGIONS:
+        conc = conc_summary.get(region) or {}
+        dem = demand_regions.get(region) or {}
+        div = diversity_regions.get(region) or {}
+        res = resource_regions.get(region) or {}
+        vis = visitor_proxy.get(region) or {}
+
+        level = (
+            conc.get("level")
+            or dem.get("level")
+            or vis.get("visitor_level")
+            or ("low" if region in POPULATION_DECLINE_REGIONS else "unknown")
+        )
+        level_map[region] = level
+
+        score_bits = [
+            conc.get("avg_rate"),
+            dem.get("stay_intensity"),
+            div.get("score"),
+            res.get("service_demand"),
+        ]
+        numeric = [v for v in score_bits if isinstance(v, (int, float))]
+        mashup = round(sum(numeric) / len(numeric), 1) if numeric else None
+
+        regions[region] = {
+            "congestion_level": level,
+            "congestion_score": mashup if mashup is not None else conc.get("avg_rate"),
+            "concentration": {
+                "avg_rate": conc.get("avg_rate"),
+                "peak_rate": conc.get("peak_rate"),
+                "top_spots": conc.get("top_spots") or [],
+            },
+            "demand": dem,
+            "diversity": div,
+            "resource": res,
+            "visitors": vis,
+            "is_population_decline": region in POPULATION_DECLINE_REGIONS,
+            "label": {
+                "high": "혼잡 예상",
+                "mid": "보통",
+                "low": "한산·여유",
+                "unknown": "데이터 준비 중",
+            }.get(level, "데이터 준비 중"),
+        }
+
+    for region, row in regions.items():
+        row["dispersion_targets"] = _pick_dispersion_targets(region, level_map)
+
+    sources = [
+        s
+        for s in (
+            (visitor_stats or {}).get("source"),
+            (concentration or {}).get("source"),
+            (demand or {}).get("source"),
+            (diversity or {}).get("source"),
+            (resource or {}).get("source"),
+        )
+        if s
+    ]
+    return {
+        "updated_at": date.today().isoformat(),
+        "sources": sources,
+        "legend": {
+            "high": "혼잡·집중 높음",
+            "mid": "보통",
+            "low": "한산·분산 추천",
+            "unknown": "데이터 대기",
+        },
+        "regions": regions,
+    }
+
+
+def fetch_gangwon_regional_insights(
+    *,
+    days: int = 7,
+    service_key: str | None = None,
+    throttle_sec: float = 0.1,
+) -> dict[str, Any]:
+    """Live mash-up of congestion-related TourAPIs (graceful partial failure)."""
+    key = service_key or get_service_key()
+    visitor_stats: dict[str, Any] = {}
+    concentration: dict[str, Any] = {}
+    demand: dict[str, Any] = {}
+    diversity: dict[str, Any] = {}
+    resource: dict[str, Any] = {}
+    errors: dict[str, str] = {}
+
+    try:
+        visitor_stats = fetch_gangwon_visitor_stats(days=days, service_key=key)
+    except TourApiError as exc:
+        errors["stats"] = str(exc)
+    try:
+        concentration = fetch_gangwon_concentration(service_key=key, throttle_sec=throttle_sec)
+    except TourApiError as exc:
+        errors["concentration"] = str(exc)
+    try:
+        demand = fetch_gangwon_demand_intensity(service_key=key, throttle_sec=throttle_sec)
+    except TourApiError as exc:
+        errors["demand"] = str(exc)
+    try:
+        diversity = fetch_gangwon_diversity(service_key=key, throttle_sec=throttle_sec)
+    except TourApiError as exc:
+        errors["diversity"] = str(exc)
+    try:
+        resource = fetch_gangwon_resource_demand(service_key=key, throttle_sec=throttle_sec)
+    except TourApiError as exc:
+        errors["resource"] = str(exc)
+
+    insights = build_gangwon_regional_insights(
+        visitor_stats=visitor_stats,
+        concentration=concentration,
+        demand=demand,
+        diversity=diversity,
+        resource=resource,
+    )
+    if errors:
+        insights["errors"] = errors
+    insights["raw"] = {
+        "concentration_ok": bool((concentration or {}).get("summary")),
+        "demand_ok": bool((demand or {}).get("regions")),
+        "diversity_ok": bool((diversity or {}).get("regions")),
+        "resource_ok": bool((resource or {}).get("regions")),
+        "stats_ok": bool((visitor_stats or {}).get("regions")),
+    }
+    return insights

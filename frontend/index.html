@@ -19,11 +19,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="referrer" content="origin" />
   <title>강원 온도(ON道) · 자연은 가깝게, 길은 더 쉽게</title>
-  <meta name="description" content="강원 온도(ON道) — 자연·휴양 매력은 살리고, 교통·접근·인프라 공백은 거점 동선과 KTO 데이터로 메우는 강원 AI 여행 플래너." />
+  <meta name="description" content="강원 온도(ON道) — 인구감소 지역 숨은 명소 발굴, GIS 혼잡 분산, 취향 맞춤 코스, 로컬 혜택까지. KTO OpenAPI·AI 기반 초개인화 로컬 관광." />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="stylesheet" href="style.css?v=12" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
   <link rel="apple-touch-icon" href="assets/mascot-icon.png" />
 </head>
@@ -109,6 +109,20 @@
           </div>
           <div class="chat-body" id="agent-messages" role="log" aria-live="polite"></div>
           <div class="chat-footer">
+            <div class="pref-bar" id="pref-bar" aria-label="여행 취향">
+              <div class="pref-row" data-pref="themes">
+                <span class="pref-lbl">테마</span>
+                <div class="pref-chips" id="pref-themes"></div>
+              </div>
+              <div class="pref-row" data-pref="companions">
+                <span class="pref-lbl">동반</span>
+                <div class="pref-chips" id="pref-companions"></div>
+              </div>
+              <div class="pref-row" data-pref="budgets">
+                <span class="pref-lbl">예산</span>
+                <div class="pref-chips" id="pref-budgets"></div>
+              </div>
+            </div>
             <form class="chat-input-bar" id="agent-form">
               <div class="chat-input-inner">
                 <textarea id="agent-input" rows="1" placeholder="예: 서울에서 KTX로 강릉 1박2일, 바다·휴양 위주로…" autocomplete="off"></textarea>
@@ -144,39 +158,47 @@
         <div class="page-head">
           <div>
             <h1><span class="page-logo vico vico-info" data-vico="info"></span> 서비스 소개</h1>
-            <p>강원의 자연·휴양 가치를 살리고, 교통·접근·인프라 공백을 동선으로 메웁니다.</p>
+            <p>인구감소 지역의 숨은 명소를 발굴하고, 혼잡을 분산하는 초개인화 로컬 관광</p>
           </div>
           <span class="chip">소개</span>
         </div>
 
         <section class="about-story" aria-labelledby="about-story-title">
-          <h2 class="about-section-title" id="about-story-title">풍부한 자연, 끊어진 길</h2>
+          <h2 class="about-section-title" id="about-story-title">기획 한눈에</h2>
           <div class="about-hero">
             <p class="about-lead">
-              강원도는 바다·산·온천·휴양의 보고입니다. 그런데 정작 가려면
-              <strong>교통이 멀고, 환승이 어렵고, 외진 곳의 인프라가 부족</strong>한 경우가 많아요.
-              매력은 있는데 발길이 닿지 않는 곳 — 그 간극이 지역을 차갑게 만듭니다.
-            </p>
-            <p class="about-lead">
-              <strong>강원 온도</strong>는 그 간극을 메우기 위해 만들어졌습니다.
-              KTO 공식 관광 데이터로 <em>어디가 좋은지</em>를 알려 주고,
-              출발지·거점·경로 계산으로 <em>어떻게 가는지</em>까지 함께 안내합니다.
+              <strong>강원 온도(ON道)</strong>는 한국관광공사 OpenAPI·AI·GIS를 융합해
+              강원도 <strong>인구 감소 지역의 숨은 명소</strong>를 발굴하고,
+              개인 맞춤형 여행 코스를 제안하는 <em>초개인화 로컬 관광</em> 서비스입니다.
             </p>
           </div>
 
-          <h2 class="about-section-title">우리가 푸는 방식</h2>
+          <h2 class="about-section-title">주요 기능</h2>
+          <div class="about-block about-features">
+            <p>
+              <strong>AI 로컬 큐레이션</strong> — 테마·동반자·예산 취향을 받아
+              국문관광정보 분류(cat1·2·3)와 매칭한 최적 로컬 코스를 생성합니다.
+            </p>
+            <p>
+              <strong>GIS 혼잡도·분산 라우팅</strong> — 지도에 예상 밀집도를 시각화하고,
+              덜 붐비는 인접·소외 지역으로의 <strong>2안 분산 동선</strong>을 안내합니다.
+            </p>
+            <p>
+              <strong>로컬 경제 혜택</strong> — 인구감소 지역 방문 시
+              디지털 관광주민증·강원상품권(지역화폐) 안내를 붙여 실제 방문·소비를 유도합니다.
+            </p>
+          </div>
+
+          <h2 class="about-section-title">차별성</h2>
           <div class="about-block">
             <p>
-              <strong>1안 · 자연·휴양 집중</strong> — 목적지 알짜 명소로 휴식과 풍경을 채웁니다.<br/>
-              <strong>2안 · 접근·상생 연결</strong> — 인구감소·접근 취약 지역을 경유해, 거점 도시와 숨은 자연을 이어 줍니다.
-            </p>
-            <p>
-              수도권 출발이면 KTX·고속버스 허브를 먼저 잡고, 산간·해안 명소는
-              <strong>당일 왕복 가능한 거리</strong>로 묶습니다. 주차·운영시간 같은 현장 정보도 일정에 녹여
-              “가고 싶은데 막막한” 여행을 “갈 수 있는” 여행으로 바꿉니다.
+              강릉·속초 등 정보가 포화된 랜드마크 중심이 아니라,
+              자원은 훌륭하지만 정보 접근성이 낮았던 <strong>강원 내륙·남부 인구감소 권역</strong>에 집중합니다.
+              TourAPI 빅데이터(집중률·수요·다양성)와 지자체·로컬 DB를 매시업해 신뢰도를 높입니다.
             </p>
             <p class="about-closing">
-              차가운 데이터에 온기를 불어넣어, 강원의 길(道)을 다시 연결하겠습니다.
+              인기 도시 쏠림을 주변 소외 지역으로 자연스럽게 분산시켜,
+              생활 인구·상권 매출 증대로 지방 소멸 위기 극복에 기여합니다.
             </p>
           </div>
         </section>
@@ -397,8 +419,8 @@
 
   <script src="config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="data.js?v=7"></script>
+  <script src="data.js?v=8"></script>
   <script src="icons.js?v=1"></script>
-  <script src="app.js?v=25"></script>
+  <script src="app.js?v=26"></script>
 </body>
 </html>

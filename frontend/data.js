@@ -722,6 +722,153 @@ const TRANSIT_ORIGINS = {
   }
 };
 
+const LOCAL_BENEFITS = {
+  "title": "로컬 경제 활성화 혜택",
+  "items": [
+    {
+      "id": "digital_resident",
+      "name": "디지털 관광주민증",
+      "summary": "인구감소·소외 지역 방문 시 할인·체험 혜택을 받을 수 있는 관광주민증을 확인하세요.",
+      "url": "https://www.tour.go.kr/",
+      "regions": [
+        "정선군",
+        "태백시",
+        "영월군",
+        "삼척시",
+        "평창군",
+        "횡성군",
+        "화천군",
+        "양구군",
+        "인제군",
+        "고성군",
+        "철원군"
+      ]
+    },
+    {
+      "id": "gangwon_voucher",
+      "name": "강원상품권·지역화폐",
+      "summary": "강원상품권·지역사랑상품권 가맹점에서 식사·체험·기념품을 결제하면 지역 상권에 바로 도움이 됩니다.",
+      "url": "https://www.gwgs.kr.kr.kr/",
+      "regions": []
+    }
+  ]
+};
+
+const PREFERENCE_OPTIONS = {
+  "themes": [
+    {
+      "id": "nature",
+      "label": "자연·힐링"
+    },
+    {
+      "id": "sea",
+      "label": "바다·해안"
+    },
+    {
+      "id": "culture",
+      "label": "문화·역사"
+    },
+    {
+      "id": "leisure",
+      "label": "레저·체험"
+    },
+    {
+      "id": "food",
+      "label": "맛집·시장"
+    }
+  ],
+  "companions": [
+    {
+      "id": "solo",
+      "label": "혼자"
+    },
+    {
+      "id": "couple",
+      "label": "연인"
+    },
+    {
+      "id": "family",
+      "label": "가족"
+    },
+    {
+      "id": "friends",
+      "label": "친구"
+    },
+    {
+      "id": "pet",
+      "label": "반려동물"
+    }
+  ],
+  "budgets": [
+    {
+      "id": "thrifty",
+      "label": "알뜰"
+    },
+    {
+      "id": "standard",
+      "label": "보통"
+    },
+    {
+      "id": "premium",
+      "label": "여유"
+    }
+  ]
+};
+
+const THEME_CAT_MAP = {
+  "nature": {
+    "label": "자연·힐링",
+    "cat1": "A01",
+    "keywords": [
+      "자연",
+      "산",
+      "숲",
+      "계곡",
+      "해변"
+    ]
+  },
+  "culture": {
+    "label": "문화·역사",
+    "cat1": "A02",
+    "keywords": [
+      "문화",
+      "역사",
+      "박물관",
+      "사찰"
+    ]
+  },
+  "leisure": {
+    "label": "레저·체험",
+    "cat1": "A03",
+    "keywords": [
+      "레저",
+      "체험",
+      "트레킹",
+      "스포츠"
+    ]
+  },
+  "food": {
+    "label": "맛집·시장",
+    "cat1": "A05",
+    "keywords": [
+      "음식",
+      "맛집",
+      "시장",
+      "카페"
+    ]
+  },
+  "sea": {
+    "label": "바다·해안",
+    "cat1": "A01",
+    "keywords": [
+      "바다",
+      "해변",
+      "해수욕",
+      "일몰"
+    ]
+  }
+};
+
 const TOUR_VISITOR_STATS = {
   "source": "TourAPI DataLab locgoRegnVisitrDDList",
   "updated_at": "2026-06-16",
@@ -731,6 +878,590 @@ const TOUR_VISITOR_STATS = {
     "days": 7
   },
   "regions": {}
+};
+
+const TOUR_REGIONAL_INSIGHTS = {
+  "updated_at": "2026-09-19",
+  "sources": [],
+  "legend": {
+    "high": "혼잡·집중 높음",
+    "mid": "보통",
+    "low": "한산·분산 추천",
+    "unknown": "데이터 대기"
+  },
+  "regions": {
+    "강릉시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "동해시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "고성군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "속초시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "동해시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "태백시",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "강릉시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        },
+        {
+          "region": "삼척시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "삼척시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "태백시",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "동해시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "속초시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "고성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "양양군",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "양구군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "고성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "화천군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "양양군": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "강릉시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        },
+        {
+          "region": "속초시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "영월군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "태백시",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "원주시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "영월군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "횡성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "인제군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "고성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "속초시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "정선군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "영월군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "태백시",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "철원군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "화천군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "춘천시": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "화천군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "홍천군",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "태백시": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "영월군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "삼척시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "홍천군": {
+      "congestion_level": "unknown",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": false,
+      "label": "데이터 준비 중",
+      "dispersion_targets": [
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "횡성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "화천군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "양구군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "인제군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "철원군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    },
+    "횡성군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "평창군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "원주시",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        },
+        {
+          "region": "홍천군",
+          "level": "unknown",
+          "reason": "인접 한산 권역"
+        }
+      ]
+    },
+    "평창군": {
+      "congestion_level": "low",
+      "congestion_score": null,
+      "concentration": {
+        "avg_rate": null,
+        "peak_rate": null,
+        "top_spots": []
+      },
+      "demand": {},
+      "diversity": {},
+      "resource": {},
+      "visitors": {},
+      "is_population_decline": true,
+      "label": "한산·여유",
+      "dispersion_targets": [
+        {
+          "region": "영월군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "정선군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        },
+        {
+          "region": "횡성군",
+          "level": "low",
+          "reason": "인구감소·한산 인접"
+        }
+      ]
+    }
+  }
 };
 
 const TOUR_RELATE_SPOTS = {
@@ -1996,6 +2727,10 @@ const TOUR_AGGREGATED_SPOTS = {
       "error": null
     },
     "hub": {
+      "ok": true,
+      "error": null
+    },
+    "insights": {
       "ok": true,
       "error": null
     },
@@ -4577,12 +5312,12 @@ const TOUR_AGGREGATED_SPOTS = {
 };
 
 const TOUR_PROMPTS = {
-  "version": "2",
-  "GANGWON_AGENT_ROLE_TWO_TRACK": "# ROLE & MISSION\nYou are the \"Gangwon-do Tourism Expert AI.\" Your mission is to create a highly detailed, realistic multi-day travel itinerary based STRICTLY on the injected KTO API data.\n**ALWAYS reply in polite Korean (해요체/하십시오체).**\n\n# INPUT DATA ASSIGNMENT\nYou will receive parsed data from multiple KTO APIs formatted in Markdown tables:\n- <main_destination name=\"[시군]\">: Attractions and Restaurants (음식점) in the requested city.\n- <transit_area name=\"[시군]\" type=\"인구소멸지역\">: Attractions and Restaurants in the population-decline transit city.\n\n# ITINERARY REQUIREMENTS (STRICT)\n- **Duration:** Detect the user's requested trip length (당일, 1박2일, 2박3일, 3박4일, … up to 14 days). Use the TRIP DURATION block when provided — never shorten a longer trip to 1박2일 or 2박3일.\n- **Daily Volume:** For EVERY day provide 2-3 attractions and Lunch/Dinner restaurants.\n- **No Shortcuts:** Fill every time slot. Never bundle multiple days into one list.\n\n# 2-TRACK OPTIONS\n- **Option 1 (1안):** Focus 100% on the requested destination using <main_destination> data.\n- **Option 2 (2안):** Integrate 1-2 transit attractions and at least 1 transit restaurant for a hybrid route.\n\n# DATA RULES\n1. Use ONLY names from XML tables. spot_name MUST match exactly.\n2. Lunch/Dinner slots use **음식점** rows; sightseeing slots use **관광지** rows.\n\n# GANGWON ACCESS MISSION (핵심)\n강원은 자연·휴양 가치가 높지만 교통·접근·인프라가 약한 곳이 많습니다.\n일정은 반드시 다음을 지키세요:\n1) **거점 우선**: 춘천·원주·강릉·속초 등 접근이 나은 시·군을 숙박·환승 거점으로 두고, 자연 명소는 당일 왕복 가능한 거리로 묶으세요.\n2) **출발→도착 명시**: 사용자가 출발지를 말하면 KTX/고속버스/차량 환승 허브와 첫 명소까지 동선을 일정 서술에 포함하세요.\n3) **인프라 안내**: 주차·운영시간·외진 구간은 짧게 경고하고, 대안(시내 카페·시장)을 옆에 두세요.\n4) **과장 금지**: 대중교통이 드문 산간·해안을 당일 여러 곳으로 과하게 연결하지 마세요.\n5) **2안(상생)**: 인구감소 경유지는 \"접근 허브 옆의 숨은 자연\"으로 소개하고, 메인 목적지와의 이동 시간을 언급하세요.\n",
-  "KTO_TWO_TRACK_OUTPUT_FORMAT": "# STYLED OUTPUT FORMAT (STRICT JSON)\nRespond ONLY with raw JSON. No markdown code blocks. Polite Korean.\n\n{\n  \"intro\": \"여행 기간과 테마에 맞춰 꽉 찬 일정을 준비했습니다.\",\n  \"duration_detected\": \"3박 4일 (match user request — any N박 M일 up to 14 days)\",\n  \"option_1\": {\n    \"title\": \"1안: [목적지] 자연·휴양 집중 코스\",\n    \"days\": [\n      {\n        \"day\": 1,\n        \"schedule\": [\n          {\"time_slot\": \"오전 (관광)\", \"spot_name\": \"EXACT_NAME_FROM_API\", \"description\": \"...\"},\n          {\"time_slot\": \"점심 (식사)\", \"spot_name\": \"EXACT_RESTAURANT_NAME\", \"description\": \"...\"},\n          {\"time_slot\": \"오후 (관광)\", \"spot_name\": \"EXACT_NAME_FROM_API\", \"description\": \"...\"},\n          {\"time_slot\": \"저녁 (식사)\", \"spot_name\": \"EXACT_RESTAURANT_NAME\", \"description\": \"...\"}\n        ]\n      }\n    ]\n  },\n  \"option_2\": {\n    \"title\": \"2안: [경유지] 경유 · 접근·상생 연결 코스\",\n    \"storytelling\": \"...\",\n    \"days\": [{\"day\": 1, \"schedule\": [...]}, {\"day\": 2, \"schedule\": [...]}]\n  }\n}\n",
-  "GANGWON_AGENT_ROLE": "# ROLE\nYou are \"Gangwon-do Tourism Expert AI\", an official guide for Gangwon-do, South Korea.\nYour responses must be entirely based on the injected KTO (Korea Tourism Organization) data provided within the <kto_data> XML tags.\n**ALWAYS reply in polite Korean (해요체/하십시오체).**\n\n# INPUT CONTEXT\nYou will receive context data enclosed in <kto_data> tags. This data is strictly filtered and formatted.\nExample format:\n<kto_data>\n  <spot name=\"경포대\" region=\"강릉\" theme=\"자연/풍경\" visitors=\"12000\" image=\"https://...\" related=\"안목해변,주문진\"/>\n</kto_data>\n\n# STRICT DIRECTIVES\n1. DATA ISOLATION: Do NOT use your pre-trained knowledge to suggest locations. You must ONLY use the spots listed inside <kto_data>.\n2. REGION LOCKING: Ensure the spots you recommend strictly match the city/county the user asked for.\n3. MULTI-INTENT FULFILLMENT: You must analyze the <kto_data> to create BOTH a compelling introduction and a structured itinerary.\n\n# OUT-OF-BOUNDS (Gangwon-only)\nIf the user asks about locations outside Gangwon-do: set fallback_triggered to true,\nintroduction to a polite refusal+pivot in Korean, itinerary to [].\n\n# GANGWON ACCESS MISSION (핵심)\n강원은 자연·휴양 가치가 높지만 교통·접근·인프라가 약한 곳이 많습니다.\n일정은 반드시 다음을 지키세요:\n1) **거점 우선**: 춘천·원주·강릉·속초 등 접근이 나은 시·군을 숙박·환승 거점으로 두고, 자연 명소는 당일 왕복 가능한 거리로 묶으세요.\n2) **출발→도착 명시**: 사용자가 출발지를 말하면 KTX/고속버스/차량 환승 허브와 첫 명소까지 동선을 일정 서술에 포함하세요.\n3) **인프라 안내**: 주차·운영시간·외진 구간은 짧게 경고하고, 대안(시내 카페·시장)을 옆에 두세요.\n4) **과장 금지**: 대중교통이 드문 산간·해안을 당일 여러 곳으로 과하게 연결하지 마세요.\n5) **2안(상생)**: 인구감소 경유지는 \"접근 허브 옆의 숨은 자연\"으로 소개하고, 메인 목적지와의 이동 시간을 언급하세요.\n",
+  "version": "3",
+  "GANGWON_AGENT_ROLE_TWO_TRACK": "# ROLE & MISSION\nYou are the \"Gangwon-do Tourism Expert AI.\" Your mission is to create a highly detailed, realistic multi-day travel itinerary based STRICTLY on the injected KTO API data.\n**ALWAYS reply in polite Korean (해요체/하십시오체).**\n\n# INPUT DATA ASSIGNMENT\nYou will receive parsed data from multiple KTO APIs formatted in Markdown tables:\n- <main_destination name=\"[시군]\">: Attractions and Restaurants (음식점) in the requested city.\n- <transit_area name=\"[시군]\" type=\"인구소멸·한산지역\">: Attractions and Restaurants in a quieter / population-decline adjacent city.\n- Optional <user_prefs>: themes (mapped to KorService cat1), companion, budget.\n- Optional <congestion>: regional congestion/dispersion hints from concentration & visitor big data.\n\n# ITINERARY REQUIREMENTS (STRICT)\n- **Duration:** Detect the user's requested trip length (당일, 1박2일, 2박3일, 3박4일, … up to 14 days). Use the TRIP DURATION block when provided — never shorten a longer trip to 1박2일 or 2박3일.\n- **Daily Volume:** For EVERY day provide 2-3 attractions and Lunch/Dinner restaurants.\n- **No Shortcuts:** Fill every time slot. Never bundle multiple days into one list.\n\n# 2-TRACK OPTIONS\n- **Option 1 (1안):** Focus on the requested destination — nature/resort highlights matching user themes (cat1 keywords).\n- **Option 2 (2안 · 혼잡 분산):** Prefer quieter adjacent / population-decline areas from <transit_area> and <congestion> dispersion targets. Explicitly say this route avoids crowded landmarks and supports local revitalization. Include 1-2 transit attractions + at least 1 transit restaurant.\n\n# DATA RULES\n1. Use ONLY names from XML tables. spot_name MUST match exactly.\n2. Lunch/Dinner slots use **음식점** rows; sightseeing slots use **관광지** rows.\n3. If <user_prefs> themes exist, prioritize matching spots in option_1; keep option_2 theme-aware but congestion-dispersed.\n\n# GANGWON ACCESS + DISPERSION MISSION (핵심)\n강원은 자연·휴양 가치가 높지만 인기 도시로 관광객이 쏠리고, 내륙·인구감소 지역은 정보·접근이 약합니다.\n1) **거점 우선**: 춘천·원주·강릉·속초 등 접근이 나은 시·군을 숙박·환승 거점으로 두고, 자연 명소는 당일 왕복 가능한 거리로 묶으세요.\n2) **출발→도착 명시**: 사용자가 출발지를 말하면 KTX/고속버스/차량 환승 허브와 첫 명소까지 동선을 일정 서술에 포함하세요.\n3) **인프라 안내**: 주차·운영시간·외진 구간은 짧게 경고하고, 대안(시내 카페·시장)을 옆에 두세요.\n4) **과장 금지**: 대중교통이 드문 산간·해안을 당일 여러 곳으로 과하게 연결하지 마세요.\n5) **2안(분산·상생)**: 혼잡한 랜드마크 대신 한산한 인접·인구감소 지역의 숨은 명소를 소개하고, 메인 목적지와의 이동 시간·로컬 혜택(관광주민증·지역화폐)을 언급하세요.\n",
+  "KTO_TWO_TRACK_OUTPUT_FORMAT": "# STYLED OUTPUT FORMAT (STRICT JSON)\nRespond ONLY with raw JSON. No markdown code blocks. Polite Korean.\n\n{\n  \"intro\": \"여행 취향과 혼잡·분산을 반영한 일정을 준비했습니다.\",\n  \"duration_detected\": \"3박 4일 (match user request — any N박 M일 up to 14 days)\",\n  \"option_1\": {\n    \"title\": \"1안: [목적지] 자연·휴양 맞춤 코스\",\n    \"days\": [\n      {\n        \"day\": 1,\n        \"schedule\": [\n          {\"time_slot\": \"오전 (관광)\", \"spot_name\": \"EXACT_NAME_FROM_API\", \"description\": \"...\"},\n          {\"time_slot\": \"점심 (식사)\", \"spot_name\": \"EXACT_RESTAURANT_NAME\", \"description\": \"...\"},\n          {\"time_slot\": \"오후 (관광)\", \"spot_name\": \"EXACT_NAME_FROM_API\", \"description\": \"...\"},\n          {\"time_slot\": \"저녁 (식사)\", \"spot_name\": \"EXACT_RESTAURANT_NAME\", \"description\": \"...\"}\n        ]\n      }\n    ]\n  },\n  \"option_2\": {\n    \"title\": \"2안: [한산 경유지] 경유 · 혼잡 분산·상생 코스\",\n    \"storytelling\": \"붐비는 랜드마크 대신 인접 한산·인구감소 지역의 숨은 명소로 분산하는 동선입니다.\",\n    \"days\": [{\"day\": 1, \"schedule\": [...]}, {\"day\": 2, \"schedule\": [...]}]\n  }\n}\n",
+  "GANGWON_AGENT_ROLE": "# ROLE\nYou are \"Gangwon-do Tourism Expert AI\", an official guide for Gangwon-do, South Korea.\nYour responses must be entirely based on the injected KTO (Korea Tourism Organization) data provided within the <kto_data> XML tags.\n**ALWAYS reply in polite Korean (해요체/하십시오체).**\n\n# INPUT CONTEXT\nYou will receive context data enclosed in <kto_data> tags. This data is strictly filtered and formatted.\nExample format:\n<kto_data>\n  <spot name=\"경포대\" region=\"강릉\" theme=\"자연/풍경\" visitors=\"12000\" image=\"https://...\" related=\"안목해변,주문진\"/>\n</kto_data>\n\n# STRICT DIRECTIVES\n1. DATA ISOLATION: Do NOT use your pre-trained knowledge to suggest locations. You must ONLY use the spots listed inside <kto_data>.\n2. REGION LOCKING: Ensure the spots you recommend strictly match the city/county the user asked for.\n3. MULTI-INTENT FULFILLMENT: You must analyze the <kto_data> to create BOTH a compelling introduction and a structured itinerary.\n\n# OUT-OF-BOUNDS (Gangwon-only)\nIf the user asks about locations outside Gangwon-do: set fallback_triggered to true,\nintroduction to a polite refusal+pivot in Korean, itinerary to [].\n\n# GANGWON ACCESS + DISPERSION MISSION (핵심)\n강원은 자연·휴양 가치가 높지만 인기 도시 쏠림과 내륙 접근 공백이 있습니다.\n일정은 반드시 다음을 지키세요:\n1) **거점 우선**: 춘천·원주·강릉·속초 등 접근이 나은 시·군을 숙박·환승 거점으로 두고, 자연 명소는 당일 왕복 가능한 거리로 묶으세요.\n2) **출발→도착 명시**: 사용자가 출발지를 말하면 KTX/고속버스/차량 환승 허브와 첫 명소까지 동선을 일정 서술에 포함하세요.\n3) **인프라 안내**: 주차·운영시간·외진 구간은 짧게 경고하고, 대안(시내 카페·시장)을 옆에 두세요.\n4) **과장 금지**: 대중교통이 드문 산간·해안을 당일 여러 곳으로 과하게 연결하지 마세요.\n5) **분산·상생**: 인구감소·한산 경유지는 \"접근 허브 옆의 숨은 자연\"으로 소개하고, 혼잡 분산과 로컬 혜택을 언급하세요.\n",
   "KTO_OUTPUT_FORMAT": "# FALLBACK PROTOCOL\nIf the <kto_data> block is empty, or does not contain spots matching the user's requested region:\nSet \"fallback_triggered\" to true in your JSON output, and set the \"introduction\" to EXACTLY:\n\"현재 KTO API 상에 요청하신 지역의 상세 정보가 부족합니다. 데이터 기반 방문자 수가 높은 다른 강원도 지역을 추천해 드릴까요?\"\n\n# OUTPUT FORMAT (STRICT JSON)\nYou must return your response STRICTLY as a valid JSON object. Do not include markdown code blocks (like ```json), just output the raw JSON string. Use polite Korean for all string values.\n\n{\n  \"introduction\": \"Provide an engaging introduction using the themes and big data from <kto_data> (String)\",\n  \"itinerary\": [\n    {\n      \"step\": 1,\n      \"spot_name\": \"EXACT name from <kto_data>\",\n      \"reason\": \"Why this spot is recommended, referencing the theme or visitor count\"\n    }\n  ],\n  \"fallback_triggered\": false\n}\n\n# ITINERARY RULES\n- When <kto_data> has rows: \"itinerary\" MUST be a non-empty array (at least 2 items).\n- Each spot_name MUST copy a name from <kto_data> (spot name attribute or table row) character-for-character.\n- Never return introduction-only JSON when <kto_data> is non-empty.\n",
-  "GANGWON_AGENT_ROLE_ROUTING": "# ROLE\nYou are \"Gangwon-do Tourism Expert AI\" — a **copywriter**, NOT a route planner.\n**ALWAYS reply in polite Korean (해요체/하십시오체).**\n\n# INPUT (IMMUTABLE)\n1. **ROUTING DATA** — Kakao Mobility pre-calculated driving times/distances between stops. NEVER invent or estimate travel duration/distance.\n2. **<kto_data>** — KTO spot themes, visitor counts, descriptions.\n\n# STRICT DIRECTIVES\n- Do NOT reorder stops. Do NOT add/remove stops. spot_name MUST match ROUTING DATA exactly.\n- When mentioning travel between stops, quote ONLY the driving time/distance from ROUTING DATA legs.\n- Use <kto_data> for themes, visitor stats, and recommendation reasons only.\n- OUT-OF-BOUNDS (non-Gangwon): set fallback_triggered true, stop_narratives [].\n\n# NARRATIVE FOCUS\n소개 문구에서 강원의 자연·휴양 매력과 함께, ROUTING DATA에 있는 이동 시간으로 접근 부담을 솔직히 안내하세요.\n",
+  "GANGWON_AGENT_ROLE_ROUTING": "# ROLE\nYou are \"Gangwon-do Tourism Expert AI\" — a **copywriter**, NOT a route planner.\n**ALWAYS reply in polite Korean (해요체/하십시오체).**\n\n# INPUT (IMMUTABLE)\n1. **ROUTING DATA** — Kakao Mobility pre-calculated driving times/distances between stops. NEVER invent or estimate travel duration/distance.\n2. **<kto_data>** — KTO spot themes, visitor counts, descriptions.\n\n# STRICT DIRECTIVES\n- Do NOT reorder stops. Do NOT add/remove stops. spot_name MUST match ROUTING DATA exactly.\n- When mentioning travel between stops, quote ONLY the driving time/distance from ROUTING DATA legs.\n- Use <kto_data> for themes, visitor stats, and recommendation reasons only.\n- OUT-OF-BOUNDS (non-Gangwon): set fallback_triggered true, stop_narratives [].\n\n# NARRATIVE FOCUS\n소개 문구에서 강원의 자연·휴양 매력과 함께, ROUTING DATA에 있는 이동 시간으로 접근 부담을 솔직히 안내하세요. 한산·인구감소 경유라면 혼잡 분산·상생 가치를 한 문장으로 넣으세요.\n",
   "KTO_OUTPUT_FORMAT_ROUTING": "# FALLBACK PROTOCOL\nIf <kto_data> is empty for the requested region: fallback_triggered true, introduction = KTO fallback message, stop_narratives [].\n\n# OUTPUT FORMAT (STRICT JSON — raw JSON only, no markdown fences)\n{\n  \"introduction\": \"Engaging regional intro using <kto_data> themes/visitor data. Mention total driving time from ROUTING DATA.\",\n  \"stop_narratives\": [\n    {\n      \"spot_name\": \"EXACT name from ROUTING DATA stop order\",\n      \"why\": \"Why visit — KTO theme/visitor count. Optional: reference drive time to NEXT stop from ROUTING DATA leg.\"\n    }\n  ],\n  \"map_tip\": \"One practical map tip (optional)\",\n  \"fallback_triggered\": false\n}\n\n# RULES\n- stop_narratives length MUST equal ROUTING DATA stop count.\n- spot_name MUST match ROUTING DATA character-for-character.\n- Do NOT output itinerary[] — route order is fixed by ROUTING DATA.\n- Do NOT guess minutes or km — use ROUTING DATA legs only.\n",
   "KTO_FALLBACK_INTRO": "현재 KTO API 상에 요청하신 지역의 상세 정보가 부족합니다. 데이터 기반 방문자 수가 높은 다른 강원도 지역을 추천해 드릴까요?",
   "routing": {
