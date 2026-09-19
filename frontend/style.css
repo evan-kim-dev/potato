@@ -2020,9 +2020,6 @@ body.mode-planner .wrap {
   line-height: 1.45;
   color: var(--on-surface-variant);
 }
-.weather-skeleton .weather-card-icon {
-  background: rgba(0, 106, 97, 0.08);
-}
 @media (max-width: 900px) {
   .weather-board {
     grid-template-columns: 1fr;
