@@ -3022,6 +3022,58 @@ const TOUR_BEACH_WEATHER = {
   ]
 };
 
+const TOUR_FCST_MSG = {
+  "updated_at": null,
+  "api": "https://apis.data.go.kr/1360000/VilageFcstMsgService",
+  "ops": [
+    "getWthrSituation",
+    "getLandFcst",
+    "getSeaFcst"
+  ],
+  "attribution": {
+    "license": "공공누리 제1유형(출처표시)",
+    "author": "기상청",
+    "source_name": "기상청_단기예보 통보문 조회서비스",
+    "source_url": "https://www.data.go.kr/data/15058629/openapi.do",
+    "notice": "본 저작물은 공공누리 제1유형에 따라 기상청에서 공공누리로 개방한 「단기예보 통보문」을 이용하였으며, 출처는 기상청입니다."
+  },
+  "stub": true,
+  "reason": "KMA_FCST_MSG_SERVICE_KEY(또는 TOUR_API_SERVICE_KEY)가 없습니다. 공공데이터포털에서 '기상청_단기예보 통보문 조회서비스' 활용신청 후 키를 설정하세요.",
+  "ok": 0,
+  "errors": [],
+  "situation": [
+    {
+      "stnId": "105",
+      "label": "강원영동(강릉)",
+      "data": null
+    },
+    {
+      "stnId": "101",
+      "label": "강원영서(춘천)",
+      "data": null
+    }
+  ],
+  "land": [
+    {
+      "regId": "11D20000",
+      "label": "강원영동",
+      "data": null
+    },
+    {
+      "regId": "11D10000",
+      "label": "강원영서",
+      "data": null
+    }
+  ],
+  "sea": [
+    {
+      "regId": "12C20000",
+      "label": "동해중부해상",
+      "data": null
+    }
+  ]
+};
+
 const TOUR_AGGREGATED_SPOTS = {
   "updated_at": "2026-09-19",
   "source_status": {

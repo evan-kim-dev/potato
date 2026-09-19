@@ -10,6 +10,7 @@ on:
       - "backend/scripts/import_sigungu_codes.py"
       - "backend/tour_api.py"
       - "backend/beach_weather_api.py"
+      - "backend/fcst_msg_api.py"
       - "backend/kto_aggregation_service.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
@@ -41,16 +42,19 @@ jobs:
           strip_val() { printf '%s' "$1" | sed 's/^[Vv][Aa][Ll][Uu][Ee]:[[:space:]]*//'; }
           export TOUR_API_SERVICE_KEY="$(strip_val "$TOUR_API_SERVICE_KEY")"
           export KMA_BEACH_SERVICE_KEY="$(strip_val "$KMA_BEACH_SERVICE_KEY")"
+          export KMA_FCST_MSG_SERVICE_KEY="$(strip_val "$KMA_FCST_MSG_SERVICE_KEY")"
           if [ -n "$TOUR_API_SERVICE_KEY" ]; then
             python backend/scripts/sync_tour_all.py || python backend/scripts/sync_content.py generate
           else
             echo "TOUR_API_SERVICE_KEY not set — using committed JSON only"
             python backend/scripts/sync_beach_weather.py || true
+            python backend/scripts/sync_fcst_msg.py || true
             python backend/scripts/sync_content.py generate
           fi
         env:
           TOUR_API_SERVICE_KEY: ${{ secrets.TOUR_API_SERVICE_KEY }}
           KMA_BEACH_SERVICE_KEY: ${{ secrets.KMA_BEACH_SERVICE_KEY }}
+          KMA_FCST_MSG_SERVICE_KEY: ${{ secrets.KMA_FCST_MSG_SERVICE_KEY }}
 
       - name: Verify frontend/data.js matches canonical JSON
         run: python backend/scripts/sync_content.py --check

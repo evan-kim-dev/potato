@@ -33,6 +33,10 @@ def main() -> int:
     if run("sync_beach_weather.py") != 0:
         print("Warning: beach weather sync failed; continuing.", file=sys.stderr)
 
+    # 기상청 단기예보 통보문 (공공누리 제1유형 · 출처표시 필수)
+    if run("sync_fcst_msg.py") != 0:
+        print("Warning: fcst msg sync failed; continuing.", file=sys.stderr)
+
     return run("sync_content.py", "generate")
 
 

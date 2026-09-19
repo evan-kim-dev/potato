@@ -1751,6 +1751,7 @@ async function renderWeather(force) {
     renderWeatherGrid(wxCache);
     if (updated) updated.textContent = formatWeatherUpdated(wxCache);
     renderBeachWeather(wxFocusRegion || null, false).catch((e) => console.warn("renderBeachWeather:", e));
+    renderFcstMsg();
     return;
   }
   if (wxLoading && !force) return;
@@ -1766,6 +1767,7 @@ async function renderWeather(force) {
     if (updated) updated.textContent = formatWeatherUpdated(wxCache);
     renderWeatherGrid(wxCache);
     await renderBeachWeather(wxFocusRegion || null, force);
+    renderFcstMsg();
   } catch (err) {
     console.warn("renderWeather:", err);
     wxCache = null;
@@ -1780,6 +1782,7 @@ async function renderWeather(force) {
       renderWeather(true).catch((e) => console.warn("renderWeather retry:", e));
     });
     renderBeachWeather(null, true).catch((e) => console.warn("renderBeachWeather:", e));
+    renderFcstMsg();
   } finally {
     wxLoading = false;
   }
@@ -1972,6 +1975,172 @@ async function renderBeachWeather(region, force) {
     paintBeachGrid(fallback);
     if ($("beach-updated")) $("beach-updated").textContent = "일부만 표시";
   }
+}
+
+let fcstMsgTab = "situation";
+let fcstMsgBound = false;
+
+function getFcstMsgPayload() {
+  if (typeof TOUR_FCST_MSG !== "undefined" && TOUR_FCST_MSG) return TOUR_FCST_MSG;
+  return { stub: true, situation: [], land: [], sea: [], attribution: {} };
+}
+
+function applyFcstAttribution(attr) {
+  const box = $("kma-attribution");
+  if (!box || !attr) return;
+  const author = attr.author || "기상청";
+  const license = attr.license || "공공누리 제1유형(출처표시)";
+  const notice =
+    attr.notice ||
+    "본 저작물은 공공누리 제1유형에 따라 기상청에서 공공누리로 개방한 「단기예보 통보문」을 이용하였으며, 출처는 기상청입니다.";
+  const url = attr.source_url || "https://www.data.go.kr/data/15058629/openapi.do";
+  box.innerHTML =
+    `<p class="kma-attribution-label">출처 · 저작자 표시</p>` +
+    `<p><strong>출처: ${esc(author)}</strong> · ${esc(license)}</p>` +
+    `<p>${esc(notice)} ` +
+    `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">공공데이터포털</a>에서 확인할 수 있습니다.</p>`;
+}
+
+function fcstSituationHtml(rows) {
+  const cards = (rows || [])
+    .map((row) => {
+      const d = row.data;
+      if (!d || (!d.overview && !d.warning && !d.pre_warning)) {
+        return (
+          `<article class="fcst-card">` +
+          `<h3>${esc(row.label || "기상개황")}</h3>` +
+          `<p class="fcst-card-text">통보문 동기화 대기 중이에요. 기상청 API 키 연동 후 표시됩니다.</p>` +
+          `</article>`
+        );
+      }
+      return (
+        `<article class="fcst-card">` +
+        `<h3>${esc(row.label || "기상개황")}</h3>` +
+        (d.tmFc ? `<p class="fcst-card-time">발표 ${esc(d.tmFc)}</p>` : "") +
+        (d.overview ? `<p class="fcst-card-text">${esc(d.overview)}</p>` : "") +
+        (d.warning ? `<p class="fcst-card-warn"><strong>특보</strong> ${esc(d.warning)}</p>` : "") +
+        (d.pre_warning ? `<p class="fcst-card-warn"><strong>예비특보</strong> ${esc(d.pre_warning)}</p>` : "") +
+        `</article>`
+      );
+    })
+    .join("");
+  return cards || `<div class="fcst-empty">기상개황 통보문이 아직 없어요.</div>`;
+}
+
+function fcstLandHtml(rows) {
+  const cards = (rows || [])
+    .map((row) => {
+      const d = row.data;
+      const periods = d?.periods || [];
+      if (!periods.length) {
+        return (
+          `<article class="fcst-card">` +
+          `<h3>${esc(row.label || "육상예보")}</h3>` +
+          `<p class="fcst-card-text">육상예보 동기화 대기 중이에요.</p>` +
+          `</article>`
+        );
+      }
+      const lis = periods
+        .map((p) => {
+          const when = p.numEf != null ? `${p.numEf}차` : "";
+          const detail = [p.wf, p.rnSt ? `강수확률 ${p.rnSt}%` : ""].filter(Boolean).join(" · ");
+          return (
+            `<li>` +
+            `<strong>${esc(when || "예보")}</strong>` +
+            `<span>${esc(detail || "—")}</span>` +
+            `<em>${esc(p.ta ? `${p.ta}°` : "")}</em>` +
+            `</li>`
+          );
+        })
+        .join("");
+      return (
+        `<article class="fcst-card">` +
+        `<h3>${esc(row.label || "육상예보")}</h3>` +
+        (d.announceTime ? `<p class="fcst-card-time">발표 ${esc(d.announceTime)}</p>` : "") +
+        `<ul class="fcst-period-list">${lis}</ul>` +
+        `</article>`
+      );
+    })
+    .join("");
+  return cards || `<div class="fcst-empty">육상예보 통보문이 아직 없어요.</div>`;
+}
+
+function fcstSeaHtml(rows) {
+  const cards = (rows || [])
+    .map((row) => {
+      const d = row.data;
+      const periods = d?.periods || [];
+      if (!periods.length) {
+        return (
+          `<article class="fcst-card">` +
+          `<h3>${esc(row.label || "해상예보")}</h3>` +
+          `<p class="fcst-card-text">동해 해상예보 동기화 대기 중이에요.</p>` +
+          `</article>`
+        );
+      }
+      const lis = periods
+        .map((p) => {
+          const when = p.numEf != null ? `${p.numEf}차` : "";
+          const detail = [p.wf, p.wh ? `파고 ${p.wh}` : ""].filter(Boolean).join(" · ");
+          return (
+            `<li>` +
+            `<strong>${esc(when || "예보")}</strong>` +
+            `<span>${esc(detail || "—")}</span>` +
+            `<em>${esc(p.wsIt ? `바람 ${p.wsIt}` : "")}</em>` +
+            `</li>`
+          );
+        })
+        .join("");
+      return (
+        `<article class="fcst-card">` +
+        `<h3>${esc(row.label || "해상예보")}</h3>` +
+        (d.announceTime ? `<p class="fcst-card-time">발표 ${esc(d.announceTime)}</p>` : "") +
+        `<ul class="fcst-period-list">${lis}</ul>` +
+        `</article>`
+      );
+    })
+    .join("");
+  return cards || `<div class="fcst-empty">해상예보 통보문이 아직 없어요.</div>`;
+}
+
+function paintFcstBody(tab) {
+  const body = $("fcst-body");
+  const updated = $("fcst-updated");
+  if (!body) return;
+  const payload = getFcstMsgPayload();
+  applyFcstAttribution(payload.attribution);
+  if (tab === "land") body.innerHTML = fcstLandHtml(payload.land);
+  else if (tab === "sea") body.innerHTML = fcstSeaHtml(payload.sea);
+  else body.innerHTML = fcstSituationHtml(payload.situation);
+
+  if (updated) {
+    if (payload.stub) updated.textContent = "키 연동 대기";
+    else if (payload.updated_at) updated.textContent = "기상청 통보문";
+    else updated.textContent = "통보문";
+  }
+}
+
+function bindFcstTabs() {
+  if (fcstMsgBound) return;
+  const tabs = document.querySelectorAll(".fcst-tab");
+  if (!tabs.length) return;
+  fcstMsgBound = true;
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      fcstMsgTab = tab.getAttribute("data-fcst-tab") || "situation";
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.classList.toggle("on", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      paintFcstBody(fcstMsgTab);
+    });
+  });
+}
+
+function renderFcstMsg() {
+  bindFcstTabs();
+  paintFcstBody(fcstMsgTab);
 }
 
 /* ==================== Festivals catalog ==================== */

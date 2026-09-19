@@ -146,6 +146,12 @@ def generate_data_js() -> str:
             "beaches": [{**b, "weather": None} for b in beaches_catalog["featured"]],
             "count": len(beaches_catalog["featured"]),
         }
+    fcst_msg_path = DATA_DIR / "tour_fcst_msg.json"
+    fcst_msg = (
+        json.loads(fcst_msg_path.read_text(encoding="utf-8"))
+        if fcst_msg_path.exists()
+        else {"stub": True, "situation": [], "land": [], "sea": [], "attribution": {}}
+    )
     weather_icons = {
         k: {**v, "bg": v.get("bg") or v.get("thumb_bg")}
         for k, v in catalog["weather_icons"].items()
@@ -189,6 +195,7 @@ def generate_data_js() -> str:
         f"const TOUR_KOR_FESTIVALS = {json.dumps(tour_kor_fest, ensure_ascii=False, indent=2)};",
         f"const GANGWON_BEACHES = {json.dumps(beaches_catalog, ensure_ascii=False, indent=2)};",
         f"const TOUR_BEACH_WEATHER = {json.dumps(beach_weather, ensure_ascii=False, indent=2)};",
+        f"const TOUR_FCST_MSG = {json.dumps(fcst_msg, ensure_ascii=False, indent=2)};",
         f"const TOUR_AGGREGATED_SPOTS = {json.dumps(tour_aggregated, ensure_ascii=False, indent=2)};",
         f"const TOUR_PROMPTS = {json.dumps(tour_prompts, ensure_ascii=False, indent=2)};",
         f"const SPOT_TOUR_IMAGES = {json.dumps(spot_tour_images, ensure_ascii=False, indent=2)};",

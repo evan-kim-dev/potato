@@ -295,8 +295,36 @@
           <div class="beach-grid" id="beach-grid" aria-live="polite"></div>
         </section>
 
+        <section class="fcst-board" aria-labelledby="fcst-board-title">
+          <div class="fcst-board-head">
+            <div>
+              <h2 id="fcst-board-title">단기예보 통보문</h2>
+              <p>강원 영동·영서 기상개황 · 육상·동해 해상예보</p>
+            </div>
+            <span class="chip" id="fcst-updated">준비 중…</span>
+          </div>
+          <div class="fcst-tabs" role="tablist" aria-label="통보문 구역">
+            <button type="button" class="fcst-tab on" role="tab" aria-selected="true" data-fcst-tab="situation">기상개황</button>
+            <button type="button" class="fcst-tab" role="tab" aria-selected="false" data-fcst-tab="land">육상예보</button>
+            <button type="button" class="fcst-tab" role="tab" aria-selected="false" data-fcst-tab="sea">해상예보</button>
+          </div>
+          <div class="fcst-body" id="fcst-body" aria-live="polite"></div>
+          <aside class="kma-attribution" id="kma-attribution" aria-label="기상청 저작권 표시">
+            <p class="kma-attribution-label">출처 · 저작자 표시</p>
+            <p>
+              <strong>출처: 기상청</strong>
+              · 공공누리 제1유형(출처표시)
+            </p>
+            <p>
+              본 저작물은 공공누리 제1유형에 따라 기상청에서 공공누리로 개방한
+              「단기예보 통보문」을 이용하였으며, 해당 저작물은
+              <a href="https://www.data.go.kr/data/15058629/openapi.do" target="_blank" rel="noopener noreferrer">공공데이터포털</a>에서 확인할 수 있습니다.
+            </p>
+          </aside>
+        </section>
+
         <p class="weather-foot">
-          시·군: Open-Meteo · 해수욕장: 기상청 BeachInfoservice(+Open-Meteo) ·
+          시·군: Open-Meteo · 해수욕장·통보문: 기상청(출처표시) ·
           <button type="button" class="weather-ai-link" data-ai-prompt="강원 동해안 해수욕장 날씨·옷차림·준비물 팁 알려줘">✦ AI에게 옷차림·준비물 물어보기</button>
         </p>
       </section>
