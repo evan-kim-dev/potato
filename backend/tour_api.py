@@ -159,7 +159,8 @@ def get_service_key() -> str:
             "- 관광지 집중률 방문자 추이 예측 정보\n"
             "- 지역별 관광 수요 강도\n"
             "- 지역별 관광 다양성\n"
-            "- 지역별 관광 자원 수요"
+            "- 지역별 관광 자원 수요\n"
+            "- 기상청_전국 해수욕장 날씨 조회서비스 (선택, KMA_BEACH_SERVICE_KEY)"
         )
     return key.strip()
 

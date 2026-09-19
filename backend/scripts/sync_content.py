@@ -127,6 +127,25 @@ def generate_data_js() -> str:
         if tour_kor_fest_path.exists()
         else {"items": [], "regions": {}}
     )
+    beaches_path = DATA_DIR / "gangwon_beaches.json"
+    beaches_catalog = (
+        json.loads(beaches_path.read_text(encoding="utf-8"))
+        if beaches_path.exists()
+        else {"featured": [], "coastal_regions": []}
+    )
+    beach_wx_path = DATA_DIR / "tour_beach_weather.json"
+    beach_weather = (
+        json.loads(beach_wx_path.read_text(encoding="utf-8"))
+        if beach_wx_path.exists()
+        else {"beaches": [], "stub": True}
+    )
+    # Prefer synced beach rows; fall back to catalog featured list
+    if not beach_weather.get("beaches") and beaches_catalog.get("featured"):
+        beach_weather = {
+            **beach_weather,
+            "beaches": [{**b, "weather": None} for b in beaches_catalog["featured"]],
+            "count": len(beaches_catalog["featured"]),
+        }
     weather_icons = {
         k: {**v, "bg": v.get("bg") or v.get("thumb_bg")}
         for k, v in catalog["weather_icons"].items()
@@ -168,6 +187,8 @@ def generate_data_js() -> str:
         f"const TOUR_REGIONAL_INSIGHTS = {json.dumps(tour_insights, ensure_ascii=False, indent=2)};",
         f"const TOUR_RELATE_SPOTS = {json.dumps(tour_relate, ensure_ascii=False, indent=2)};",
         f"const TOUR_KOR_FESTIVALS = {json.dumps(tour_kor_fest, ensure_ascii=False, indent=2)};",
+        f"const GANGWON_BEACHES = {json.dumps(beaches_catalog, ensure_ascii=False, indent=2)};",
+        f"const TOUR_BEACH_WEATHER = {json.dumps(beach_weather, ensure_ascii=False, indent=2)};",
         f"const TOUR_AGGREGATED_SPOTS = {json.dumps(tour_aggregated, ensure_ascii=False, indent=2)};",
         f"const TOUR_PROMPTS = {json.dumps(tour_prompts, ensure_ascii=False, indent=2)};",
         f"const SPOT_TOUR_IMAGES = {json.dumps(spot_tour_images, ensure_ascii=False, indent=2)};",

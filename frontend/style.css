@@ -2079,6 +2079,109 @@ body.mode-planner .wrap {
 }
 .weather-ai-link:hover { color: var(--primary-dark); }
 
+.beach-board {
+  margin-top: 1.35rem;
+  padding: 1.1rem 1.15rem 1.2rem;
+  border-radius: 18px;
+  background:
+    linear-gradient(160deg, rgba(186, 230, 253, 0.35) 0%, rgba(224, 242, 254, 0.18) 42%, rgba(255, 255, 255, 0.55) 100%),
+    linear-gradient(180deg, #f3f8fb 0%, #eef5f2 100%);
+  border: 1px solid rgba(94, 134, 150, 0.18);
+}
+.beach-board-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+.beach-board-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #1f4e5f;
+}
+.beach-board-head p {
+  margin: 0.28rem 0 0;
+  font-size: 0.78rem;
+  color: var(--on-surface-variant);
+}
+.beach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 0.7rem;
+}
+.beach-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+  padding: 0.85rem 0.9rem;
+  border-radius: 14px;
+  border: 1px solid rgba(71, 120, 138, 0.16);
+  background: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.beach-card:hover,
+.beach-card.on {
+  transform: translateY(-2px);
+  border-color: rgba(14, 116, 144, 0.45);
+  box-shadow: 0 8px 22px rgba(15, 70, 90, 0.08);
+}
+.beach-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+.beach-card-top strong {
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+.beach-card-region {
+  font-size: 0.68rem;
+  color: #5b7c8a;
+}
+.beach-card-temp {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.beach-card-temp span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-left: 0.1rem;
+}
+.beach-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem 0.45rem;
+  font-size: 0.7rem;
+  color: #496774;
+}
+.beach-card-meta em {
+  font-style: normal;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(14, 116, 144, 0.08);
+}
+.beach-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 1.2rem 0.5rem;
+  color: var(--on-surface-variant);
+  font-size: 0.82rem;
+}
+@media (max-width: 720px) {
+  .beach-board { padding: 0.95rem 0.85rem 1rem; }
+  .beach-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 .festivals-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));

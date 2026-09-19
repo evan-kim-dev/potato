@@ -256,7 +256,7 @@
         <div class="page-head">
           <div>
             <h1><span class="page-logo vico vico-weather" data-vico="weather"></span> 강원 날씨</h1>
-            <p>지도에서 시·군을 고르면 기온·날씨가 한눈에 · <strong>18</strong>개 전역</p>
+            <p>시·군 기온과 동해안 해수욕장 · <strong>18</strong>개 전역 + 주요 해변</p>
           </div>
           <div class="weather-head-actions">
             <span class="chip" id="weather-updated">불러오는 중…</span>
@@ -284,9 +284,20 @@
           </aside>
         </div>
 
+        <section class="beach-board" aria-labelledby="beach-board-title">
+          <div class="beach-board-head">
+            <div>
+              <h2 id="beach-board-title">동해안 해수욕장</h2>
+              <p id="beach-board-sub">기상청 해수욕장 날씨 · 경포·낙산·망상·속초 등</p>
+            </div>
+            <span class="chip" id="beach-updated">준비 중…</span>
+          </div>
+          <div class="beach-grid" id="beach-grid" aria-live="polite"></div>
+        </section>
+
         <p class="weather-foot">
-          데이터: Open-Meteo ·
-          <button type="button" class="weather-ai-link" data-ai-prompt="강원도 여행 날씨·옷차림·준비물 팁 알려줘">✦ AI에게 옷차림·준비물 물어보기</button>
+          시·군: Open-Meteo · 해수욕장: 기상청 BeachInfoservice(+Open-Meteo) ·
+          <button type="button" class="weather-ai-link" data-ai-prompt="강원 동해안 해수욕장 날씨·옷차림·준비물 팁 알려줘">✦ AI에게 옷차림·준비물 물어보기</button>
         </p>
       </section>
     </main>
@@ -466,6 +477,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="data.js?v=10"></script>
   <script src="icons.js?v=1"></script>
-  <script src="app.js?v=28"></script>
+  <script src="app.js?v=29"></script>
 </body>
 </html>

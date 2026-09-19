@@ -1433,7 +1433,11 @@ function weatherTip(temp, cond, hi, lo) {
 let wxCache = null;
 let wxCacheAt = 0;
 let wxLoading = false;
+let wxFocusRegion = "";
+let beachWxCache = null;
+let beachWxCacheAt = 0;
 const WX_TTL_MS = 10 * 60 * 1000;
+const BEACH_TTL_MS = 10 * 60 * 1000;
 const WX_CHUNK_SIZE = 6;
 
 function isWeatherCacheFresh() {
@@ -1583,9 +1587,10 @@ function weatherFocusHtml(c) {
   );
 }
 
-function setWeatherFocus(cityKey) {
+function setWeatherFocus(cityKey, opts = {}) {
   const focus = $("weather-focus");
   if (!focus) return;
+  wxFocusRegion = cityKey || "";
   const wx = (wxCache || []).find((c) => regionCityKey(c.city) === regionCityKey(cityKey));
   focus.innerHTML = weatherFocusHtml(wx || null);
   focus.querySelector("[data-ai-prompt]")?.addEventListener("click", (e) => {
@@ -1602,6 +1607,9 @@ function setWeatherFocus(cityKey) {
     const region = path.getAttribute("data-region") || "";
     path.classList.toggle("on", regionCityKey(region) === regionCityKey(cityKey));
   });
+  if (opts.syncBeach) {
+    renderBeachWeather(cityKey || null, false).catch((e) => console.warn("renderBeachWeather:", e));
+  }
 }
 
 function paintWeatherMap(cities) {
@@ -1677,10 +1685,10 @@ async function loadWeatherMapSvg() {
   const tip = $("weather-map-tip");
   const paths = host.querySelectorAll(".gw-surface path[data-region]");
   paths.forEach((path) => {
-    const activate = () => {
+    const activate = (syncBeach) => {
       const region = path.getAttribute("data-region") || "";
       const key = regionCityKey(region);
-      setWeatherFocus(key);
+      setWeatherFocus(key, { syncBeach: !!syncBeach });
       const wx = (wxCache || []).find((c) => regionCityKey(c.city) === key);
       if (tip) {
         tip.innerHTML = buildWeatherMapTip(region, wx);
@@ -1688,13 +1696,13 @@ async function loadWeatherMapSvg() {
       }
       host.classList.add("has-district-hover");
     };
-    path.addEventListener("mouseenter", activate);
-    path.addEventListener("focus", activate);
-    path.addEventListener("click", activate);
+    path.addEventListener("mouseenter", () => activate(false));
+    path.addEventListener("focus", () => activate(false));
+    path.addEventListener("click", () => activate(true));
     path.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        activate();
+        activate(true);
       }
     });
   });
@@ -1723,12 +1731,12 @@ function renderWeatherGrid(cities) {
     )
     .join("");
   grid.querySelectorAll(".weather-card").forEach((card) => {
-    card.addEventListener("click", () => setWeatherFocus(card.dataset.city || ""));
+    card.addEventListener("click", () => setWeatherFocus(card.dataset.city || "", { syncBeach: true }));
   });
   paintWeatherMap(cities);
   const first = cities[0]?.city;
   if (first && !$("weather-focus")?.querySelector(".weather-focus-card")) {
-    setWeatherFocus(first);
+    setWeatherFocus(first, { syncBeach: false });
   }
 }
 
@@ -1742,6 +1750,7 @@ async function renderWeather(force) {
   if (!force && isWeatherCacheFresh()) {
     renderWeatherGrid(wxCache);
     if (updated) updated.textContent = formatWeatherUpdated(wxCache);
+    renderBeachWeather(wxFocusRegion || null, false).catch((e) => console.warn("renderBeachWeather:", e));
     return;
   }
   if (wxLoading && !force) return;
@@ -1756,6 +1765,7 @@ async function renderWeather(force) {
     wxCacheAt = Date.now();
     if (updated) updated.textContent = formatWeatherUpdated(wxCache);
     renderWeatherGrid(wxCache);
+    await renderBeachWeather(wxFocusRegion || null, force);
   } catch (err) {
     console.warn("renderWeather:", err);
     wxCache = null;
@@ -1769,8 +1779,198 @@ async function renderWeather(force) {
     $("weather-retry")?.addEventListener("click", () => {
       renderWeather(true).catch((e) => console.warn("renderWeather retry:", e));
     });
+    renderBeachWeather(null, true).catch((e) => console.warn("renderBeachWeather:", e));
   } finally {
     wxLoading = false;
+  }
+}
+
+function getBeachCatalogRows() {
+  const synced =
+    typeof TOUR_BEACH_WEATHER !== "undefined" && Array.isArray(TOUR_BEACH_WEATHER?.beaches)
+      ? TOUR_BEACH_WEATHER.beaches
+      : [];
+  if (synced.length) return synced;
+  const featured =
+    typeof GANGWON_BEACHES !== "undefined" && Array.isArray(GANGWON_BEACHES?.featured)
+      ? GANGWON_BEACHES.featured
+      : [];
+  return featured.map((b) => ({ ...b, weather: null }));
+}
+
+function isCoastalRegion(region) {
+  const coastal =
+    (typeof GANGWON_BEACHES !== "undefined" && GANGWON_BEACHES.coastal_regions) ||
+    ["강릉시", "속초시", "양양군", "고성군", "동해시", "삼척시"];
+  const key = regionCityKey(region || "");
+  return coastal.some((r) => regionCityKey(r) === key);
+}
+
+function beachRowsForRegion(region) {
+  const rows = getBeachCatalogRows();
+  if (!region || !isCoastalRegion(region)) return rows;
+  const key = regionCityKey(region);
+  const filtered = rows.filter((b) => regionCityKey(b.region || "") === key);
+  return filtered.length ? filtered : rows;
+}
+
+function formatTideLine(tide) {
+  if (!Array.isArray(tide) || !tide.length) return "";
+  const first = tide.find((t) => t.time || t.level) || tide[0];
+  const code = first.code ? ` ${first.code}` : "";
+  if (first.time && first.level) return `조석 ${first.time} ${first.level}${code}`;
+  if (first.time) return `조석 ${first.time}${code}`;
+  return "";
+}
+
+function formatSunLine(sun) {
+  if (!sun || typeof sun !== "object") return "";
+  const rise = sun.sunrise || sun.raw?.sunrise || "";
+  const set = sun.sunset || sun.raw?.sunset || "";
+  if (rise && set) return `일출 ${rise} · 일몰 ${set}`;
+  if (rise) return `일출 ${rise}`;
+  if (set) return `일몰 ${set}`;
+  return "";
+}
+
+function mergeBeachLive(row, live) {
+  const kma = row.weather || null;
+  const meta = WEATHER_ICONS[live?.cond || kma?.cond || "cloudy"] || WEATHER_ICONS.cloudy;
+  const temp =
+    Number.isFinite(kma?.temp_c) ? Math.round(kma.temp_c) : Number.isFinite(live?.temp) ? live.temp : null;
+  const cond = kma?.cond || live?.cond || "cloudy";
+  const label = kma?.label || live?.label || meta.label;
+  const bits = [];
+  if (Number.isFinite(kma?.wind_ms)) bits.push(`바람 ${kma.wind_ms}m/s`);
+  if (Number.isFinite(kma?.wave_m)) bits.push(`파고 ${kma.wave_m}m`);
+  if (Number.isFinite(kma?.pop)) bits.push(`강수확률 ${Math.round(kma.pop)}%`);
+  const tide = formatTideLine(kma?.tide);
+  if (tide) bits.push(tide);
+  const sun = formatSunLine(kma?.sun);
+  if (sun) bits.push(sun);
+  if (!bits.length && live?.tip) bits.push(live.tip);
+  return {
+    ...row,
+    temp,
+    cond,
+    label,
+    icon: meta.icon,
+    bg: meta.bg,
+    metaBits: bits.slice(0, 3),
+    source: kma ? "kma" : "open-meteo",
+  };
+}
+
+async function fetchBeachOpenMeteo(rows) {
+  if (!rows.length) return [];
+  const chunks = [];
+  for (let i = 0; i < rows.length; i += WX_CHUNK_SIZE) {
+    chunks.push(rows.slice(i, i + WX_CHUNK_SIZE));
+  }
+  const parts = await Promise.all(
+    chunks.map(async (group) => {
+      const lats = group.map((b) => b.lat).join(",");
+      const lngs = group.map((b) => b.lng).join(",");
+      const url =
+        `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}` +
+        `&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min` +
+        `&timezone=Asia%2FSeoul&forecast_days=1`;
+      const payload = await fetchOpenMeteo(url);
+      const list = Array.isArray(payload) ? payload : [payload];
+      const ordered =
+        list.length === group.length
+          ? list
+          : [...list].sort((a, b) => (a.location_id ?? 0) - (b.location_id ?? 0));
+      return group.map((row, i) => mergeBeachLive(row, parseWeatherEntry(ordered[i])));
+    })
+  );
+  return parts.flat();
+}
+
+function beachCardHtml(b) {
+  const temp =
+    Number.isFinite(b.temp) ? `${b.temp}<span>°</span>` : `--<span>°</span>`;
+  const metas = (b.metaBits || [])
+    .map((x) => `<em>${esc(x)}</em>`)
+    .join("");
+  return (
+    `<button type="button" class="beach-card" data-beach="${esc(String(b.beach_num || b.name))}" data-region="${esc(b.region || "")}">` +
+    `<div class="beach-card-top">` +
+    `<strong>${esc(b.name || b.full_name || "해변")}</strong>` +
+    `<span class="beach-card-region">${esc(b.region || "동해안")}</span>` +
+    `</div>` +
+    `<div class="beach-card-temp" style="color:#0e7490">${temp}</div>` +
+    `<span class="weather-card-label">${esc(b.icon || "🌊")} ${esc(b.label || "해수욕장")}</span>` +
+    (metas ? `<div class="beach-card-meta">${metas}</div>` : "") +
+    `</button>`
+  );
+}
+
+function paintBeachGrid(rows) {
+  const grid = $("beach-grid");
+  const updated = $("beach-updated");
+  const sub = $("beach-board-sub");
+  if (!grid) return;
+  if (!rows.length) {
+    grid.innerHTML = `<div class="beach-empty">동해안 해수욕장 정보가 아직 없어요.</div>`;
+    if (updated) updated.textContent = "데이터 없음";
+    return;
+  }
+  grid.innerHTML = rows.map(beachCardHtml).join("");
+  grid.querySelectorAll(".beach-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const region = card.dataset.region || "";
+      if (region) setWeatherFocus(region, { syncBeach: true });
+      const name = card.querySelector("strong")?.textContent || "해수욕장";
+      show("explore");
+      submitAgentPrompt(`${name}(${region}) 동해안 날씨 맞는 여행 코스·옷차림 알려줘`);
+    });
+  });
+  const kmaOk = rows.some((r) => r.source === "kma");
+  if (updated) {
+    updated.textContent = kmaOk ? "기상청 연동" : "실시간 기온";
+  }
+  if (sub) {
+    const focus = wxFocusRegion && isCoastalRegion(wxFocusRegion) ? wxFocusRegion : "동해안";
+    sub.textContent = `${focus} 주요 해변 · 기상청 해수욕장 날씨 조회서비스`;
+  }
+}
+
+async function renderBeachWeather(region, force) {
+  const grid = $("beach-grid");
+  if (!grid) return;
+  const rows = beachRowsForRegion(region);
+  const cacheFresh =
+    beachWxCache &&
+    beachWxCacheAt &&
+    Date.now() - beachWxCacheAt < BEACH_TTL_MS &&
+    beachWxCache._regionKey === (region && isCoastalRegion(region) ? regionCityKey(region) : "all");
+  if (!force && cacheFresh) {
+    paintBeachGrid(beachWxCache.rows);
+    return;
+  }
+  grid.innerHTML = rows
+    .map(
+      (b) =>
+        `<button type="button" class="beach-card weather-skeleton" aria-hidden="true">` +
+        `<strong>${esc(b.name || "")}</strong>` +
+        `<div class="beach-card-temp">--°</div>` +
+        `</button>`
+    )
+    .join("");
+  try {
+    const live = await fetchBeachOpenMeteo(rows);
+    beachWxCache = {
+      _regionKey: region && isCoastalRegion(region) ? regionCityKey(region) : "all",
+      rows: live,
+    };
+    beachWxCacheAt = Date.now();
+    paintBeachGrid(live);
+  } catch (err) {
+    console.warn("renderBeachWeather:", err);
+    const fallback = rows.map((r) => mergeBeachLive(r, null));
+    paintBeachGrid(fallback);
+    if ($("beach-updated")) $("beach-updated").textContent = "일부만 표시";
   }
 }
 

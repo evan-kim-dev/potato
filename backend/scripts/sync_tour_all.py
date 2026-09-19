@@ -29,6 +29,10 @@ def main() -> int:
     if run("sync_tour_parallel_fetch.py") != 0:
         print("Warning: some KTO APIs failed; continuing with partial data.", file=sys.stderr)
 
+    # 기상청 해수욕장 날씨 (키 없으면 stub 유지)
+    if run("sync_beach_weather.py") != 0:
+        print("Warning: beach weather sync failed; continuing.", file=sys.stderr)
+
     return run("sync_content.py", "generate")
 
 

@@ -16,6 +16,7 @@
 | **지역별 관광 자원 수요** | `AreaTarResDemService` | 서비스·자원 **수요** |
 | *(제안서 추가 후보)* 무장애 여행 | OpenAPI | 배리어프리 코스 |
 | *(제안서 추가 후보)* 두루누비 | OpenAPI | 트레킹·걷기 코스 |
+| **기상청_전국 해수욕장 날씨 조회서비스** | `BeachInfoservice` | 동해안 **해수욕장** 초단기·단기·조석·일출일몰 |
 
 시·군구 코드: `한국관광공사_TourAPI_관광지_시군구_코드정보_v1.0.xlsx` → `backend/data/gangwon_sigungu_codes.json`  
 국문·생태 API용 **법정동·생태 시군구 코드**는 `sync_tour_ldong.py`가 API에서 조회해 같은 JSON에 병합합니다.
@@ -24,11 +25,22 @@
 
 TourAPI 키는 **GitHub Actions Secret** `TOUR_API_SERVICE_KEY`로만 설정합니다. 로컬 `.env`는 사용하지 않습니다.
 
+해수욕장 날씨는 같은 공공데이터포털 키로 **기상청_전국 해수욕장 날씨 조회서비스**를 활용신청하면 됩니다.  
+선택적으로 `KMA_BEACH_SERVICE_KEY`를 넣을 수 있고, 없으면 `TOUR_API_SERVICE_KEY`를 재사용합니다.
+
+신청: https://www.data.go.kr/data/15102239/openapi.do
+
 ## 한 번에 동기화
 
 ```bash
 python backend/scripts/sync_tour_all.py
 python backend/scripts/sync_content.py generate       # frontend/data.js 반영
+```
+
+해수욕장만:
+
+```bash
+python backend/scripts/sync_beach_weather.py
 ```
 
 > **Note:** 개별 API 스크립트(`sync_tour_hub.py` 등)는 제거되었습니다. 부분 재동기화가 필요하면 `sync_tour_parallel_fetch.py`를 참고하거나 `sync_tour_ldong.py`만 단독 실행하세요.
@@ -58,6 +70,8 @@ python backend/scripts/import_sigungu_codes.py
 | `backend/data/tour_kor_festivals.json` | `KorService2/searchFestival2` | 축제 탭·지역 툴팁 |
 | `backend/data/tour_eco_spots.json` | `GreenTourService1/areaBasedList1` | 지도 툴팁 **생태관광** |
 | `backend/data/tour_regional_insights.json` | 집중률+수요+다양성+자원+방문 매시업 | 지도 **혼잡·한산**·2안 분산 |
+| `backend/data/gangwon_beaches.json` | 날씨누리 `dataCode`(=`beach_num`) | 동해안 해수욕장 카탈로그 |
+| `backend/data/tour_beach_weather.json` | `BeachInfoservice` 초단기·단기·조석·일출 | 날씨 탭 **동해안 해수욕장** |
 | `backend/data/gangwon_sigungu_codes.json` | 엑셀 + `ldongCode2` + `areaCode1` | API 요청용 코드 |
 
 ## API 상세
