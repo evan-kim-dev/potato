@@ -18,11 +18,11 @@ function insightLabel(src) {
 }
 
 const AGENT_WELCOME =
-  "안녕하세요! 저는 **강원도 관광 전문 AI 가이드**예요.\n\n" +
-  "강원도 여행·맛집·축제·동선을 한국관광공사(KTO) 공식 데이터를 바탕으로 안내해 드려요. " +
-  "목적지 일정을 요청하시면 **1안(목적지 집중)** 과 **2안(인구감소지역 경유·상생 코스)** 두 가지를 제안해요. " +
-  "「춘천시 소개해줘」「강릉 바다 코스」처럼 시·군·테마 질문도 환영해요. " +
-  "강원도 밖 지역은 안내하지 않으며, 궁금한 것을 편하게 물어보세요.";
+  "안녕하세요! 저는 **강원 온도 AI**예요.\n\n" +
+  "강원은 **자연·휴양**의 매력이 크지만, **교통·접근·인프라**가 약해 가기 어려운 곳도 많아요. " +
+  "그래서 저는 한국관광공사(KTO) 데이터로 일정을 짜되, **출발지→거점→명소** 동선과 이동 안내를 함께 드려요.\n\n" +
+  "목적지 일정을 요청하시면 **1안(자연·휴양 집중)** 과 **2안(접근·상생 경유)** 두 가지를 제안해요. " +
+  "「서울에서 KTX로 강릉 1박2일」「속초 바다 코스」처럼 출발·교통·기간을 넣어 주세요.";
 
 const P = typeof TOUR_PROMPTS !== "undefined" ? TOUR_PROMPTS : {};
 const ROUTING = P.routing || {};
@@ -2522,6 +2522,100 @@ function pickOutboundHint(data) {
   return parts.join(" · ");
 }
 
+/** 강원 접근 공백을 메우는 안내 — 거점·환승·인프라 */
+function buildAccessGuide(meta, steps, prompt) {
+  const intent = meta.tripIntent || {};
+  const dest =
+    intent.destination ||
+    intent.mainDestination ||
+    pickMainDestination(prompt) ||
+    regionsInPrompt(prompt)[0] ||
+    "";
+  const originText = intent.origin || detectOrigin(prompt) || "";
+  const originHit = originText ? resolveOriginEntry(originText) : null;
+  const transitArea = intent.transitArea || resolveTransitArea(dest) || "";
+  const tips = [];
+
+  if (originHit) {
+    const hub = originHit.data.hub || originHit.label;
+    const outbound = meta.transitPlan?.outbound || pickOutboundHint(originHit.data);
+    tips.push({
+      title: "수도권·출발지 → 강원 거점",
+      body: outbound
+        ? `${originHit.label}에서 ${outbound}`
+        : `${originHit.label} 허브(${hub})를 거쳐 강원으로 이동하세요.`,
+    });
+  } else if (originText) {
+    tips.push({
+      title: "출발지 확인",
+      body: `출발지 「${originText}」 기준으로 첫 정류장까지의 이동을 일정에 반영했어요.`,
+    });
+  }
+
+  if (dest) {
+    const short = regionShortName(dest);
+    const hubs = ["강릉", "속초", "춘천", "원주", "동해"];
+    const isHub = hubs.some((h) => short.includes(h) || dest.includes(h));
+    tips.push({
+      title: isHub ? "거점 도시 활용" : "거점 → 자연 명소",
+      body: isHub
+        ? `${short}은 접근이 비교적 나은 거점이에요. 숙소·식사를 여기에 두고 바다·산 명소는 당일 왕복으로 묶으면 인프라 부담이 줄어요.`
+        : `${short}은 외진 구간이 있을 수 있어요. 가까운 거점(춘천·원주·강릉·속초 등)에서 숙박·환승한 뒤 당일 방문하는 편이 안전해요.`,
+    });
+  }
+
+  if (transitArea && transitArea !== dest) {
+    tips.push({
+      title: "접근·상생 경유",
+      body: `${regionShortName(transitArea)}을(를) 경유하면 인구감소 지역의 숨은 자연을 지나며 메인 목적지까지 이어져요. 이동 시간은 타임라인·지도를 확인하세요.`,
+    });
+  }
+
+  const tourists = itinerarySteps(steps);
+  const infraNotes = [];
+  for (const s of tourists.slice(0, 6)) {
+    const parking = String(s.spot?.parking || "");
+    const fee = String(s.spot?.fee || "");
+    if (/불가|없음|협소|어려/.test(parking)) {
+      infraNotes.push(`${s.spot.name}: 주차 ${parking}`);
+    } else if (/무료/.test(fee) || fee === "0" || fee === "-") {
+      /* skip noise */
+    }
+  }
+  if (infraNotes.length) {
+    tips.push({
+      title: "현장 인프라 체크",
+      body: infraNotes.slice(0, 3).join(" · "),
+    });
+  } else if (tourists.length) {
+    tips.push({
+      title: "현장 팁",
+      body: "산간·해안 구간은 대중교통 간격이 넓을 수 있어요. 카드에 표시된 운영시간·주차를 출발 전에 한 번 더 확인하세요.",
+    });
+  }
+
+  return tips;
+}
+
+function enrichTransitPlan(meta, prompt) {
+  const plan = { ...(meta.transitPlan || {}) };
+  const intent = meta.tripIntent || {};
+  const originText = intent.origin || detectOrigin(prompt) || "";
+  const hit = originText ? resolveOriginEntry(originText) : null;
+  if (hit) {
+    if (!plan.outbound) plan.outbound = pickOutboundHint(hit.data);
+    if (!plan.local_transit) {
+      plan.local_transit =
+        "거점 시내(역·터미널 인근)에서 숙소·식사를 잡고, 자연 명소는 택시·렌트·시외버스로 당일 왕복하는 구성을 권장해요.";
+    }
+    if (!plan.return) {
+      plan.return = `복귀는 ${hit.label} 방향 허브(${hit.data.hub || hit.label})로 돌아와 환승하세요.`;
+    }
+  }
+  return plan;
+}
+
+
 function buildDestinationStep(hub, transport, inbound) {
   const coords = hub.coords;
   return {
@@ -3364,7 +3458,7 @@ function parseTwoTrackCuration(parsed, prompt) {
   if (opt1Raw.days?.length || opt1Raw.itinerary || steps1.length) {
     courseOptions.push({
       key: "option_1",
-      title: opt1Raw.title || (main ? `1안: ${regionShortName(main)} 알짜배기 집중 코스` : "1안: 목적지 집중 코스"),
+      title: opt1Raw.title || (main ? `1안: ${regionShortName(main)} 자연·휴양 집중 코스` : "1안: 자연·휴양 집중 코스"),
       summary: "",
       steps: steps1,
       days: opt1Raw.days || [],
@@ -3376,7 +3470,7 @@ function parseTwoTrackCuration(parsed, prompt) {
       key: "option_2",
       title:
         opt2Raw.title ||
-        (transit ? `2안: ${regionShortName(transit)} 상생 하이브리드 코스` : "2안: 지역 상생 하이브리드 코스"),
+        (transit ? `2안: ${regionShortName(transit)} 경유 · 접근·상생 연결` : "2안: 접근·상생 연결 코스"),
       summary: opt2Raw.storytelling || "",
       steps: steps2,
       days: opt2Raw.days || [],
@@ -3708,6 +3802,7 @@ function switchCourseOption(key) {
   state.meta.activeCourseOption = key;
   state.meta.title = picked.title;
   state.meta.dayPlans = picked.dayPlans || [];
+  state.meta.transitPlan = enrichTransitPlan(state.meta, state.query || "");
   if (picked.summary && state.meta.courseOptions.length > 1) {
     state.meta.summary = `${state.meta._intro || state.meta.summary}\n\n${picked.summary}`.trim();
   }
@@ -3738,31 +3833,35 @@ function applyCurationResult(prompt, result, opts = {}) {
   }
   if (!result.steps?.length) return;
   state.query = prompt;
+  const tripIntent = enrichTripIntent(
+    {
+      ...(result.tripIntent || {}),
+      mainDestination:
+        result.tripIntent?.mainDestination ||
+        pickMainDestination(prompt) ||
+        regionsInPrompt(prompt)[0] ||
+        "",
+      destination:
+        result.tripIntent?.destination ||
+        result.tripIntent?.mainDestination ||
+        pickMainDestination(prompt) ||
+        regionsInPrompt(prompt)[0] ||
+        "",
+      origin: result.tripIntent?.origin || detectOrigin(prompt) || "",
+    },
+    prompt
+  );
   state.meta = {
     title: result.title,
     summary: result.summary,
     _intro: result.summary,
     duration: result.duration,
     source: result.source || "gemini",
-    tripIntent: enrichTripIntent(
-      {
-        ...(result.tripIntent || {}),
-        mainDestination:
-          result.tripIntent?.mainDestination ||
-          pickMainDestination(prompt) ||
-          regionsInPrompt(prompt)[0] ||
-          "",
-        destination:
-          result.tripIntent?.destination ||
-          result.tripIntent?.mainDestination ||
-          pickMainDestination(prompt) ||
-          regionsInPrompt(prompt)[0] ||
-          "",
-        origin: result.tripIntent?.origin || detectOrigin(prompt) || "",
-      },
+    tripIntent,
+    transitPlan: enrichTransitPlan(
+      { transitPlan: result.transitPlan || {}, tripIntent },
       prompt
     ),
-    transitPlan: result.transitPlan || {},
     accommodation: result.accommodation || {},
     dayPlans: result.dayPlans || [],
     courseOptions: result.courseOptions || [],
@@ -4172,10 +4271,12 @@ function renderTripPlan(meta) {
   const transit = meta.transitPlan || {};
   const lodge = meta.accommodation || {};
   const days = meta.dayPlans || [];
+  const accessTips = buildAccessGuide(meta, state.steps, state.query || "");
   const hasIntent = intent.origin || intent.destination || intent.mainDestination || intent.transport || intent.duration || intent.companion || (intent.themes || []).length;
   const hasTransit = transit.outbound || transit.return || transit.local_transit;
   const hasLodge = lodge.area || lodge.type || lodge.note;
-  if (!hasIntent && !hasTransit && !hasLodge && !days.length) {
+  const hasAccess = accessTips.length > 0;
+  if (!hasIntent && !hasTransit && !hasLodge && !days.length && !hasAccess) {
     el.classList.add("hidden");
     el.innerHTML = "";
     return;
@@ -4192,6 +4293,13 @@ function renderTripPlan(meta) {
     if (intent.companion) chips.push(`<span><b>동행</b>${esc(intent.companion)}</span>`);
     if ((intent.themes || []).length) chips.push(`<span><b>테마</b>${esc(intent.themes.join(", "))}</span>`);
     html += `<div class="trip-row">${chips.join("")}</div>`;
+  }
+  if (hasAccess) {
+    html += `<div class="trip-block access-guide"><b>🧭 접근·인프라 가이드</b><ul class="access-guide-list">`;
+    accessTips.forEach((t) => {
+      html += `<li><b>${esc(t.title)}</b> ${esc(t.body)}</li>`;
+    });
+    html += `</ul></div>`;
   }
   if (hasTransit) {
     html += `<div class="trip-block"><b>🚆 이동 경로</b><ul>`;

@@ -18,12 +18,12 @@
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="referrer" content="origin" />
-  <title>강원 온도(ON道) · 강원 AI 여행 큐레이터</title>
-  <meta name="description" content="강원 온도(ON道) — 강원도 맞춤 여행 코스, AI 일정·지도·날씨·축제를 한곳에서." />
+  <title>강원 온도(ON道) · 자연은 가깝게, 길은 더 쉽게</title>
+  <meta name="description" content="강원 온도(ON道) — 자연·휴양 매력은 살리고, 교통·접근·인프라 공백은 거점 동선과 KTO 데이터로 메우는 강원 AI 여행 플래너." />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="stylesheet" href="style.css?v=11" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
   <link rel="apple-touch-icon" href="assets/mascot-icon.png" />
 </head>
@@ -104,14 +104,14 @@
             <span class="chat-dot"></span>
             <div class="chat-shell-title">
               <strong>강원 온도 AI</strong>
-              <span>맞춤 코스 · KTO TourAPI 실시간</span>
+              <span>자연·휴양 + 접근 동선 · KTO 실시간</span>
             </div>
           </div>
           <div class="chat-body" id="agent-messages" role="log" aria-live="polite"></div>
           <div class="chat-footer">
             <form class="chat-input-bar" id="agent-form">
               <div class="chat-input-inner">
-                <textarea id="agent-input" rows="1" placeholder="메시지를 입력하세요…" autocomplete="off"></textarea>
+                <textarea id="agent-input" rows="1" placeholder="예: 서울에서 KTX로 강릉 1박2일, 바다·휴양 위주로…" autocomplete="off"></textarea>
                 <button class="chat-send-btn" id="agent-send" type="submit" aria-label="전송">
                   <span id="agent-send-label">↑</span>
                   <span class="spinner" id="agent-spin"></span>
@@ -144,31 +144,39 @@
         <div class="page-head">
           <div>
             <h1><span class="page-logo vico vico-info" data-vico="info"></span> 서비스 소개</h1>
-            <p>온도의 기획 의도와 기술적 원리를 감성적으로 풀어낸 메인 소개글입니다.</p>
+            <p>강원의 자연·휴양 가치를 살리고, 교통·접근·인프라 공백을 동선으로 메웁니다.</p>
           </div>
           <span class="chip">소개</span>
         </div>
 
         <section class="about-story" aria-labelledby="about-story-title">
-          <h2 class="about-section-title" id="about-story-title">켜지는 지도, 이어지는 발걸음</h2>
+          <h2 class="about-section-title" id="about-story-title">풍부한 자연, 끊어진 길</h2>
           <div class="about-hero">
             <p class="about-lead">
-              인구 감소로 인해 멈춰버린 버스, 닿지 않는 발길. 점차 차갑게 식어가는 지역들에 우리는 어떻게 다시 생기를 불어넣을 수 있을까요?
+              강원도는 바다·산·온천·휴양의 보고입니다. 그런데 정작 가려면
+              <strong>교통이 멀고, 환승이 어렵고, 외진 곳의 인프라가 부족</strong>한 경우가 많아요.
+              매력은 있는데 발길이 닿지 않는 곳 — 그 간극이 지역을 차갑게 만듭니다.
             </p>
             <p class="about-lead">
-              <strong>강원 온도</strong>는 이 질문에서 출발했습니다.
-              소외된 지역에 사람의 온기를 다시 채워 넣겠다는 따뜻한 포부를 바탕으로, 우리는 기술이 만들어낼 수 있는 가장 다정한 변화를 꿈꿉니다.
+              <strong>강원 온도</strong>는 그 간극을 메우기 위해 만들어졌습니다.
+              KTO 공식 관광 데이터로 <em>어디가 좋은지</em>를 알려 주고,
+              출발지·거점·경로 계산으로 <em>어떻게 가는지</em>까지 함께 안내합니다.
             </p>
           </div>
 
-          <h2 class="about-section-title">지도를 ON 하는 순간, 강원도의 길(道)이 깨어납니다</h2>
+          <h2 class="about-section-title">우리가 푸는 방식</h2>
           <div class="about-block">
             <p>
-              온도는 단순한 지도가 아닙니다. 사용자가 인터랙티브 맵의 스위치를 켜는 순간, 보이지 않던 교통 취약점들이 드러납니다.
-              AI 기술과 데이터 분석을 통해 강원도 구석구석의 끊어진 길들을 실시간으로 파악하고, 가장 최적화된 새로운 연결망을 제안합니다.
+              <strong>1안 · 자연·휴양 집중</strong> — 목적지 알짜 명소로 휴식과 풍경을 채웁니다.<br/>
+              <strong>2안 · 접근·상생 연결</strong> — 인구감소·접근 취약 지역을 경유해, 거점 도시와 숨은 자연을 이어 줍니다.
+            </p>
+            <p>
+              수도권 출발이면 KTX·고속버스 허브를 먼저 잡고, 산간·해안 명소는
+              <strong>당일 왕복 가능한 거리</strong>로 묶습니다. 주차·운영시간 같은 현장 정보도 일정에 녹여
+              “가고 싶은데 막막한” 여행을 “갈 수 있는” 여행으로 바꿉니다.
             </p>
             <p class="about-closing">
-              차가운 데이터에 숨결을 불어넣어, 도민들의 일상을 더 따뜻하게 연결하겠습니다.
+              차가운 데이터에 온기를 불어넣어, 강원의 길(道)을 다시 연결하겠습니다.
             </p>
           </div>
         </section>
@@ -389,8 +397,8 @@
 
   <script src="config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="data.js?v=6"></script>
+  <script src="data.js?v=7"></script>
   <script src="icons.js?v=1"></script>
-  <script src="app.js?v=24"></script>
+  <script src="app.js?v=25"></script>
 </body>
 </html>
