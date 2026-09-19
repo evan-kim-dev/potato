@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css?v=12" />
+  <link rel="stylesheet" href="style.css?v=13" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
   <link rel="apple-touch-icon" href="assets/mascot-icon.png" />
 </head>
@@ -104,7 +104,7 @@
             <span class="chat-dot"></span>
             <div class="chat-shell-title">
               <strong>강원 온도 AI</strong>
-              <span>자연·휴양 + 접근 동선 · KTO 실시간</span>
+              <span>인구감소 지역 숨은 명소 · 혼잡 분산 · 로컬 혜택</span>
             </div>
           </div>
           <div class="chat-body" id="agent-messages" role="log" aria-live="polite"></div>
@@ -125,7 +125,7 @@
             </div>
             <form class="chat-input-bar" id="agent-form">
               <div class="chat-input-inner">
-                <textarea id="agent-input" rows="1" placeholder="예: 서울에서 KTX로 강릉 1박2일, 바다·휴양 위주로…" autocomplete="off"></textarea>
+                <textarea id="agent-input" rows="1" placeholder="예: 영월·정선 1박2일, 조용한 숲길·알뜰…" autocomplete="off"></textarea>
                 <button class="chat-send-btn" id="agent-send" type="submit" aria-label="전송">
                   <span id="agent-send-label">↑</span>
                   <span class="spinner" id="agent-spin"></span>
@@ -134,6 +134,20 @@
             </form>
           </div>
         </div>
+
+        <section class="quiet-gems" id="quiet-gems" aria-labelledby="quiet-gems-title">
+          <div class="quiet-gems-head">
+            <h2 id="quiet-gems-title">이번 주 핫하지 않은 명소</h2>
+            <p>인구감소·한산 권역의 숨은 코스 · MVP 타겟 영월·정선</p>
+          </div>
+          <div class="quiet-gems-rail" id="quiet-gems-rail"></div>
+          <aside class="local-benefit-banner" id="local-benefit-banner">
+            <strong>로컬 상생 혜택</strong>
+            <span>영월·정선 등 소외 지역 방문 확정 시 디지털 관광주민증·강원상품권 안내를 일정에 붙여 드려요.</span>
+            <a href="https://www.tour.go.kr/" target="_blank" rel="noopener">관광주민증</a>
+            <a href="https://www.gwgs.kr.kr.kr/" target="_blank" rel="noopener">강원상품권</a>
+          </aside>
+        </section>
       </div>
     </main>
 
@@ -187,6 +201,13 @@
               <strong>로컬 경제 혜택</strong> — 인구감소 지역 방문 시
               디지털 관광주민증·강원상품권(지역화폐) 안내를 붙여 실제 방문·소비를 유도합니다.
             </p>
+          </div>
+
+          <h2 class="about-section-title">발전 방향 (제안서)</h2>
+          <div class="about-block">
+            <p><strong>Phase 1 MVP</strong> — 영월·정선 등 핵심 인구감소 지역 타겟, AI 큐레이션 + GIS 시각화.</p>
+            <p><strong>Phase 2</strong> — 지자체 B2G: 이동·지역화폐 전환 데이터로 리워드 선순환.</p>
+            <p><strong>Phase 3</strong> — 경북·전남·충남 등 전국 로컬 관광 특화 플랫폼으로 확장.</p>
           </div>
 
           <h2 class="about-section-title">차별성</h2>
@@ -419,8 +440,8 @@
 
   <script src="config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="data.js?v=8"></script>
+  <script src="data.js?v=9"></script>
   <script src="icons.js?v=1"></script>
-  <script src="app.js?v=26"></script>
+  <script src="app.js?v=27"></script>
 </body>
 </html>

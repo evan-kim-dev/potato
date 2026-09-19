@@ -3393,6 +3393,107 @@ body.mode-planner .planner-grid {
   margin: 0.55rem 0;
 }
 
+/* —— Quiet gems (proposal: 핫하지 않은 명소) —— */
+.quiet-gems {
+  margin: 0.85rem 0 0;
+  padding: 0.85rem 0.9rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 106, 97, 0.12);
+  backdrop-filter: blur(10px);
+}
+.quiet-gems-head h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+.quiet-gems-head p {
+  margin: 0.2rem 0 0.65rem;
+  font-size: 0.8rem;
+  color: #5a6a68;
+}
+.quiet-gems-rail {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.quiet-gem-card {
+  flex: 0 0 168px;
+  scroll-snap-align: start;
+  text-align: left;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  background: #f7faf9;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.quiet-gem-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 60, 50, 0.1);
+}
+.quiet-gem-media {
+  height: 96px;
+  background: linear-gradient(135deg, #d7ebe4, #eef5f2);
+}
+.quiet-gem-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.quiet-gem-ph {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #cfe8df, #e8f3ef);
+}
+.quiet-gem-body {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.55rem 0.6rem 0.65rem;
+}
+.quiet-gem-region {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #1f6f5c;
+}
+.quiet-gem-body strong {
+  font-size: 0.86rem;
+  line-height: 1.25;
+}
+.quiet-gem-theme {
+  font-size: 0.7rem;
+  color: #667;
+}
+.quiet-gems-empty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #667;
+}
+.local-benefit-banner {
+  margin-top: 0.75rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  background: linear-gradient(120deg, rgba(0, 106, 97, 0.1), rgba(47, 143, 120, 0.08));
+  border: 1px solid rgba(0, 106, 97, 0.16);
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+.local-benefit-banner strong {
+  font-size: 0.86rem;
+}
+.local-benefit-banner a {
+  color: #006a61;
+  font-weight: 700;
+  margin-right: 0.65rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

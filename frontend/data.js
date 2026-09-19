@@ -975,12 +975,12 @@ const TOUR_REGIONAL_INSIGHTS = {
           "reason": "인구감소·한산 인접"
         },
         {
-          "region": "강릉시",
+          "region": "삼척시",
           "level": "unknown",
           "reason": "인접 한산 권역"
         },
         {
-          "region": "삼척시",
+          "region": "강릉시",
           "level": "unknown",
           "reason": "인접 한산 권역"
         }

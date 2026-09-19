@@ -1531,6 +1531,8 @@ def _pick_dispersion_targets(
         lvl = levels.get(nb, "unknown")
         rank = {"low": 0, "mid": 1, "unknown": 2, "high": 3}.get(lvl, 2)
         bonus = -1 if nb in POPULATION_DECLINE_REGIONS else 0
+        if nb in ("영월군", "정선군", "태백시", "삼척시"):
+            bonus -= 1
         scored.append((rank + bonus, nb))
     scored.sort()
     out: list[dict[str, str]] = []

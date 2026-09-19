@@ -18,10 +18,14 @@ function insightLabel(src) {
 }
 
 const AGENT_WELCOME =
-  "안녕하세요! 저는 **강원 온도 AI**예요.\n\n" +
-  "기안서처럼 **인구감소 지역의 숨은 명소**를 발굴하고, 취향(테마·동반·예산)에 맞춘 코스를 제안해요. " +
-  "지도의 혼잡·한산 신호를 보고 **덜 붐비는 인접 지역으로 분산**하는 **2안**도 함께 드려요.\n\n" +
-  "아래에 취향을 고르거나 「서울에서 KTX로 강릉 1박2일, 바다·알뜰」처럼 적어 주세요.";
+  "안녕하세요! 저는 **강원 온도 AI**예요. (팀 · 샤이한 열정 감자들)\n\n" +
+  "공모 제안서처럼 **인구감소 지역의 숨은 명소(블루오션)** 를 우선하고, " +
+  "취향(테마·동반·예산)을 TourAPI 분류(cat)와 맞춰 코스를 짜요. " +
+  "지도의 혼잡 신호로 **덜 붐비는 인접 지역으로 분산**하는 2안과, " +
+  "**디지털 관광주민증·강원상품권** 안내도 함께 드려요.\n\n" +
+  "MVP 타겟은 **영월·정선**이에요. 아래 취향을 고르거나 「영월 1박2일, 조용한 숲길」처럼 적어 주세요.";
+
+const MVP_PRIORITY_REGIONS = ["영월군", "정선군", "태백시", "삼척시"];
 
 const P = typeof TOUR_PROMPTS !== "undefined" ? TOUR_PROMPTS : {};
 const ROUTING = P.routing || {};
@@ -58,6 +62,8 @@ function congestionLevel(region) {
 function pickQuieterTransit(mainRegion) {
   const insight = regionInsight(mainRegion);
   const targets = insight?.dispersion_targets || [];
+  const mvp = targets.find((t) => MVP_PRIORITY_REGIONS.includes(t.region));
+  if (mvp?.region) return mvp.region;
   const low = targets.find((t) => t.level === "low") || targets[0];
   if (low?.region) return low.region;
   return null;
@@ -1072,6 +1078,82 @@ function initPreferenceBar() {
         el.classList.toggle("on", !same && el.dataset.prefId === id);
       });
     }
+  });
+}
+
+function collectQuietGemSpots(limit = 8) {
+  const agg =
+    typeof TOUR_AGGREGATED_SPOTS !== "undefined" ? TOUR_AGGREGATED_SPOTS?.regions || {} : {};
+  const rows = [];
+  const prefer = [
+    ...MVP_PRIORITY_REGIONS,
+    ...POPULATION_DECLINE_REGIONS.filter((r) => !MVP_PRIORITY_REGIONS.includes(r)),
+  ];
+  for (const region of prefer) {
+    const level = congestionLevel(region);
+    if (level === "high") continue;
+    const spots = agg[region] || collectKtoCatalogEntries(region);
+    for (const s of spots.slice(0, 3)) {
+      rows.push({
+        name: s.name,
+        region,
+        theme: s.categoryLabel || s.theme || "",
+        image: s.imageUrl || "",
+        level,
+        rank: s.rank ?? 999,
+      });
+    }
+  }
+  rows.sort((a, b) => {
+    const pa = MVP_PRIORITY_REGIONS.includes(a.region) ? 0 : 1;
+    const pb = MVP_PRIORITY_REGIONS.includes(b.region) ? 0 : 1;
+    if (pa !== pb) return pa - pb;
+    const la = { low: 0, unknown: 1, mid: 2, high: 3 }[a.level] ?? 2;
+    const lb = { low: 0, unknown: 1, mid: 2, high: 3 }[b.level] ?? 2;
+    if (la !== lb) return la - lb;
+    return (a.rank || 999) - (b.rank || 999);
+  });
+  const seen = new Set();
+  const out = [];
+  for (const r of rows) {
+    const key = `${r.region}:${r.name}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(r);
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+function renderQuietGems() {
+  const rail = $("quiet-gems-rail");
+  if (!rail) return;
+  const gems = collectQuietGemSpots(8);
+  if (!gems.length) {
+    rail.innerHTML = `<p class="quiet-gems-empty">한산 권역 큐레이션을 준비 중이에요. AI에게 영월·정선 코스를 물어보세요.</p>`;
+    return;
+  }
+  rail.innerHTML = gems
+    .map((g) => {
+      const prompt = `${regionShortName(g.region)} ${g.name} 근처 조용한 1박2일 코스 짜줘`;
+      const img = g.image
+        ? `<img src="${esc(g.image)}" alt="" loading="lazy" decoding="async" />`
+        : `<span class="quiet-gem-ph" aria-hidden="true"></span>`;
+      return (
+        `<button type="button" class="quiet-gem-card" data-quiet-prompt="${esc(prompt)}">` +
+        `<div class="quiet-gem-media">${img}</div>` +
+        `<div class="quiet-gem-body">` +
+        `<span class="quiet-gem-region">${esc(regionShortName(g.region))} · ${esc(g.level === "low" ? "한산" : "여유")}</span>` +
+        `<strong>${esc(g.name)}</strong>` +
+        (g.theme ? `<span class="quiet-gem-theme">${esc(g.theme)}</span>` : "") +
+        `</div></button>`
+      );
+    })
+    .join("");
+  rail.querySelectorAll("[data-quiet-prompt]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      submitAgentPrompt(btn.getAttribute("data-quiet-prompt") || "");
+    });
   });
 }
 
@@ -7068,6 +7150,7 @@ function init() {
     });
     initImageFallback();
     initPreferenceBar();
+    renderQuietGems();
     initSpots();
     initCommunity();
     initTrips();

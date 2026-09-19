@@ -14,6 +14,8 @@
 | **지역별 관광 수요 강도** | `AreaTarDemDsService` | 체류·수요 **강도** |
 | **지역별 관광 다양성** | `AreaTarDivService` | 관광객·국제 **다양성** |
 | **지역별 관광 자원 수요** | `AreaTarResDemService` | 서비스·자원 **수요** |
+| *(제안서 추가 후보)* 무장애 여행 | OpenAPI | 배리어프리 코스 |
+| *(제안서 추가 후보)* 두루누비 | OpenAPI | 트레킹·걷기 코스 |
 
 시·군구 코드: `한국관광공사_TourAPI_관광지_시군구_코드정보_v1.0.xlsx` → `backend/data/gangwon_sigungu_codes.json`  
 국문·생태 API용 **법정동·생태 시군구 코드**는 `sync_tour_ldong.py`가 API에서 조회해 같은 JSON에 병합합니다.
