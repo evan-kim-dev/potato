@@ -12,7 +12,7 @@ This project is **GitHub Pages only**. Do not set up or rely on local preview.
 1. Run `python scripts/sync_content.py generate` only when `data/*.json` changed (CI also runs this).
 2. **Always commit and push to `main`** — deployment is triggered by GitHub Actions (`Deploy GitHub Pages`).
 3. Do **not** run `python -m http.server`, local `docs/config.js`, or `.env` for verification.
-4. Verify on https://rlarlgns-evan.github.io/potato/ after Actions succeeds (hard refresh).
+4. Verify on https://evan-kim-dev.github.io/potato/ after Actions succeeds (hard refresh).
 
 ## Secrets & config
 
