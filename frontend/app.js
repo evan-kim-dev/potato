@@ -60,6 +60,13 @@ function congestionLevel(region) {
   return regionInsight(region)?.congestion_level || "unknown";
 }
 
+function congestionLabel(level) {
+  if (level === "high") return "혼잡";
+  if (level === "mid") return "여유";
+  if (level === "low") return "한산";
+  return "준비 중";
+}
+
 function pickQuieterTransit(mainRegion) {
   const insight = regionInsight(mainRegion);
   const targets = insight?.dispersion_targets || [];
@@ -6105,7 +6112,7 @@ function buildLandingRegionTipHtml(region) {
     : "";
 
   const congHtml = insight
-    ? `<span class="landing-region-tip-meta-item cong-${esc(insight.congestion_level || "unknown")}"><span class="landing-region-tip-label">혼잡</span> ${esc(insight.label || insight.congestion_level)}</span>`
+    ? `<span class="landing-region-tip-meta-item cong-${esc(insight.congestion_level || "unknown")}"><span class="landing-region-tip-label">혼잡</span> ${esc(congestionLabel(insight.congestion_level))}</span>`
     : "";
 
   const metaHtml =
@@ -6328,17 +6335,20 @@ function setupLandingMapFocus(host) {
 }
 
 function ensureCongestionLegend() {
-  const frame = document.querySelector(".landing-map-frame");
-  if (!frame || frame.querySelector(".cong-legend")) return;
-  const legend = document.createElement("div");
-  legend.className = "cong-legend";
-  legend.setAttribute("aria-label", "혼잡도 범례");
+  const stage = $("landing-map") || document.querySelector(".landing-map-stage");
+  if (!stage) return;
+  let legend = stage.querySelector(".cong-legend");
+  if (!legend) {
+    legend = document.createElement("div");
+    legend.className = "cong-legend";
+    legend.setAttribute("aria-label", "혼잡도 범례");
+    stage.appendChild(legend);
+  }
   legend.innerHTML =
-    `<span class="cong-legend-title">혼잡·분산</span>` +
+    `<span class="cong-legend-title">지도 상태</span>` +
     `<span class="cong-dot high">혼잡</span>` +
-    `<span class="cong-dot mid">보통</span>` +
+    `<span class="cong-dot mid">여유</span>` +
     `<span class="cong-dot low">한산</span>`;
-  frame.appendChild(legend);
 }
 
 function hideLandingRegionTip() {
