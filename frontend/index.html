@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css?v=15" />
+  <link rel="stylesheet" href="style.css?v=16" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
   <link rel="apple-touch-icon" href="assets/mascot-icon.png" />
 </head>
@@ -256,14 +256,34 @@
         <div class="page-head">
           <div>
             <h1><span class="page-logo vico vico-weather" data-vico="weather"></span> 강원 날씨</h1>
-            <p>강원도 <strong>18</strong>개 시·군 전역 · 실시간 기온·일교차·여행 팁</p>
+            <p>지도에서 시·군을 고르면 기온·날씨가 한눈에 · <strong>18</strong>개 전역</p>
           </div>
           <div class="weather-head-actions">
             <span class="chip" id="weather-updated">불러오는 중…</span>
             <button type="button" class="btn-secondary weather-refresh" id="weather-refresh" title="날씨 새로고침">↻</button>
           </div>
         </div>
-        <div class="weather-grid" id="weather-grid" aria-live="polite"></div>
+
+        <div class="weather-board">
+          <div class="weather-map-panel">
+            <div class="weather-map-stage" id="weather-map-stage">
+              <div id="weather-map-svg" class="weather-map-art" aria-label="강원도 날씨 지도"></div>
+              <div class="weather-map-tip hidden" id="weather-map-tip" aria-live="polite"></div>
+              <div class="weather-temp-legend" aria-hidden="true">
+                <span class="wtl cold">낮음</span>
+                <span class="wtl-bar"></span>
+                <span class="wtl warm">높음</span>
+              </div>
+            </div>
+          </div>
+          <aside class="weather-side">
+            <div class="weather-focus" id="weather-focus">
+              <p class="weather-focus-hint">지도에서 시·군을 눌러 상세를 보세요.</p>
+            </div>
+            <div class="weather-grid" id="weather-grid" aria-live="polite"></div>
+          </aside>
+        </div>
+
         <p class="weather-foot">
           데이터: Open-Meteo ·
           <button type="button" class="weather-ai-link" data-ai-prompt="강원도 여행 날씨·옷차림·준비물 팁 알려줘">✦ AI에게 옷차림·준비물 물어보기</button>

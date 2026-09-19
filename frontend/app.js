@@ -1537,14 +1537,174 @@ async function fetchAllGangwonWeather() {
 function weatherSkeletonHtml() {
   return GANGWON_CITIES.map(
     (c) =>
-      `<article class="weather-card weather-skeleton" aria-hidden="true">` +
-      `<div class="weather-card-icon"></div>` +
-      `<div class="weather-card-body">` +
-      `<h3>${esc(c.city)}</h3>` +
-      `<p class="weather-card-temp">--°</p>` +
-      `<p class="weather-card-label">불러오는 중…</p>` +
-      `</div></article>`
+      `<button type="button" class="weather-card weather-skeleton" aria-hidden="true">` +
+      `<span class="weather-card-icon"></span>` +
+      `<span class="weather-card-body">` +
+      `<strong>${esc(c.city)}</strong>` +
+      `<span class="weather-card-temp">--°</span>` +
+      `</span></button>`
   ).join("");
+}
+
+function weatherByCityKey(cities) {
+  const map = new Map();
+  (cities || []).forEach((c) => map.set(regionCityKey(c.city), c));
+  return map;
+}
+
+function weatherTempBand(temp) {
+  if (!Number.isFinite(temp)) return "unknown";
+  if (temp <= 0) return "t0";
+  if (temp <= 8) return "t1";
+  if (temp <= 15) return "t2";
+  if (temp <= 22) return "t3";
+  if (temp <= 28) return "t4";
+  return "t5";
+}
+
+function weatherFocusHtml(c) {
+  if (!c) {
+    return `<p class="weather-focus-hint">지도에서 시·군을 눌러 상세를 보세요.</p>`;
+  }
+  return (
+    `<div class="weather-focus-card weather-card-${esc(c.cond)}">` +
+    `<div class="weather-focus-top">` +
+    `<span class="weather-card-icon" style="background:${c.bg}">${c.icon}</span>` +
+    `<div>` +
+    `<h3>${esc(c.city)}</h3>` +
+    `<p class="weather-card-label">${esc(c.label)}</p>` +
+    `</div>` +
+    `<p class="weather-card-temp weather-focus-temp">${c.temp}<span>°C</span></p>` +
+    `</div>` +
+    (c.range ? `<p class="weather-card-range">일교차 ${esc(c.range)}</p>` : "") +
+    `<p class="weather-card-tip">${esc(c.tip)}</p>` +
+    `<button type="button" class="btn-secondary weather-focus-ai" data-ai-prompt="${esc(c.city)} 날씨 맞는 여행 코스·옷차림 알려줘">✦ AI 코스·옷차림</button>` +
+    `</div>`
+  );
+}
+
+function setWeatherFocus(cityKey) {
+  const focus = $("weather-focus");
+  if (!focus) return;
+  const wx = (wxCache || []).find((c) => regionCityKey(c.city) === regionCityKey(cityKey));
+  focus.innerHTML = weatherFocusHtml(wx || null);
+  focus.querySelector("[data-ai-prompt]")?.addEventListener("click", (e) => {
+    const prompt = e.currentTarget.getAttribute("data-ai-prompt");
+    if (prompt) {
+      show("explore");
+      submitAgentPrompt(prompt);
+    }
+  });
+  $("weather-grid")?.querySelectorAll(".weather-card").forEach((card) => {
+    card.classList.toggle("on", regionCityKey(card.dataset.city || "") === regionCityKey(cityKey));
+  });
+  $("weather-map-svg")?.querySelectorAll(".gw-district").forEach((path) => {
+    const region = path.getAttribute("data-region") || "";
+    path.classList.toggle("on", regionCityKey(region) === regionCityKey(cityKey));
+  });
+}
+
+function paintWeatherMap(cities) {
+  const host = $("weather-map-svg");
+  if (!host) return;
+  const byKey = weatherByCityKey(cities);
+  host.querySelectorAll(".gw-surface path[data-region]").forEach((path) => {
+    const region = path.getAttribute("data-region") || "";
+    const key = regionCityKey(region);
+    const wx = byKey.get(key);
+    path.classList.add("gw-district", "wx-district");
+    path.classList.remove("wx-t0", "wx-t1", "wx-t2", "wx-t3", "wx-t4", "wx-t5", "wx-unknown");
+    path.classList.add(`wx-${weatherTempBand(wx?.temp)}`);
+    path.setAttribute("role", "button");
+    path.setAttribute("tabindex", "0");
+    path.setAttribute(
+      "aria-label",
+      wx ? `${region} ${wx.temp}도 ${wx.label}` : region
+    );
+  });
+}
+
+function buildWeatherMapTip(region, wx) {
+  if (!wx) return `<strong>${esc(region)}</strong><p>날씨 준비 중…</p>`;
+  return (
+    `<strong>${esc(region)}</strong>` +
+    `<p class="weather-map-tip-temp">${wx.icon} ${wx.temp}° · ${esc(wx.label)}</p>` +
+    (wx.range ? `<p class="weather-map-tip-range">${esc(wx.range)}</p>` : "")
+  );
+}
+
+function positionWeatherMapTip(path, tip) {
+  const stage = $("weather-map-stage");
+  if (!stage || !tip) return;
+  const stageRect = stage.getBoundingClientRect();
+  const pathRect = path.getBoundingClientRect();
+  tip.classList.remove("hidden");
+  tip.style.visibility = "hidden";
+  tip.style.left = "0px";
+  tip.style.top = "0px";
+  const tipW = tip.offsetWidth;
+  const tipH = tip.offsetHeight;
+  const left = pathRect.left - stageRect.left + pathRect.width / 2;
+  const top = pathRect.top - stageRect.top - 8;
+  const px = Math.min(Math.max(left - tipW / 2, 8), Math.max(8, stageRect.width - tipW - 8));
+  const py = Math.max(top - tipH, 8);
+  tip.style.left = `${px}px`;
+  tip.style.top = `${py}px`;
+  tip.style.visibility = "";
+}
+
+let weatherSvgLoaded = false;
+
+async function loadWeatherMapSvg() {
+  const host = $("weather-map-svg");
+  if (!host || weatherSvgLoaded) {
+    if (wxCache) paintWeatherMap(wxCache);
+    return;
+  }
+  const res = await fetch(`assets/gangwon-hero.svg?v=1`);
+  if (!res.ok) throw new Error(`weather map svg ${res.status}`);
+  host.innerHTML = await res.text();
+  const svg = host.querySelector("svg");
+  if (svg) {
+    svg.classList.add("weather-hero-svg");
+    svg.setAttribute("aria-hidden", "true");
+  }
+  const mapRoot = svg?.querySelector(":scope > g > g");
+  mapRoot?.querySelectorAll(":scope > g:not(.gw-surface):not(.gw-labels)").forEach((g) => {
+    g.classList.add("gw-extrude");
+  });
+
+  const tip = $("weather-map-tip");
+  const paths = host.querySelectorAll(".gw-surface path[data-region]");
+  paths.forEach((path) => {
+    const activate = () => {
+      const region = path.getAttribute("data-region") || "";
+      const key = regionCityKey(region);
+      setWeatherFocus(key);
+      const wx = (wxCache || []).find((c) => regionCityKey(c.city) === key);
+      if (tip) {
+        tip.innerHTML = buildWeatherMapTip(region, wx);
+        positionWeatherMapTip(path, tip);
+      }
+      host.classList.add("has-district-hover");
+    };
+    path.addEventListener("mouseenter", activate);
+    path.addEventListener("focus", activate);
+    path.addEventListener("click", activate);
+    path.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        activate();
+      }
+    });
+  });
+  host.addEventListener("mouseleave", () => {
+    tip?.classList.add("hidden");
+    host.classList.remove("has-district-hover");
+  });
+
+  weatherSvgLoaded = true;
+  if (wxCache) paintWeatherMap(wxCache);
 }
 
 function renderWeatherGrid(cities) {
@@ -1553,23 +1713,31 @@ function renderWeatherGrid(cities) {
   grid.innerHTML = cities
     .map(
       (c) =>
-        `<article class="weather-card weather-card-${esc(c.cond)}">` +
-        `<div class="weather-card-icon" style="background:${c.bg}">${c.icon}</div>` +
-        `<div class="weather-card-body">` +
-        `<h3>${esc(c.city)}</h3>` +
-        `<p class="weather-card-temp">${c.temp}<span>°C</span></p>` +
-        `<p class="weather-card-label">${esc(c.label)}</p>` +
-        (c.range ? `<p class="weather-card-range">${esc(c.range)}</p>` : "") +
-        `<p class="weather-card-tip">${esc(c.tip)}</p>` +
-        `</div></article>`
+        `<button type="button" class="weather-card weather-card-${esc(c.cond)}" data-city="${esc(c.city)}">` +
+        `<span class="weather-card-icon" style="background:${c.bg}">${c.icon}</span>` +
+        `<span class="weather-card-body">` +
+        `<strong>${esc(c.city)}</strong>` +
+        `<span class="weather-card-temp">${c.temp}<span>°</span></span>` +
+        `<span class="weather-card-label">${esc(c.label)}</span>` +
+        `</span></button>`
     )
     .join("");
+  grid.querySelectorAll(".weather-card").forEach((card) => {
+    card.addEventListener("click", () => setWeatherFocus(card.dataset.city || ""));
+  });
+  paintWeatherMap(cities);
+  const first = cities[0]?.city;
+  if (first && !$("weather-focus")?.querySelector(".weather-focus-card")) {
+    setWeatherFocus(first);
+  }
 }
 
 async function renderWeather(force) {
   const grid = $("weather-grid");
   const updated = $("weather-updated");
   if (!grid) return;
+
+  loadWeatherMapSvg().catch((err) => console.warn("loadWeatherMapSvg:", err));
 
   if (!force && isWeatherCacheFresh()) {
     renderWeatherGrid(wxCache);
