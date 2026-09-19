@@ -23,11 +23,49 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css?v=17" />
+  <link rel="stylesheet" href="style.css?v=18" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
   <link rel="apple-touch-icon" href="assets/mascot-icon.png" />
 </head>
-<body class="mode-landing">
+<body class="mode-landing mode-entry">
+  <div id="entry-ritual" class="entry-ritual" role="dialog" aria-modal="true" aria-labelledby="entry-brand">
+    <div class="entry-visual" aria-hidden="true">
+      <div class="entry-mist entry-mist-a"></div>
+      <div class="entry-mist entry-mist-b"></div>
+      <div class="entry-ridge"></div>
+    </div>
+
+    <div class="entry-stage">
+      <section class="entry-step is-active" data-entry-step="0">
+        <p class="entry-kicker">ON道</p>
+        <h1 id="entry-brand" class="entry-brand">강원 온도</h1>
+        <p class="entry-line">자연은 가깝게, 길은 더 쉽게</p>
+      </section>
+
+      <section class="entry-step" data-entry-step="1" hidden>
+        <p class="entry-kicker">02</p>
+        <h2 class="entry-title">핫플만 따라가면<br>강원의 반은 사라집니다</h2>
+        <p class="entry-line">붐비는 해안 대신, 영월·정선처럼<br>아직 조용한 온도를 남겨둔 곳으로.</p>
+      </section>
+
+      <section class="entry-step" data-entry-step="2" hidden>
+        <p class="entry-kicker">03</p>
+        <h2 class="entry-title">지금의 취향으로<br>길을 열어보세요</h2>
+        <p class="entry-line">숨은 명소 · 친환경 분산 · 로컬 혜택까지<br>한 번의 상담으로 이어집니다.</p>
+      </section>
+
+      <div class="entry-actions">
+        <div class="entry-progress" aria-hidden="true">
+          <span class="entry-dot is-on" data-entry-dot="0"></span>
+          <span class="entry-dot" data-entry-dot="1"></span>
+          <span class="entry-dot" data-entry-dot="2"></span>
+        </div>
+        <button type="button" class="entry-next" id="entry-next">계속</button>
+        <button type="button" class="entry-skip" id="entry-skip">바로 시작</button>
+      </div>
+    </div>
+  </div>
+
   <div class="wrap">
     <header class="app-categories" id="app-categories">
       <a class="app-logo" data-nav="explore" aria-label="강원 온도(ON道) 홈">

@@ -7734,11 +7734,112 @@ function init() {
       const next = parseViewFromLocation();
       if (next !== state.view) show(next, { skipHash: true });
     });
+    initEntryRitual();
     show(parseViewFromLocation());
   } catch (err) {
     console.error("init failed:", err);
     toast("화면 로딩 오류 — 새로고침(Ctrl+Shift+R) 해 주세요.");
   }
+}
+
+const ENTRY_STORAGE_KEY = "ondo_entry_seen_v1";
+const ENTRY_STEPS = [
+  { next: "계속" },
+  { next: "다음" },
+  { next: "여행 시작" },
+];
+
+function shouldSkipEntryRitual() {
+  try {
+    if (sessionStorage.getItem(ENTRY_STORAGE_KEY) === "1") return true;
+  } catch (_) {}
+  const view = parseViewFromLocation();
+  return view && view !== "explore";
+}
+
+function finishEntryRitual() {
+  const ritual = $("entry-ritual");
+  try {
+    sessionStorage.setItem(ENTRY_STORAGE_KEY, "1");
+  } catch (_) {}
+  document.body.classList.add("entry-revealing");
+  document.body.classList.remove("mode-entry");
+  if (ritual) {
+    ritual.classList.add("is-leaving");
+    const cleanup = () => {
+      ritual.remove();
+      document.body.classList.remove("entry-revealing");
+      document.body.style.overflow = "";
+    };
+    ritual.addEventListener("animationend", cleanup, { once: true });
+    setTimeout(cleanup, 900);
+  } else {
+    document.body.classList.remove("entry-revealing");
+  }
+  // Kick landing map paint after reveal
+  requestAnimationFrame(() => {
+    window.dispatchEvent(new Event("resize"));
+  });
+}
+
+function setEntryStep(index) {
+  const steps = [...document.querySelectorAll("[data-entry-step]")];
+  const dots = [...document.querySelectorAll("[data-entry-dot]")];
+  const nextBtn = $("entry-next");
+  steps.forEach((step) => {
+    const i = Number(step.getAttribute("data-entry-step"));
+    const on = i === index;
+    step.hidden = !on;
+    step.classList.toggle("is-active", on);
+  });
+  dots.forEach((dot) => {
+    const i = Number(dot.getAttribute("data-entry-dot"));
+    dot.classList.toggle("is-on", i === index);
+  });
+  if (nextBtn) nextBtn.textContent = ENTRY_STEPS[index]?.next || "계속";
+}
+
+function initEntryRitual() {
+  const ritual = $("entry-ritual");
+  if (!ritual) {
+    document.body.classList.remove("mode-entry");
+    return;
+  }
+  if (shouldSkipEntryRitual()) {
+    ritual.remove();
+    document.body.classList.remove("mode-entry");
+    return;
+  }
+
+  let step = 0;
+  setEntryStep(0);
+  document.body.style.overflow = "hidden";
+
+  $("entry-next")?.addEventListener("click", () => {
+    if (step >= ENTRY_STEPS.length - 1) {
+      finishEntryRitual();
+      return;
+    }
+    step += 1;
+    setEntryStep(step);
+  });
+  $("entry-skip")?.addEventListener("click", () => finishEntryRitual());
+
+  // Keyboard: Enter/Space advances, Escape skips
+  const onKey = (e) => {
+    if (!document.body.classList.contains("mode-entry")) {
+      document.removeEventListener("keydown", onKey);
+      return;
+    }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      finishEntryRitual();
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      $("entry-next")?.click();
+    }
+  };
+  document.addEventListener("keydown", onKey);
 }
 
 if (document.readyState === "loading") {
