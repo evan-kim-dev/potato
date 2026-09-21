@@ -1,0 +1,149 @@
+{
+  "updated_at": null,
+  "api": "https://apis.data.go.kr/1360000/BeachInfoservice",
+  "ops": [
+    "getUltraSrtFcstBeach",
+    "getVilageFcstBeach",
+    "getTideInfoBeach",
+    "getSunInfoBeach"
+  ],
+  "count": 12,
+  "ok": 0,
+  "stub": true,
+  "reason": "KMA_BEACH_SERVICE_KEY(또는 TOUR_API_SERVICE_KEY)가 없습니다. 공공데이터포털에서 '기상청_전국 해수욕장 날씨 조회서비스' 활용신청 후 키를 설정하세요.",
+  "errors": [],
+  "beaches": [
+    {
+      "beach_num": 176,
+      "name": "경포",
+      "full_name": "경포해수욕장",
+      "address": "강원특별자치도 강릉시 안현동 산1",
+      "region": "강릉시",
+      "lat": 37.81,
+      "lng": 128.91,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 179,
+      "name": "주문진",
+      "full_name": "주문진해수욕장",
+      "address": "강원특별자치도 강릉시 주문진읍 향호리 8-35",
+      "region": "강릉시",
+      "lat": 37.91,
+      "lng": 128.82,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 182,
+      "name": "정동진",
+      "full_name": "정동진해수욕장",
+      "address": "강원특별자치도 강릉시 강동면 정동진리 303",
+      "region": "강릉시",
+      "lat": 37.69,
+      "lng": 129.03,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 198,
+      "name": "망상",
+      "full_name": "망상해수욕장",
+      "address": "강원특별자치도 동해시 망상동 393-16",
+      "region": "동해시",
+      "lat": 37.59,
+      "lng": 129.09,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 195,
+      "name": "추암",
+      "full_name": "추암해수욕장",
+      "address": "강원특별자치도 동해시 추암동 1-2",
+      "region": "동해시",
+      "lat": 37.48,
+      "lng": 129.16,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 201,
+      "name": "속초",
+      "full_name": "속초해수욕장",
+      "address": "강원특별자치도 속초시 조양동 1464-1",
+      "region": "속초시",
+      "lat": 38.19,
+      "lng": 128.6,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 202,
+      "name": "외옹치",
+      "full_name": "외옹치해수욕장",
+      "address": "강원특별자치도 속초시 대포동 590",
+      "region": "속초시",
+      "lat": 38.18,
+      "lng": 128.61,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 203,
+      "name": "삼척",
+      "full_name": "삼척해수욕장",
+      "address": "강원특별자치도 삼척시 갈천동 14-12",
+      "region": "삼척시",
+      "lat": 37.47,
+      "lng": 129.17,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 262,
+      "name": "낙산",
+      "full_name": "낙산해수욕장",
+      "address": "강원특별자치도 양양군 강현면 전진리",
+      "region": "양양군",
+      "lat": 38.12,
+      "lng": 128.63,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 249,
+      "name": "하조대",
+      "full_name": "하조대해수욕장",
+      "address": "강원특별자치도 양양군 현북면 하광정리 80-2",
+      "region": "양양군",
+      "lat": 38.02,
+      "lng": 128.73,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 231,
+      "name": "송지호",
+      "full_name": "송지호해수욕장",
+      "address": "강원특별자치도 고성군 죽왕면 오호리 1-3",
+      "region": "고성군",
+      "lat": 38.33,
+      "lng": 128.53,
+      "coast": "동해안",
+      "weather": null
+    },
+    {
+      "beach_num": 226,
+      "name": "화진포(현내)",
+      "full_name": "화진포(현내)해수욕장",
+      "address": "강원특별자치도 고성군 현내면 초도리 94-7",
+      "region": "고성군",
+      "lat": 38.48,
+      "lng": 128.44,
+      "coast": "동해안",
+      "weather": null
+    }
+  ]
+}

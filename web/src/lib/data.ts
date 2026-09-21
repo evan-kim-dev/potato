@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import path from "path";
 import { QUIET_REGIONS, dispersionTargetsFor } from "@/lib/prefs";
 import { SPOT_IMAGE_ALIASES, SPOT_IMAGE_OVERRIDES } from "@/lib/spotImages";
@@ -108,7 +108,15 @@ export type ForecastMsgPayload = {
 };
 
 function dataPath(...parts: string[]) {
-  return path.join(process.cwd(), "..", "backend", "data", ...parts);
+  const candidates = [
+    path.join(process.cwd(), "data", ...parts),
+    path.join(process.cwd(), "..", "backend", "data", ...parts),
+    path.join(process.cwd(), "backend", "data", ...parts),
+  ];
+  for (const p of candidates) {
+    if (existsSync(p)) return p;
+  }
+  return candidates[0];
 }
 
 const jsonCache = new Map<string, unknown>();

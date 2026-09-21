@@ -1,0 +1,12 @@
+{
+  "updated_at": "2026-09-20",
+  "source": "한국조폐공사_지역사랑상품권_결제정보 paymentsV3",
+  "period": { "from": "202606", "to": "202608" },
+  "ok": false,
+  "note": "KOMSCO_PAYMENT_KEY 넣고 sync 또는 /api/komsco/payments 호출",
+  "regions": [],
+  "totalAmount": 0,
+  "totalCount": 0,
+  "quietAmount": 0,
+  "quietSharePct": 0
+}
