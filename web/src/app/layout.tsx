@@ -5,12 +5,23 @@ import { getKakaoJsKey, kakaoSdkSrc } from "@/lib/kakaoMap";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "강원 온도(ON道)",
+  title: {
+    default: "강원 온도(ON道)",
+    template: "%s · 강원 온도",
+  },
   description:
     "인구감소·한산 권역 특화 AI 로컬 관광 — 영월·정선·태백 등 숨은 명소 · 혼잡 분산 · 로컬 혜택",
+  applicationName: "강원 온도",
+  metadataBase: new URL("https://potato-peach.vercel.app"),
   icons: {
     icon: "/assets/mascot-icon.png",
     apple: "/assets/mascot-icon.png",
+  },
+  openGraph: {
+    title: "강원 온도(ON道)",
+    description: "한산한 강원을 먼저 — AI 코스 · 혼잡 분산 · 한산 여권",
+    locale: "ko_KR",
+    type: "website",
   },
 };
 

@@ -1,0 +1,115 @@
+{
+  "updated_at": "2026-09-21",
+  "regions": {
+    "춘천시": {
+      "tourist_diversity": 88.21,
+      "international_diversity": null,
+      "score": 88.21,
+      "level": "high"
+    },
+    "원주시": {
+      "tourist_diversity": 92.86,
+      "international_diversity": null,
+      "score": 92.86,
+      "level": "high"
+    },
+    "강릉시": {
+      "tourist_diversity": 88.13,
+      "international_diversity": null,
+      "score": 88.13,
+      "level": "high"
+    },
+    "동해시": {
+      "tourist_diversity": 66.91,
+      "international_diversity": null,
+      "score": 66.91,
+      "level": "mid"
+    },
+    "태백시": {
+      "tourist_diversity": 60.91,
+      "international_diversity": null,
+      "score": 60.91,
+      "level": "mid"
+    },
+    "속초시": {
+      "tourist_diversity": 73.23,
+      "international_diversity": null,
+      "score": 73.23,
+      "level": "high"
+    },
+    "삼척시": {
+      "tourist_diversity": 64.14,
+      "international_diversity": null,
+      "score": 64.14,
+      "level": "mid"
+    },
+    "홍천군": {
+      "tourist_diversity": 68.09,
+      "international_diversity": null,
+      "score": 68.09,
+      "level": "mid"
+    },
+    "횡성군": {
+      "tourist_diversity": 62.42,
+      "international_diversity": null,
+      "score": 62.42,
+      "level": "mid"
+    },
+    "영월군": {
+      "tourist_diversity": 60.44,
+      "international_diversity": null,
+      "score": 60.44,
+      "level": "mid"
+    },
+    "평창군": {
+      "tourist_diversity": 65.53,
+      "international_diversity": null,
+      "score": 65.53,
+      "level": "mid"
+    },
+    "정선군": {
+      "tourist_diversity": 61.52,
+      "international_diversity": null,
+      "score": 61.52,
+      "level": "mid"
+    },
+    "철원군": {
+      "tourist_diversity": 59.96,
+      "international_diversity": null,
+      "score": 59.96,
+      "level": "mid"
+    },
+    "화천군": {
+      "tourist_diversity": 57.97,
+      "international_diversity": null,
+      "score": 57.97,
+      "level": "mid"
+    },
+    "양구군": {
+      "tourist_diversity": 57.67,
+      "international_diversity": null,
+      "score": 57.67,
+      "level": "mid"
+    },
+    "인제군": {
+      "tourist_diversity": 62.35,
+      "international_diversity": null,
+      "score": 62.35,
+      "level": "mid"
+    },
+    "고성군": {
+      "tourist_diversity": 63.03,
+      "international_diversity": null,
+      "score": 63.03,
+      "level": "mid"
+    },
+    "양양군": {
+      "tourist_diversity": 64.54,
+      "international_diversity": null,
+      "score": 64.54,
+      "level": "mid"
+    }
+  },
+  "source": "TourAPI AreaTarDivService areaTouDivList/areaIntlDivList",
+  "baseYm": "202608"
+}

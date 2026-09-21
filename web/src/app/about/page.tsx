@@ -49,7 +49,7 @@ export default function AboutPage() {
           </li>
           <li>
             <strong>임팩트 KPI</strong>
-            <span>지자체가 볼 분산·CTR·여권 지표</span>
+            <span>지자체가 볼 한산 비중·클릭·여권 지표(프로토타입)</span>
           </li>
         </ul>
 
@@ -61,7 +61,7 @@ export default function AboutPage() {
           <Link href="/impact" className="font-semibold text-sea hover:underline">
             임팩트 대시보드
           </Link>
-          로 전환율·한산 체류·혜택 CTR 같은 KPI를 보여줄 수 있습니다.
+          로 한산 체류 비중·혜택 클릭·여권 커버리지 같은 KPI를 미리볼 수 있습니다.
         </p>
 
         <h2>누가 만드나요</h2>

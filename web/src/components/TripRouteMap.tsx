@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { getKakaoJsKey, loadKakaoMaps } from "@/lib/kakaoMap";
+import { getKakaoJsKey, loadKakaoMaps, resetKakaoMapsLoader } from "@/lib/kakaoMap";
 import type { RoutePlan } from "@/lib/route";
 import type { MapEndpoint, PlanStep } from "@/lib/tripTypes";
 import "leaflet/dist/leaflet.css";
@@ -140,7 +140,7 @@ async function mountLeaflet(
  */
 function paintKakaoMap(
   host: HTMLElement,
-  maps: NonNullable<typeof window.kakao>["maps"],
+  maps: NonNullable<NonNullable<typeof window.kakao>["maps"]>,
   pts: PlanStep[],
   focusOrder: number | undefined,
   route: RoutePlan | null | undefined,
@@ -224,6 +224,8 @@ export function TripRouteMap({
   } | null>(null);
   const leafletRef = useRef<import("leaflet").Map | null>(null);
   const [engine, setEngine] = useState<Engine>("leaflet");
+  const [mapError, setMapError] = useState("");
+  const [retryTick, setRetryTick] = useState(0);
 
   const pts = steps.filter(
     (s) => Number.isFinite(s.spot.lat) && Number.isFinite(s.spot.lng)
@@ -237,10 +239,12 @@ export function TripRouteMap({
   const canDraw = pts.length > 0 || Boolean(origin && destination);
 
   useEffect(() => {
-    let cancelled = false;
+    let alive = true;
+    const gen = retryTick;
     kakaoRef.current = null;
     leafletRef.current?.remove();
     leafletRef.current = null;
+    setMapError("");
 
     (async () => {
       if (!hostRef.current || !canDraw) return;
@@ -248,13 +252,13 @@ export function TripRouteMap({
       if (hasKakaoKey) {
         try {
           const kakao = await loadKakaoMaps();
-          if (cancelled || !hostRef.current) return;
+          if (!alive || !hostRef.current || gen !== retryTick) return;
           leafletRef.current?.remove();
           leafletRef.current = null;
           hostRef.current.innerHTML = "";
           kakaoRef.current = paintKakaoMap(
             hostRef.current,
-            kakao.maps,
+            kakao.maps!,
             pts,
             focusOrder,
             route,
@@ -262,13 +266,20 @@ export function TripRouteMap({
             destination
           );
           setEngine("kakao");
+          window.setTimeout(() => kakaoRef.current?.map.relayout?.(), 120);
+          window.setTimeout(() => kakaoRef.current?.map.relayout?.(), 400);
           return;
-        } catch {
-          /* leaflet fallback */
+        } catch (err) {
+          if (!alive) return;
+          setMapError(
+            err instanceof Error
+              ? err.message
+              : "카카오맵을 불러오지 못했어요"
+          );
         }
       }
 
-      if (cancelled || !hostRef.current) return;
+      if (!alive || !hostRef.current || gen !== retryTick) return;
       try {
         leafletRef.current = await mountLeaflet(
           hostRef.current,
@@ -280,18 +291,29 @@ export function TripRouteMap({
         );
         setEngine("leaflet");
       } catch {
-        /* keep empty */
+        if (alive) setMapError((prev) => prev || "지도를 표시할 수 없어요");
       }
     })();
 
     return () => {
-      cancelled = true;
+      alive = false;
       leafletRef.current?.remove();
       leafletRef.current = null;
       kakaoRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ptsKey, routeKey, hasKakaoKey, endsKey, canDraw]);
+  }, [ptsKey, routeKey, hasKakaoKey, endsKey, canDraw, retryTick]);
+
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    const ro = new ResizeObserver(() => {
+      kakaoRef.current?.map.relayout?.();
+      leafletRef.current?.invalidateSize();
+    });
+    ro.observe(host);
+    return () => ro.disconnect();
+  }, [engine, canDraw]);
 
   useEffect(() => {
     if (!pts.length) return;
@@ -319,6 +341,26 @@ export function TripRouteMap({
         className="map_area trip-leaflet w-full"
         style={{ width: "100%", height: "400px", minHeight: "400px" }}
       />
+
+      {mapError && engine !== "kakao" ? (
+        <div className="absolute inset-x-2 bottom-2 z-[600] rounded-[var(--radius-sm)] border border-[var(--outline)] bg-white/95 px-3 py-2 text-[0.72rem] text-muted shadow-sm">
+          <p className="m-0 leading-snug">{mapError}</p>
+          <p className="mt-1 mb-0 text-[0.65rem]">
+            카카오 개발자 콘솔 → 앱 설정 → 플랫폼 → Web → 사이트 도메인에{" "}
+            <code className="text-sea">http://localhost:3000</code> 등록
+          </p>
+          <button
+            type="button"
+            className="mt-1.5 text-[0.7rem] font-semibold text-sea"
+            onClick={() => {
+              resetKakaoMapsLoader();
+              setRetryTick((n) => n + 1);
+            }}
+          >
+            다시 불러오기
+          </button>
+        </div>
+      ) : null}
 
       {route && (
         <p className="pointer-events-none absolute left-2 top-2 z-[500] rounded-[var(--radius-sm)] bg-white/95 px-2.5 py-1 text-[0.7rem] font-bold text-sea-deep shadow-sm">

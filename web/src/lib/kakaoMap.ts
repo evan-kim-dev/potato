@@ -1,16 +1,15 @@
 /**
  * Kakao 지도 Web API — https://apis.map.kakao.com/web/guide/
  *
- * 준비: Developers → 앱 → 앱 설정 → 플랫폼 키 → JavaScript Key
- *       → JavaScript SDK 도메인 등록 (예: http://localhost:3000)
- * 시작: #map 영역 + sdk.js?appkey=… (+ libraries) + new kakao.maps.Map
+ * 시작: #map 영역 + sdk.js?appkey=…&autoload=false (+ libraries) + kakao.maps.load
+ * 그 다음 new kakao.maps.Map
  */
 
 declare global {
   interface Window {
     kakao?: {
-      maps: {
-        load?: (cb: () => void) => void;
+      maps?: {
+        load: (cb: () => void) => void;
         LatLng: new (lat: number, lng: number) => KakaoLatLng;
         Map: new (
           container: HTMLElement,
@@ -30,10 +29,14 @@ declare global {
           map?: KakaoMap;
         }) => KakaoPolyline;
         InfoWindow: new (options: { content: string }) => KakaoInfoWindow;
-        event: {
-          addListener: (target: unknown, type: string, handler: () => void) => void;
-        };
         LatLngBounds: new () => KakaoLatLngBounds;
+        event: {
+          addListener: (
+            target: KakaoMarker | KakaoMap,
+            type: string,
+            handler: () => void
+          ) => void;
+        };
       };
     };
   }
@@ -42,7 +45,7 @@ declare global {
 export type KakaoLatLng = { getLat: () => number; getLng: () => number };
 export type KakaoMap = {
   setCenter: (latlng: KakaoLatLng) => void;
-  setLevel: (level: number) => void;
+  setLevel?: (level: number) => void;
   setBounds: (bounds: KakaoLatLngBounds, padding?: number) => void;
   relayout?: () => void;
 };
@@ -53,7 +56,6 @@ export type KakaoMarker = {
 export type KakaoPolyline = { setMap: (map: KakaoMap | null) => void };
 export type KakaoInfoWindow = {
   open: (map: KakaoMap, marker: KakaoMarker) => void;
-  close: () => void;
 };
 export type KakaoLatLngBounds = {
   extend: (latlng: KakaoLatLng) => void;
@@ -67,14 +69,13 @@ export function getKakaoJsKey() {
 
 /**
  * 가이드: //dapi.kakao.com/v2/maps/sdk.js?appkey=…
- * 라이브러리: services,clusterer,drawing
+ * autoload=false — document.write 차단 환경에서도 maps.load()로 초기화
  * @see https://apis.map.kakao.com/web/guide/
  */
-export function kakaoSdkSrc(appkey: string, withLibraries = true) {
-  const base = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appkey)}`;
-  return withLibraries
-    ? `${base}&libraries=services,clusterer,drawing`
-    : base;
+/** 맵·마커·폴리라인만 쓰면 libraries 생략(용량·초기화 시간 절감). 장소검색은 /api/places 사용. */
+export function kakaoSdkSrc(appkey: string, withLibraries = false) {
+  const base = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appkey)}&autoload=false`;
+  return withLibraries ? `${base}&libraries=services` : base;
 }
 
 export function resetKakaoMapsLoader() {
@@ -85,7 +86,38 @@ function mapsReady(): boolean {
   return Boolean(window.kakao?.maps?.LatLng && window.kakao?.maps?.Map);
 }
 
-/** 가이드: 스크립트 로드 후 new kakao.maps.Map — 실행 코드보다 스크립트가 먼저여야 함 */
+function runMapsLoad(resolve: (v: NonNullable<typeof window.kakao>) => void, reject: (e: Error) => void) {
+  const maps = window.kakao?.maps;
+  if (!maps) {
+    reject(new Error("카카오맵 SDK가 없습니다"));
+    return;
+  }
+  if (mapsReady()) {
+    resolve(window.kakao!);
+    return;
+  }
+  if (typeof maps.load !== "function") {
+    reject(
+      new Error(
+        "카카오맵 초기화 실패 · JavaScript 키 도메인에 http://localhost:3000 등록 여부를 확인하세요"
+      )
+    );
+    return;
+  }
+  try {
+    maps.load(() => {
+      if (!mapsReady()) {
+        reject(new Error("카카오맵 모듈 초기화 실패"));
+        return;
+      }
+      resolve(window.kakao!);
+    });
+  } catch (e) {
+    reject(e instanceof Error ? e : new Error("카카오맵 로드 오류"));
+  }
+}
+
+/** 가이드: autoload=false 스크립트 후 kakao.maps.load → new kakao.maps.Map */
 export function loadKakaoMaps(): Promise<NonNullable<typeof window.kakao>> {
   if (typeof window === "undefined") {
     return Promise.reject(new Error("browser only"));
@@ -104,62 +136,43 @@ export function loadKakaoMaps(): Promise<NonNullable<typeof window.kakao>> {
         loadPromise = null;
         reject(err);
       };
-      const ok = () => {
+      const ok = (v: NonNullable<typeof window.kakao>) => {
         if (settled) return;
-        if (!mapsReady()) {
-          fail(new Error("카카오맵 모듈 초기화 실패"));
-          return;
-        }
         settled = true;
-        resolve(window.kakao!);
+        resolve(v);
       };
 
       const timer = window.setTimeout(() => {
         fail(
           new Error(
-            "카카오맵 응답 없음 · JavaScript SDK 도메인에 http://localhost:3000 등을 등록하세요 (apis.map.kakao.com/web/guide)"
+            "카카오맵 응답 없음 · JavaScript SDK 도메인에 http://localhost:3000 을 등록하세요"
           )
         );
-      }, 8000);
+      }, 10000);
 
-      const afterScript = () => {
-        if (mapsReady()) {
-          window.clearTimeout(timer);
-          ok();
-          return;
-        }
-        // autoload=false 로 로드된 경우만
-        if (typeof window.kakao?.maps?.load === "function") {
-          try {
-            window.kakao.maps.load(() => {
-              window.clearTimeout(timer);
-              ok();
-            });
-            return;
-          } catch (e) {
+      const finishLoad = () => {
+        runMapsLoad(
+          (v) => {
             window.clearTimeout(timer);
-            fail(e instanceof Error ? e : new Error("카카오맵 로드 오류"));
-            return;
+            ok(v);
+          },
+          (e) => {
+            window.clearTimeout(timer);
+            fail(e);
           }
-        }
-        window.clearTimeout(timer);
-        fail(
-          new Error(
-            "카카오맵 SDK 실패 · 카카오맵 ON + JS SDK 도메인 등록을 확인하세요"
-          )
         );
       };
 
       const existing = document.querySelector<HTMLScriptElement>(
         "script[data-kakao-maps], script[src*='dapi.kakao.com/v2/maps/sdk.js']"
       );
+
       if (existing) {
-        if (mapsReady()) {
-          window.clearTimeout(timer);
-          ok();
+        if (window.kakao?.maps) {
+          finishLoad();
           return;
         }
-        existing.addEventListener("load", afterScript, { once: true });
+        existing.addEventListener("load", finishLoad, { once: true });
         existing.addEventListener(
           "error",
           () => {
@@ -171,23 +184,22 @@ export function loadKakaoMaps(): Promise<NonNullable<typeof window.kakao>> {
         let n = 0;
         const poll = window.setInterval(() => {
           n += 1;
-          if (mapsReady()) {
+          if (window.kakao?.maps) {
             window.clearInterval(poll);
-            window.clearTimeout(timer);
-            ok();
-          } else if (n > 50) {
+            finishLoad();
+          } else if (n > 80) {
             window.clearInterval(poll);
           }
         }, 100);
         return;
       }
 
-      // 가이드 HTML과 동일: type=text/javascript + appkey (+ libraries)
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.dataset.kakaoMaps = "1";
+      script.async = true;
       script.src = kakaoSdkSrc(key);
-      script.onload = afterScript;
+      script.onload = finishLoad;
       script.onerror = () => {
         window.clearTimeout(timer);
         fail(new Error("카카오맵 스크립트를 불러오지 못했어요"));

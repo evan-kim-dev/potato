@@ -12,6 +12,11 @@ import {
   type PlacePick,
 } from "@/components/PlaceSearchField";
 import { TRAVEL_MODES, withTripEndpoints, type TravelMode } from "@/lib/tripTypes";
+import {
+  ChatPipelineBusy,
+  ChatPipelineDone,
+  type ChatPipelineResult,
+} from "@/components/ChatPipeline";
 
 type Msg = {
   role: "user" | "assistant";
@@ -22,10 +27,11 @@ type Msg = {
   planGrade?: string;
   source?: string;
   retryPrompt?: string;
+  pipeline?: ChatPipelineResult;
 };
 
 const GREETING =
-  "동선(출발·도착·이동수단)을 고른 뒤, 가고 싶은 곳을 말해 주세요.";
+  "한산 권역 위주로 코스를 짜 드려요. 동선(출발·도착·이동수단)을 고른 뒤 말해 주세요.";
 
 const QUICK_ASKS = [
   "정선·영월 당일 한산 코스",
@@ -156,6 +162,32 @@ export function HomeChat() {
         setLastPlan(plan);
       }
 
+      const apiPipeline =
+        data.pipeline && typeof data.pipeline === "object"
+          ? (data.pipeline as ChatPipelineResult)
+          : undefined;
+      const stopNames =
+        plan?.steps?.map((s) => s.spot.name).filter(Boolean) || [];
+      const pipeline: ChatPipelineResult | undefined = plan?.id
+        ? {
+            weather: apiPipeline?.weather,
+            festivals: apiPipeline?.festivals,
+            places: apiPipeline?.places,
+            candidateCount:
+              apiPipeline?.candidateCount ??
+              Math.max(stopNames.length, 8),
+            candidatePreview: apiPipeline?.candidatePreview,
+            selected:
+              apiPipeline?.selected?.length
+                ? apiPipeline.selected
+                : stopNames,
+            ordered:
+              apiPipeline?.ordered?.length
+                ? apiPipeline.ordered
+                : stopNames,
+          }
+        : undefined;
+
       setMessages((prev) => [
         ...prev,
         {
@@ -166,6 +198,7 @@ export function HomeChat() {
           planScore: plan?.dispersion?.score,
           planGrade: plan?.dispersion?.grade,
           source: data.model || data.source,
+          pipeline,
         },
       ]);
     } catch (err) {
@@ -273,11 +306,14 @@ export function HomeChat() {
       >
         {messages.map((m, i) => (
           <div key={`${m.role}-${i}`} className="animate-[ui-fade-up_0.28s_var(--ease)_both]">
+            {m.role === "assistant" && m.pipeline ? (
+              <ChatPipelineDone pipeline={m.pipeline} />
+            ) : null}
             <div
               className={
                 m.role === "user"
                   ? "ml-auto max-w-[88%] rounded-[var(--radius)] rounded-br-sm bg-sea px-3 py-2 text-[0.8125rem] leading-relaxed text-white"
-                  : "max-w-[92%] whitespace-pre-wrap rounded-[var(--radius)] rounded-bl-sm border border-[var(--outline)] bg-white px-3 py-2 text-[0.8125rem] leading-relaxed text-on-surface"
+                  : "mt-1.5 max-w-[92%] whitespace-pre-wrap rounded-[var(--radius)] rounded-bl-sm border border-[var(--outline)] bg-white px-3 py-2 text-[0.8125rem] leading-relaxed text-on-surface"
               }
             >
               {m.text}
@@ -337,16 +373,11 @@ export function HomeChat() {
             )}
           </div>
         ))}
-        {busy && (
-          <div
-            className="inline-flex gap-1 rounded-[var(--radius)] border border-[var(--outline)] bg-white px-3 py-2"
-            aria-label="응답 작성 중"
-          >
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sea" />
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sea [animation-delay:120ms]" />
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-sea [animation-delay:240ms]" />
+        {busy ? (
+          <div className="sticky bottom-0 z-[1] bg-[linear-gradient(180deg,transparent,var(--surface)_18%)] pt-2 pb-1">
+            <ChatPipelineBusy />
           </div>
-        )}
+        ) : null}
         <div ref={bottomRef} />
       </div>
 

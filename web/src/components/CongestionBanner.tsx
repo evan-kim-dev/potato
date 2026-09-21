@@ -104,8 +104,11 @@ export function CongestionBanner({ tips }: { tips: Record<string, RegionTip> }) 
   useEffect(() => {
     let cancelled = false;
     async function load() {
+      if (typeof document !== "undefined" && document.visibilityState === "hidden") {
+        return;
+      }
       try {
-        const res = await fetch("/api/weather", { cache: "no-store" });
+        const res = await fetch("/api/weather");
         if (!res.ok) return;
         const data = await res.json();
         if (!cancelled && Array.isArray(data.cities)) {
@@ -119,11 +122,19 @@ export function CongestionBanner({ tips }: { tips: Record<string, RegionTip> }) 
     }
     void load();
     const weatherTimer = window.setInterval(load, 10 * 60 * 1000);
-    const clockTimer = window.setInterval(() => setNow(clockLabel()), 30_000);
+    const clockTimer = window.setInterval(() => {
+      if (document.visibilityState === "hidden") return;
+      setNow(clockLabel());
+    }, 60_000);
+    const onVis = () => {
+      if (document.visibilityState === "visible") void load();
+    };
+    document.addEventListener("visibilitychange", onVis);
     return () => {
       cancelled = true;
       window.clearInterval(weatherTimer);
       window.clearInterval(clockTimer);
+      document.removeEventListener("visibilitychange", onVis);
     };
   }, []);
 

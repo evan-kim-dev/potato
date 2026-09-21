@@ -11,8 +11,8 @@ const TABS = [
   { href: "/spots", label: "명소" },
   { href: "/festivals", label: "축제" },
   { href: "/weather", label: "날씨" },
-  { href: "/community", label: "이야기" },
   { href: "/passport", label: "여권" },
+  { href: "/impact", label: "임팩트" },
 ] as const;
 
 export function AppNav() {
@@ -62,7 +62,7 @@ export function AppNav() {
         </Link>
 
         <nav
-          className="flex items-center justify-center gap-0.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="app-nav-tabs flex items-center justify-start gap-0.5 overflow-x-auto overscroll-x-contain scroll-smooth sm:justify-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           aria-label="주요 메뉴"
         >
           {TABS.map((tab) => {
@@ -73,8 +73,8 @@ export function AppNav() {
                 href={tab.href}
                 className={
                   active
-                    ? "px-2.5 py-1.5 text-[0.78rem] font-semibold text-mountain-deep"
-                    : "px-2.5 py-1.5 text-[0.78rem] font-medium text-muted transition hover:text-mountain-deep"
+                    ? "shrink-0 px-2 py-1.5 text-[0.74rem] font-semibold text-mountain-deep sm:px-2.5 sm:text-[0.78rem]"
+                    : "shrink-0 px-2 py-1.5 text-[0.74rem] font-medium text-muted transition hover:text-mountain-deep sm:px-2.5 sm:text-[0.78rem]"
                 }
                 aria-current={active ? "page" : undefined}
               >

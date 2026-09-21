@@ -233,6 +233,12 @@ export async function POST(req: NextRequest) {
       slots: { ...slots, readyForPlan: undefined },
       plan: live.plan,
       model: live.model,
+      pipeline: {
+        weather: Boolean(weather),
+        festivals: Boolean(festivalNote),
+        places: Boolean(place),
+        ...live.pipeline,
+      },
       context: {
         weather: Boolean(weather),
         festivals: Boolean(festivalNote),

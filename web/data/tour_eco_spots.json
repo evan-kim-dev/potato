@@ -1,7 +1,5 @@
 {
-  "source": "TourAPI GreenTourService1 areaBasedList1",
-  "updated_at": "2026-06-17",
-  "ecoAreaCode": 32,
+  "updated_at": "2026-09-21",
   "regions": {
     "태백시": [
       {
@@ -13,5 +11,7 @@
         "image": "http://tong.visitkorea.or.kr/cms/resource/55/2611355_image2_1.bmp"
       }
     ]
-  }
+  },
+  "source": "TourAPI GreenTourService1 areaBasedList1",
+  "ecoAreaCode": 32
 }

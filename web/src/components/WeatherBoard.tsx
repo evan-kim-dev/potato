@@ -88,8 +88,19 @@ export function WeatherBoard({
   }
 
   useEffect(() => {
-    const id = window.setInterval(() => void refresh(), 10 * 60 * 1000);
-    return () => window.clearInterval(id);
+    const tick = () => {
+      if (document.visibilityState === "hidden") return;
+      void refresh();
+    };
+    const id = window.setInterval(tick, 10 * 60 * 1000);
+    const onVis = () => {
+      if (document.visibilityState === "visible") void refresh();
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      window.clearInterval(id);
+      document.removeEventListener("visibilitychange", onVis);
+    };
   }, []);
 
   useEffect(() => {

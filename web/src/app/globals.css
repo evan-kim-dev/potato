@@ -509,6 +509,105 @@ select {
   border: 1px solid rgba(42, 106, 148, 0.22);
   background: linear-gradient(135deg, rgba(234, 243, 248, 0.95), #fff);
 }
+
+.chat-pipeline {
+  max-width: 100%;
+  margin-top: 0;
+  margin-bottom: 0.15rem;
+  padding: 0.75rem 0.85rem 0.8rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(42, 106, 148, 0.28);
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(22, 40, 48, 0.06);
+}
+
+.chat-pipeline.is-done {
+  border-color: rgba(42, 106, 148, 0.28);
+  background: linear-gradient(180deg, rgba(234, 243, 248, 0.85), #fff);
+}
+
+.chat-pipeline-title {
+  margin: 0 0 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--sea);
+}
+
+.chat-pipeline-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chat-pipeline-step {
+  display: grid;
+  grid-template-columns: 0.7rem 1fr;
+  gap: 0.55rem;
+  align-items: start;
+}
+
+.chat-pipeline-step strong {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: var(--on-surface);
+  line-height: 1.25;
+}
+
+.chat-pipeline-step span {
+  display: block;
+  margin-top: 0.12rem;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.chat-pipeline-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: 0.28rem;
+  border-radius: 999px;
+  background: var(--outline);
+  box-shadow: 0 0 0 3px transparent;
+}
+
+.chat-pipeline-step.is-pending {
+  opacity: 0.42;
+}
+
+.chat-pipeline-step.is-pending strong {
+  color: var(--muted);
+}
+
+.chat-pipeline-step.is-active .chat-pipeline-dot {
+  background: var(--sea);
+  box-shadow: 0 0 0 3px rgba(42, 106, 148, 0.18);
+  animation: chat-pipeline-pulse 1.1s ease-in-out infinite;
+}
+
+.chat-pipeline-step.is-active strong {
+  color: var(--sea);
+}
+
+.chat-pipeline-step.is-done .chat-pipeline-dot {
+  background: var(--mountain);
+}
+
+@keyframes chat-pipeline-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.75;
+  }
+}
 .chat-quick-row {
   display: flex;
   flex-wrap: wrap;
@@ -1456,6 +1555,371 @@ a:hover .brand-wordmark {
 .trip-map-pin {
   background: transparent !important;
   border: none !important;
+}
+
+/* —— 한산 여권: 도장 지도 —— */
+.passport-map-card {
+  border-radius: var(--radius);
+  border: 1px solid rgba(42, 106, 148, 0.16);
+  background: #fff;
+  padding: 0.9rem 0.95rem 0.8rem;
+}
+
+.passport-map-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+}
+
+.passport-map-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.passport-leg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+.passport-leg::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+}
+
+.passport-leg.is-ink {
+  color: #8b2e2e;
+}
+
+.passport-leg.is-ink::before {
+  background: rgba(139, 46, 46, 0.15);
+}
+
+.passport-leg.is-ghost::before {
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+.passport-map-stage {
+  position: relative;
+  margin-top: 0.7rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--outline);
+  background: linear-gradient(165deg, #eef4f1 0%, #e7eeea 100%);
+  overflow: hidden;
+}
+
+.passport-map-art {
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+}
+
+.passport-map-art.is-ready {
+  opacity: 1;
+}
+
+.passport-map-art .passport-map-svg,
+.passport-map-art > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(52vh, 26rem);
+}
+
+.passport-map-art .passport-labels-dim {
+  opacity: 0.22;
+}
+
+.passport-map-art .passport-other {
+  fill: #d8dfda !important;
+  stroke: #c2cbc5 !important;
+  opacity: 0.65;
+}
+
+.passport-map-art .passport-quiet:not(.passport-stamped) {
+  fill: #cfe0d6 !important;
+  stroke: rgba(42, 106, 148, 0.28) !important;
+  stroke-width: 1.1;
+}
+
+.passport-map-art .passport-stamped {
+  fill: #a8c9b6 !important;
+  stroke: rgba(22, 72, 56, 0.4) !important;
+  stroke-width: 1.35;
+}
+
+/* 도장은 지도 SVG 내부 그룹 — 오버레이 좌표 불일치 없음 */
+.passport-stamp-layer-g {
+  pointer-events: none;
+}
+
+.passport-seal {
+  pointer-events: auto;
+  cursor: pointer;
+  outline: none;
+}
+
+.passport-seal-ring,
+.passport-seal-ring-inner {
+  fill: rgba(255, 252, 248, 0.55);
+  stroke-linecap: round;
+}
+
+.passport-seal.is-ghost .passport-seal-ring {
+  stroke: rgba(70, 90, 82, 0.4);
+  stroke-width: 1.8;
+  stroke-dasharray: 3.5 2.5;
+  fill: rgba(255, 255, 255, 0.35);
+}
+
+.passport-seal.is-ghost .passport-seal-ring-inner {
+  stroke: rgba(70, 90, 82, 0.28);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+  fill: none;
+}
+
+.passport-seal.is-ghost text {
+  fill: rgba(70, 90, 82, 0.45);
+}
+
+.passport-seal.is-ink .passport-seal-ring {
+  stroke: #8b2e2e;
+  stroke-width: 2.2;
+  fill: rgba(255, 248, 245, 0.72);
+  opacity: 0.95;
+}
+
+.passport-seal.is-ink .passport-seal-ring-inner {
+  stroke: #8b2e2e;
+  stroke-width: 1.15;
+  stroke-dasharray: 2.5 1.8;
+  fill: none;
+  opacity: 0.75;
+}
+
+.passport-seal.is-ink text {
+  fill: #8b2e2e;
+}
+
+.passport-seal-brand,
+.passport-seal-name,
+.passport-seal-meta {
+  text-anchor: middle;
+  font-family: var(--font-display), "Noto Serif KR", serif;
+  pointer-events: none;
+}
+
+.passport-seal-brand {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.passport-seal-name {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.passport-seal-meta {
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.passport-seal.is-ink {
+  animation: passport-stamp-in 0.45s var(--ease) both;
+}
+
+.passport-seal:focus-visible .passport-seal-ring,
+.passport-seal:hover .passport-seal-ring {
+  stroke-width: 2.6;
+}
+
+@keyframes passport-stamp-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.passport-map-skel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.passport-map-tip {
+  margin: 0.55rem 0 0;
+  min-height: 1.1rem;
+  font-size: 0.72rem;
+  color: var(--on-surface);
+}
+
+.passport-map-tip.is-idle {
+  color: var(--muted);
+}
+
+/* —— 강원페이 영수증 목업 —— */
+.pay-receipt-card {
+  border-radius: var(--radius);
+  border: 1px solid rgba(42, 106, 148, 0.2);
+  background: #fff;
+  padding: 0.9rem;
+}
+
+.pay-receipt-layout {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+@media (min-width: 560px) {
+  .pay-receipt-layout {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: start;
+  }
+}
+
+.pay-receipt-slip {
+  position: relative;
+  border-radius: 2px;
+  border: 1px dashed rgba(42, 106, 148, 0.35);
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 11px,
+      rgba(42, 106, 148, 0.04) 11px,
+      rgba(42, 106, 148, 0.04) 12px
+    ),
+    #fbfcfd;
+  padding: 0.85rem 0.9rem 0.75rem;
+  box-shadow: 2px 3px 0 rgba(22, 40, 48, 0.04);
+}
+
+.pay-receipt-slip::before,
+.pay-receipt-slip::after {
+  content: "";
+  position: absolute;
+  left: 0.55rem;
+  right: 0.55rem;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(42, 106, 148, 0.35) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.pay-receipt-slip::before {
+  top: 2.15rem;
+}
+
+.pay-receipt-slip::after {
+  bottom: 1.55rem;
+}
+
+.pay-receipt-slip-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--sea);
+}
+
+.pay-receipt-slip-store {
+  margin: 0.85rem 0 0.15rem;
+  font-family: var(--font-display), "Noto Serif KR", serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--mountain-deep);
+}
+
+.pay-receipt-slip-meta {
+  margin: 0;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.pay-receipt-slip-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.45rem;
+  font-size: 0.75rem;
+  color: var(--on-surface);
+}
+
+.pay-receipt-slip-attach {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(42, 106, 148, 0.06);
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.pay-receipt-clip {
+  width: 0.55rem;
+  height: 0.85rem;
+  border: 1.5px solid var(--sea);
+  border-radius: 2px 2px 1px 1px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.pay-receipt-slip-foot {
+  margin: 0.85rem 0 0;
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.pay-receipt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.pay-receipt-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.pay-receipt-list {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--outline);
+}
+
+.pay-receipt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -14,12 +14,21 @@ import { scoreTripDispersion } from "@/lib/impactScore";
 import { loadBenefitCtr } from "@/lib/benefits";
 import { formatWon } from "@/lib/formatWon";
 import type { TripPlan } from "@/lib/tripTypes";
+import { PassportStampMap } from "@/components/PassportStampMap";
+import { GangwonPayReceiptMock } from "@/components/GangwonPayReceiptMock";
+import { loadPayReceipts, payReceiptTotals } from "@/lib/payReceipts";
 
 export function PassportBoard() {
   const [passport, setPassport] = useState<QuietPassport | null>(null);
+  const [payTotal, setPayTotal] = useState(0);
+
+  function reload() {
+    setPassport(loadPassport());
+    setPayTotal(payReceiptTotals(loadPayReceipts()).amount);
+  }
 
   useEffect(() => {
-    setPassport(loadPassport());
+    reload();
   }, []);
 
   const progress = passportProgress();
@@ -34,11 +43,13 @@ export function PassportBoard() {
   return (
     <div className="space-y-5">
       <header>
-        <p className="m-0 text-[0.72rem] font-bold tracking-wide text-sea">리텐션 · 게이미피케이션</p>
+        <p className="m-0 text-[0.72rem] font-bold tracking-wide text-sea">
+          리텐션 · 게이미피케이션
+        </p>
         <h1 className="mt-1 text-xl font-bold text-mountain-deep">한산 여권</h1>
         <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted">
-          인구감소 권역이 일정에 담길 때마다 스탬프가 쌓입니다. 한 번 가고 끝내지 않고, 한산
-          시·군을 이어서 방문하도록 유도합니다.
+          인구감소 권역이 일정에 담길 때마다 스탬프가 쌓입니다. 강원페이 영수증을
+          남기면 한산 권역 소비까지 여권에 연결됩니다.
         </p>
       </header>
 
@@ -52,9 +63,16 @@ export function PassportBoard() {
           <div className="text-right">
             <p className="m-0 text-[1.6rem] font-bold tabular-nums text-sea-deep">
               {progress.collected}
-              <span className="text-base font-semibold text-muted">/{progress.total}</span>
+              <span className="text-base font-semibold text-muted">
+                /{progress.total}
+              </span>
             </p>
             <p className="m-0 text-[0.7rem] text-muted">한산 시·군 스탬프</p>
+            {payTotal > 0 ? (
+              <p className="mt-1 m-0 text-[0.68rem] font-semibold text-sea">
+                강원페이 {formatWon(payTotal)}
+              </p>
+            ) : null}
           </div>
         </div>
         <div
@@ -71,8 +89,14 @@ export function PassportBoard() {
         </div>
       </section>
 
+      <PassportStampMap stamps={passport.stamps} />
+
+      <GangwonPayReceiptMock onStamped={reload} />
+
       <section>
-        <h2 className="m-0 text-[0.85rem] font-bold text-mountain-deep">시·군 스탬프</h2>
+        <h2 className="m-0 text-[0.85rem] font-bold text-mountain-deep">
+          시·군 스탬프
+        </h2>
         <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {QUIET_REGIONS.map((region) => {
             const stamp = passport.stamps.find((s) => s.region === region);
@@ -86,9 +110,11 @@ export function PassportBoard() {
                     : "rounded-[var(--radius-sm)] border border-dashed border-[var(--outline)] bg-white/70 px-3 py-3 opacity-70"
                 }
               >
-                <strong className="block text-[0.9rem] text-mountain-deep">{short}</strong>
+                <strong className="block text-[0.9rem] text-mountain-deep">
+                  {short}
+                </strong>
                 <span className="text-[0.68rem] text-muted">
-                  {stamp ? `${stamp.count}회 · 최근 일정 반영` : "미방문"}
+                  {stamp ? `${stamp.count}회 · 일정/영수증 반영` : "미방문"}
                 </span>
               </li>
             );
@@ -101,7 +127,7 @@ export function PassportBoard() {
         <Link href="/planner" className="font-semibold text-sea hover:underline">
           찜
         </Link>
-        하면 스탬프가 찍힙니다. 지자체 설득용 지표는{" "}
+        하거나 강원페이 영수증을 기록하면 스탬프가 찍힙니다. 지자체 설득용 지표는{" "}
         <Link href="/impact" className="font-semibold text-sea hover:underline">
           임팩트
         </Link>
@@ -205,9 +231,9 @@ export function ImpactBoard() {
       hint: "저밀도·인접 동선 ESG",
     },
     {
-      label: "혜택·가맹 CTR",
+      label: "혜택 링크 클릭",
       value: `${kpis.ctrTotal}`,
-      hint: `한산 여권 ${kpis.stampCount}/${QUIET_REGIONS.length}`,
+      hint: "지역 혜택·가맹 안내 탭 수",
     },
   ];
 
@@ -235,6 +261,16 @@ export function ImpactBoard() {
           </article>
         ))}
       </section>
+
+      {kpis.tripCount === 0 ? (
+        <p className="m-0 rounded-[var(--radius-sm)] border border-dashed border-[var(--outline)] bg-white/80 px-3 py-2.5 text-[0.75rem] text-muted">
+          아직 저장된 일정이 없어요.{" "}
+          <Link href="/planner" className="font-semibold text-sea hover:underline">
+            플래너
+          </Link>
+          에서 코스를 찜하면 위 수치가 채워집니다.
+        </p>
+      ) : null}
 
       <section className="rounded-[var(--radius)] border border-[var(--outline)] bg-white/94 px-4 py-4">
         <h2 className="m-0 text-[0.85rem] font-bold text-mountain-deep">
@@ -348,7 +384,8 @@ export function ImpactBoard() {
       </section>
 
       <p className="text-[0.75rem] text-muted">
-        데이터 매시업: TourAPI + 기상 + 축제 + 조폐공사 결제정보.{" "}
+        이 화면 KPI는 브라우저에 저장된 일정·여권·혜택 클릭과 조폐공사 결제
+        집계입니다. 홈·채팅의 날씨·축제는 별도 매시업입니다.{" "}
         <Link href="/passport" className="font-semibold text-sea hover:underline">
           한산 여권
         </Link>

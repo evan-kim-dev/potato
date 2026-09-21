@@ -289,6 +289,13 @@ type LivePlanPayload = {
  * 카탈로그 후보를 주고 Gemini가 스팟 선택·순서·일차·이유를 실시간 생성.
  * 로컬 템플릿 코스 없이 AI 출력만으로 TripPlan을 만듭니다.
  */
+export type PlanPipelineMeta = {
+  candidateCount: number;
+  candidatePreview: string[];
+  selected: string[];
+  ordered: string[];
+};
+
 export async function generateLiveTripPlan(
   prompt: string,
   prefs = "",
@@ -298,7 +305,12 @@ export async function generateLiveTripPlan(
     placeNote?: string;
     durationHint?: string;
   }
-): Promise<{ plan: TripPlan; reply: string; model: string }> {
+): Promise<{
+  plan: TripPlan;
+  reply: string;
+  model: string;
+  pipeline: PlanPipelineMeta;
+}> {
   const durationHint = extra?.durationHint || inferDurationLabel(prompt) || "당일 코스";
   const catalog = candidateSpotsForPlan(prompt, prefs, {
     placeNote: extra?.placeNote,
@@ -441,11 +453,20 @@ export async function generateLiveTripPlan(
     ? `\n\n저밀도 분산 ${plan.dispersion.score}점(${plan.dispersion.grade}) · ${plan.dispersion.esgNote}`
     : "";
 
+  const orderedNames = steps.map((s) => s.spot.name);
+  const selectedNames = finalResolved.map((s) => s.name);
+
   return {
     plan,
     reply: parsed.reply?.trim()
       ? `${parsed.reply.trim()}${dispersionLine}`
       : `${reply}${dispersionLine}`,
     model: raw.model,
+    pipeline: {
+      candidateCount: catalog.length,
+      candidatePreview: catalog.slice(0, 5).map((s) => `${s.name}(${s.region})`),
+      selected: selectedNames,
+      ordered: orderedNames,
+    },
   };
 }
