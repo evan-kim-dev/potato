@@ -1,39 +1,79 @@
 {
-  "updated_at": "2026-09-20",
+  "updated_at": "2026-09-21",
   "sources": [
-    "heuristic:quiet-coast-bridge"
+    "TourAPI DataLab locgoRegnVisitrDDList",
+    "TourAPI TatsCnctrRateService tatsCnctrRatedList",
+    "TourAPI AreaTarDemDsService areaTarSjrnDsList",
+    "TourAPI AreaTarDivService areaTouDivList/areaIntlDivList",
+    "TourAPI AreaTarResDemService areaTarSvcDemList"
   ],
   "legend": {
     "high": "혼잡·집중 높음",
     "mid": "보통",
     "low": "한산·분산 추천",
-    "unknown": "데이터 대기",
-    "proxy": "추정(공공 집중률 대기)"
+    "unknown": "데이터 대기"
   },
   "regions": {
     "강릉시": {
       "congestion_level": "high",
-      "congestion_score": 78,
+      "congestion_score": 101.4,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 99.7,
+        "peak_rate": 100.0,
+        "top_spots": [
+          {
+            "name": "강릉아트센터",
+            "rate": 100.0,
+            "baseYmd": "20260924"
+          },
+          {
+            "name": "강릉아트센터",
+            "rate": 99.9,
+            "baseYmd": "20260927"
+          },
+          {
+            "name": "강릉올림픽파크(하키센터,아이스아레나,스피드스케이팅경기장)",
+            "rate": 99.9,
+            "baseYmd": "20261010"
+          },
+          {
+            "name": "강릉올림픽파크(하키센터,아이스아레나,스피드스케이팅경기장)",
+            "rate": 99.9,
+            "baseYmd": "20261017"
+          },
+          {
+            "name": "강릉 대공산성",
+            "rate": 99.7,
+            "baseYmd": "20261017"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 118.53,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 88.13,
+        "international_diversity": null,
+        "score": 88.13,
+        "level": "high"
+      },
+      "resource": {
+        "service_demand": 99.34,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": false,
-      "label": "혼잡 우려(해안·추정)",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "정선군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "평창군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
@@ -41,33 +81,68 @@
           "level": "high",
           "reason": "인접 한산 권역"
         }
-      ],
-      "proxy": true,
-      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
+      ]
     },
     "고성군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 85.9,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 98.5,
+        "peak_rate": 100.0,
+        "top_spots": [
+          {
+            "name": "거진항",
+            "rate": 100.0,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "거진항",
+            "rate": 99.9,
+            "baseYmd": "20260924"
+          },
+          {
+            "name": "거진항",
+            "rate": 99.9,
+            "baseYmd": "20260925"
+          },
+          {
+            "name": "거진항",
+            "rate": 99.4,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "김일성 별장",
+            "rate": 97.7,
+            "baseYmd": "20261003"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 101.28,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 63.03,
+        "international_diversity": null,
+        "score": 63.03,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 80.9,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "양구군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "인제군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
@@ -79,22 +154,59 @@
     },
     "동해시": {
       "congestion_level": "high",
-      "congestion_score": 78,
+      "congestion_score": 77.6,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 99.2,
+        "peak_rate": 99.6,
+        "top_spots": [
+          {
+            "name": "동해 해암정",
+            "rate": 99.6,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "두타산성",
+            "rate": 99.6,
+            "baseYmd": "20261010"
+          },
+          {
+            "name": "두타산성",
+            "rate": 99.6,
+            "baseYmd": "20261011"
+          },
+          {
+            "name": "동해 해암정",
+            "rate": 99.3,
+            "baseYmd": "20260924"
+          },
+          {
+            "name": "두타산성",
+            "rate": 99.1,
+            "baseYmd": "20261009"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 77.39,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 66.91,
+        "international_diversity": null,
+        "score": 66.91,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 67.01,
+        "level": "mid"
+      },
       "visitors": {},
       "is_population_decline": false,
-      "label": "혼잡 우려(해안·추정)",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "태백시",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
@@ -107,33 +219,68 @@
           "level": "high",
           "reason": "인접 한산 권역"
         }
-      ],
-      "proxy": true,
-      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
+      ]
     },
     "삼척시": {
       "congestion_level": "high",
-      "congestion_score": 78,
+      "congestion_score": 80.8,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 99.8,
+        "peak_rate": 99.9,
+        "top_spots": [
+          {
+            "name": "궁촌해변(궁촌해수욕장)",
+            "rate": 99.9,
+            "baseYmd": "20260925"
+          },
+          {
+            "name": "궁촌해변(궁촌해수욕장)",
+            "rate": 99.9,
+            "baseYmd": "20260926"
+          },
+          {
+            "name": "궁촌해변(궁촌해수욕장)",
+            "rate": 99.9,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "궁촌해변(궁촌해수욕장)",
+            "rate": 99.9,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "궁촌해변(궁촌해수욕장)",
+            "rate": 99.9,
+            "baseYmd": "20261005"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 85.18,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 64.14,
+        "international_diversity": null,
+        "score": 64.14,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 73.93,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": false,
-      "label": "혼잡 우려(해안·추정)",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "정선군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "태백시",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
@@ -141,33 +288,68 @@
           "level": "high",
           "reason": "인접 한산 권역"
         }
-      ],
-      "proxy": true,
-      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
+      ]
     },
     "속초시": {
       "congestion_level": "high",
-      "congestion_score": 78,
+      "congestion_score": 96.3,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 99.5,
+        "peak_rate": 99.8,
+        "top_spots": [
+          {
+            "name": "설악산 대청봉",
+            "rate": 99.8,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "동명항",
+            "rate": 99.7,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "베니키아 산과바다(대포항)",
+            "rate": 99.7,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "등대해변",
+            "rate": 99.5,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "금호리조트㈜ 설악",
+            "rate": 99.4,
+            "baseYmd": "20261004"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 113.4,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 73.23,
+        "international_diversity": null,
+        "score": 73.23,
+        "level": "high"
+      },
+      "resource": {
+        "service_demand": 99.15,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": false,
-      "label": "혼잡 우려(해안·추정)",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "고성군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "인제군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
@@ -175,60 +357,132 @@
           "level": "high",
           "reason": "인접 한산 권역"
         }
-      ],
-      "proxy": true,
-      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
+      ]
     },
     "양구군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 70.8,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 96.5,
+        "peak_rate": 99.6,
+        "top_spots": [
+          {
+            "name": "양구백자박물관",
+            "rate": 99.6,
+            "baseYmd": "20260924"
+          },
+          {
+            "name": "양구백자박물관",
+            "rate": 99.4,
+            "baseYmd": "20260926"
+          },
+          {
+            "name": "양구백자박물관",
+            "rate": 99.3,
+            "baseYmd": "20260925"
+          },
+          {
+            "name": "양구인문학박물관",
+            "rate": 96.0,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "양구인문학박물관",
+            "rate": 95.5,
+            "baseYmd": "20261010"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 65.4,
+        "level": "mid"
+      },
+      "diversity": {
+        "tourist_diversity": 57.67,
+        "international_diversity": null,
+        "score": 57.67,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 63.5,
+        "level": "mid"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "고성군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "인제군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "화천군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         }
       ]
     },
     "양양군": {
       "congestion_level": "high",
-      "congestion_score": 78,
+      "congestion_score": 86.1,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 98.8,
+        "peak_rate": 99.8,
+        "top_spots": [
+          {
+            "name": "낙산사",
+            "rate": 99.8,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "낙산사",
+            "rate": 99.7,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "낙산항",
+            "rate": 99.0,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "낙산 해수욕장",
+            "rate": 98.7,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "낙산항",
+            "rate": 98.5,
+            "baseYmd": "20261010"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 99.15,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 64.54,
+        "international_diversity": null,
+        "score": 64.54,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 81.79,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": false,
-      "label": "혼잡 우려(해안·추정)",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "인제군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
@@ -241,99 +495,206 @@
           "level": "high",
           "reason": "인접 한산 권역"
         }
-      ],
-      "proxy": true,
-      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
+      ]
     },
     "영월군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 77.2,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 97.3,
+        "peak_rate": 99.8,
+        "top_spots": [
+          {
+            "name": "구룡산(강원)",
+            "rate": 99.8,
+            "baseYmd": "20260929"
+          },
+          {
+            "name": "강변저류지 홍보관",
+            "rate": 99.2,
+            "baseYmd": "20261017"
+          },
+          {
+            "name": "난고 김삿갓 문학관",
+            "rate": 97.9,
+            "baseYmd": "20261011"
+          },
+          {
+            "name": "강원도 탄광문화촌",
+            "rate": 97.6,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "난고 김삿갓 문학관",
+            "rate": 96.4,
+            "baseYmd": "20261010"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 81.19,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 60.44,
+        "international_diversity": null,
+        "score": 60.44,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 69.96,
+        "level": "mid"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "정선군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "태백시",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "평창군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         }
       ]
     },
     "원주시": {
-      "congestion_level": "mid",
-      "congestion_score": 55,
+      "congestion_level": "high",
+      "congestion_score": 88.2,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 100.0,
+        "peak_rate": 100.0,
+        "top_spots": [
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261002"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261010"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 84.79,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 92.86,
+        "international_diversity": null,
+        "score": 92.86,
+        "level": "high"
+      },
+      "resource": {
+        "service_demand": 75.31,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": false,
-      "label": "보통(도시·추정)",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "영월군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "평창군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "횡성군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         }
-      ],
-      "proxy": true,
-      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
+      ]
     },
     "인제군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 77.0,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 100.0,
+        "peak_rate": 100.0,
+        "top_spots": [
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 100.0,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 100.0,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 100.0,
+            "baseYmd": "20261010"
+          },
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 100.0,
+            "baseYmd": "20261011"
+          },
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 100.0,
+            "baseYmd": "20261017"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 76.72,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 62.35,
+        "international_diversity": null,
+        "score": 62.35,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 69.05,
+        "level": "mid"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "고성군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "양구군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
@@ -344,121 +705,267 @@
       ]
     },
     "정선군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 80.0,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 98.6,
+        "peak_rate": 99.9,
+        "top_spots": [
+          {
+            "name": "민둥산",
+            "rate": 99.9,
+            "baseYmd": "20261011"
+          },
+          {
+            "name": "가리왕산",
+            "rate": 99.8,
+            "baseYmd": "20261017"
+          },
+          {
+            "name": "민둥산",
+            "rate": 99.3,
+            "baseYmd": "20261010"
+          },
+          {
+            "name": "민둥산",
+            "rate": 98.9,
+            "baseYmd": "20261018"
+          },
+          {
+            "name": "가리왕산",
+            "rate": 98.6,
+            "baseYmd": "20261003"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 87.45,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 61.52,
+        "international_diversity": null,
+        "score": 61.52,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 72.35,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "영월군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "태백시",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
-          "region": "평창군",
-          "level": "low",
-          "reason": "인구감소·한산 인접"
+          "region": "삼척시",
+          "level": "high",
+          "reason": "인접 한산 권역"
         }
       ]
     },
     "철원군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 73.0,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 100.0,
+        "peak_rate": 100.0,
+        "top_spots": [
+          {
+            "name": "고석정 (한탄강 유네스코 세계지질공원)",
+            "rate": 100.0,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "고석정 (한탄강 유네스코 세계지질공원)",
+            "rate": 100.0,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "고석정 (한탄강 유네스코 세계지질공원)",
+            "rate": 100.0,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "고석정 (한탄강 유네스코 세계지질공원)",
+            "rate": 100.0,
+            "baseYmd": "20261010"
+          },
+          {
+            "name": "고석정국민관광지",
+            "rate": 100.0,
+            "baseYmd": "20261003"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 67.29,
+        "level": "mid"
+      },
+      "diversity": {
+        "tourist_diversity": 59.96,
+        "international_diversity": null,
+        "score": 59.96,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 64.7,
+        "level": "mid"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "양구군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "화천군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         }
       ]
     },
     "춘천시": {
-      "congestion_level": "mid",
-      "congestion_score": 55,
+      "congestion_level": "high",
+      "congestion_score": 87.4,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 99.5,
+        "peak_rate": 100.0,
+        "top_spots": [
+          {
+            "name": "강촌레일바이크(경강역)",
+            "rate": 100.0,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "구봉산",
+            "rate": 100.0,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "구봉산",
+            "rate": 99.8,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "공지천 조각공원",
+            "rate": 99.5,
+            "baseYmd": "20260924"
+          },
+          {
+            "name": "강촌유원지",
+            "rate": 99.4,
+            "baseYmd": "20261003"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 83.08,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 88.21,
+        "international_diversity": null,
+        "score": 88.21,
+        "level": "high"
+      },
+      "resource": {
+        "service_demand": 78.9,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": false,
-      "label": "보통(도시·추정)",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "양구군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "화천군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "홍천군",
-          "level": "mid",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
-      ],
-      "proxy": true,
-      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
+      ]
     },
     "태백시": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 74.2,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 99.8,
+        "peak_rate": 99.9,
+        "top_spots": [
+          {
+            "name": "삼방동전망대",
+            "rate": 99.9,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "철암탄광역사촌",
+            "rate": 99.9,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "365세이프타운",
+            "rate": 99.8,
+            "baseYmd": "20261017"
+          },
+          {
+            "name": "태백 고생대 자연사박물관",
+            "rate": 99.8,
+            "baseYmd": "20260925"
+          },
+          {
+            "name": "태백 고생대 자연사박물관",
+            "rate": 99.8,
+            "baseYmd": "20260926"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 68.56,
+        "level": "mid"
+      },
+      "diversity": {
+        "tourist_diversity": 60.91,
+        "international_diversity": null,
+        "score": 60.91,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 67.53,
+        "level": "mid"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "영월군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "정선군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
@@ -469,131 +976,277 @@
       ]
     },
     "홍천군": {
-      "congestion_level": "mid",
-      "congestion_score": 48,
+      "congestion_level": "high",
+      "congestion_score": 82.7,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 96.9,
+        "peak_rate": 98.9,
+        "top_spots": [
+          {
+            "name": "알파카월드",
+            "rate": 98.9,
+            "baseYmd": "20261005"
+          },
+          {
+            "name": "팔봉산(홍천)",
+            "rate": 97.9,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "수타사 농촌테마파크",
+            "rate": 97.3,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "알파카월드",
+            "rate": 97.2,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "알파카월드",
+            "rate": 97.0,
+            "baseYmd": "20261003"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 90.5,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 68.09,
+        "international_diversity": null,
+        "score": 68.09,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 75.28,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": false,
-      "label": "보통(연계·추정)",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "인제군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "평창군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "횡성군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         }
-      ],
-      "proxy": true,
-      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
+      ]
     },
     "화천군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 72.4,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 99.5,
+        "peak_rate": 99.8,
+        "top_spots": [
+          {
+            "name": "산타우체국",
+            "rate": 99.8,
+            "baseYmd": "20260926"
+          },
+          {
+            "name": "산타우체국",
+            "rate": 99.6,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "산타우체국",
+            "rate": 99.6,
+            "baseYmd": "20261010"
+          },
+          {
+            "name": "산타우체국",
+            "rate": 99.6,
+            "baseYmd": "20261017"
+          },
+          {
+            "name": "딴산",
+            "rate": 99.5,
+            "baseYmd": "20261009"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 68.17,
+        "level": "mid"
+      },
+      "diversity": {
+        "tourist_diversity": 57.97,
+        "international_diversity": null,
+        "score": 57.97,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 64.09,
+        "level": "mid"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "양구군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "인제군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "철원군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         }
       ]
     },
     "횡성군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 76.8,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 99.9,
+        "peak_rate": 100.0,
+        "top_spots": [
+          {
+            "name": "섬강(섬강유원지)",
+            "rate": 100.0,
+            "baseYmd": "20261001"
+          },
+          {
+            "name": "섬강(섬강유원지)",
+            "rate": 100.0,
+            "baseYmd": "20261002"
+          },
+          {
+            "name": "섬강(섬강유원지)",
+            "rate": 100.0,
+            "baseYmd": "20261003"
+          },
+          {
+            "name": "섬강(섬강유원지)",
+            "rate": 100.0,
+            "baseYmd": "20261004"
+          },
+          {
+            "name": "섬강(섬강유원지)",
+            "rate": 100.0,
+            "baseYmd": "20261005"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 76.39,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 62.42,
+        "international_diversity": null,
+        "score": 62.42,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 68.34,
+        "level": "mid"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "평창군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "원주시",
-          "level": "mid",
+          "level": "high",
           "reason": "인접 한산 권역"
         },
         {
           "region": "홍천군",
-          "level": "mid",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
       ]
     },
     "평창군": {
-      "congestion_level": "low",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 85.9,
       "concentration": {
-        "avg_rate": null,
-        "peak_rate": null,
-        "top_spots": []
+        "avg_rate": 96.9,
+        "peak_rate": 98.5,
+        "top_spots": [
+          {
+            "name": "대관령양떼목장",
+            "rate": 98.5,
+            "baseYmd": "20261017"
+          },
+          {
+            "name": "강원 신재생에너지전시관",
+            "rate": 98.4,
+            "baseYmd": "20261005"
+          },
+          {
+            "name": "대관령양떼목장",
+            "rate": 97.2,
+            "baseYmd": "20261009"
+          },
+          {
+            "name": "대관령 하늘목장",
+            "rate": 97.1,
+            "baseYmd": "20260924"
+          },
+          {
+            "name": "물레방아(이효석길)",
+            "rate": 96.5,
+            "baseYmd": "20261005"
+          }
+        ]
       },
-      "demand": {},
-      "diversity": {},
-      "resource": {},
+      "demand": {
+        "stay_intensity": 98.98,
+        "level": "high"
+      },
+      "diversity": {
+        "tourist_diversity": 65.53,
+        "international_diversity": null,
+        "score": 65.53,
+        "level": "mid"
+      },
+      "resource": {
+        "service_demand": 82.03,
+        "level": "high"
+      },
       "visitors": {},
       "is_population_decline": true,
-      "label": "한산·여유",
+      "label": "혼잡 예상",
       "dispersion_targets": [
         {
           "region": "영월군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "정선군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         },
         {
           "region": "횡성군",
-          "level": "low",
+          "level": "high",
           "reason": "인구감소·한산 인접"
         }
       ]

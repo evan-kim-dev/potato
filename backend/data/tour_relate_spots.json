@@ -1,7 +1,1731 @@
 {
+  "updated_at": "2026-09-21",
+  "regions": {
+    "춘천시": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "3c3d79962bae3d9f842812a4fd63ea17",
+        "name": "통나무집닭갈비 · 본점",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "전문음식",
+        "category": "음식",
+        "region": "춘천시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "fc19840e2c2960232e9e86cc0c516b3d",
+        "name": "통나무집닭갈비 · 남춘천점",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "전문음식",
+        "category": "음식",
+        "region": "춘천시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "3c3d79962bae3d9f842812a4fd63ea17",
+        "name": "통나무집닭갈비 · 본점",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "전문음식",
+        "category": "음식",
+        "region": "춘천시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "7e5e3584b1f79c172caf097479b884ce",
+        "name": "엘리시안 · 강촌",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "콘도미니엄",
+        "category": "숙박",
+        "region": "춘천시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "fa35ed665853fcc91fb6256cb2397737",
+        "name": "모곡밤벌유원지",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "복합관광시설",
+        "category": "문화관광",
+        "region": "홍천군",
+        "baseYm": "202608"
+      }
+    ],
+    "원주시": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "3816e6ec41e2c0ccbb821954d69a1e95",
+        "name": "오크밸리리조트 · 빌리지센터",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "복합관광시설",
+        "category": "문화관광",
+        "region": "원주시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "cb35a563c84908f3e18473a83980eaa9",
+        "name": "미로예술원주중앙시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "원주시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "cb35a563c84908f3e18473a83980eaa9",
+        "name": "미로예술원주중앙시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "원주시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "3a8892cc3d2a0beb74c154754d0a18c5",
+        "name": "보릿고개 · 본점 [한식]",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "한식",
+        "category": "음식",
+        "region": "원주시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "5832911688836572b44d96da55f2ba7b",
+        "name": "성문안CC",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "레저스포츠",
+        "category_s": "육상레저스포츠",
+        "category": "레저스포츠",
+        "region": "원주시",
+        "baseYm": "202608"
+      }
+    ],
+    "강릉시": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "922250a7229656aaff4843b7a47e74cf",
+        "name": "도깨비촬영지 · (영진해변)",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "기타문화관광지",
+        "category": "문화관광",
+        "region": "강릉시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "5e08a345ca30e3971e9673e82f26d687",
+        "name": "강릉씨티호텔",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "호텔",
+        "category": "숙박",
+        "region": "강릉시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "e4e6d681aa052bd39d9c93a4c42eb925",
+        "name": "정암해변",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "양양군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "b009afdb93b20a4f493a2e941cc88b0f",
+        "name": "오죽헌",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "역사관광",
+        "category_s": "역사유적지",
+        "category": "역사관광",
+        "region": "강릉시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "0c4e2344555b6361e8b22bce41ca942f",
+        "name": "강릉중앙시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "강릉시",
+        "baseYm": "202608"
+      }
+    ],
+    "동해시": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "4dc2c207fd84ca72a16de07cd0cc856b",
+        "name": "망상해수욕장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "동해시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "3569f92f26e3051d76851e99881ea916",
+        "name": "천곡황금박쥐동굴",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연생태",
+        "category": "자연관광",
+        "region": "동해시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "4dc2c207fd84ca72a16de07cd0cc856b",
+        "name": "망상해수욕장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "동해시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "3569f92f26e3051d76851e99881ea916",
+        "name": "천곡황금박쥐동굴",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연생태",
+        "category": "자연관광",
+        "region": "동해시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "3569f92f26e3051d76851e99881ea916",
+        "name": "천곡황금박쥐동굴",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연생태",
+        "category": "자연관광",
+        "region": "동해시",
+        "baseYm": "202608"
+      }
+    ],
+    "태백시": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "57fc073dee9b5e57fe93285aadf0d530",
+        "name": "석탄박물관",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "전시시설",
+        "category": "문화관광",
+        "region": "태백시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "233651f23d3f3eab1a6dd3b20e6a59ba",
+        "name": "몽토랑",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "카페/찻집",
+        "category": "음식",
+        "region": "태백시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "7ad231387b8fb9a172528fe68871dc84",
+        "name": "용연동굴",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연생태",
+        "category": "자연관광",
+        "region": "태백시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "f768b0f98cadacb8246e486f8caeb581",
+        "name": "통리탄탄파크",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "테마공원",
+        "category": "문화관광",
+        "region": "태백시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "647b9f9311158635cdc0ff024d2b9091",
+        "name": "오투리조트 · 타워콘도",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "콘도미니엄",
+        "category": "숙박",
+        "region": "태백시",
+        "baseYm": "202608"
+      }
+    ],
+    "속초시": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "817c4a3902258090a27aca081b01743f",
+        "name": "속초해변",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "속초시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "2eba6ef37ac9b1344c9c466446d0072a",
+        "name": "속초관광수산시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "속초시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "817c4a3902258090a27aca081b01743f",
+        "name": "속초해변",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "속초시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "817c4a3902258090a27aca081b01743f",
+        "name": "속초해변",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "속초시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "2eba6ef37ac9b1344c9c466446d0072a",
+        "name": "속초관광수산시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "속초시",
+        "baseYm": "202608"
+      }
+    ],
+    "삼척시": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8ea6817e249bca6c3068903e1a55aa5b",
+        "name": "장호항",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "삼척시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "0498ac85ae9ffeb79c012eb6ce7f6899",
+        "name": "삼척중앙시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "삼척시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "99bd54c3b042e85c1a6cc1c45b65eff8",
+        "name": "갈남항",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "삼척시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "0900062823e70d787e821e77cce55a68",
+        "name": "대진항",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "삼척시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "0f34dc48b2ea4dfa79989a2252f49804",
+        "name": "원평해변",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "삼척시",
+        "baseYm": "202608"
+      }
+    ],
+    "홍천군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "24d6d31a58a0b54d1963d22b8e9c1fc9",
+        "name": "가리산막국수",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "한식",
+        "category": "음식",
+        "region": "홍천군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "213804a272605db7f87d0fbc01afe714",
+        "name": "용오름계곡",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(산)",
+        "category": "자연관광",
+        "region": "홍천군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "58959bfb022d768a0e8a85d8f5fcc8dd",
+        "name": "팔봉산국민관광지",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "복합관광시설",
+        "category": "문화관광",
+        "region": "홍천군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8da8e7ba803850434a9735bf38e5db1e",
+        "name": "러스틱라이프",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "카페/찻집",
+        "category": "음식",
+        "region": "홍천군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "7eda292a98aac221751ea3db56a496bc",
+        "name": "홍천무궁화수목원",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "테마공원",
+        "category": "문화관광",
+        "region": "홍천군",
+        "baseYm": "202608"
+      }
+    ],
+    "횡성군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "5038ec2c616485770ea09ccbe34cd220",
+        "name": "웰리힐리파크",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "콘도미니엄",
+        "category": "숙박",
+        "region": "횡성군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "5222b70037a99736c6492943c5bccf14",
+        "name": "국립청태산자연휴양림",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연공원",
+        "category": "자연관광",
+        "region": "횡성군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "91cd8c89cd950b1681d3f63c344a5631",
+        "name": "횡성축협한우프라자 · 본점",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "한식",
+        "category": "음식",
+        "region": "횡성군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "4db4ac896e508852ed1d6d22b6516f8c",
+        "name": "횡성호수길 · 5구간",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "레저스포츠",
+        "category_s": "기타레저스포츠",
+        "category": "레저스포츠",
+        "region": "횡성군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "4db4ac896e508852ed1d6d22b6516f8c",
+        "name": "횡성호수길 · 5구간",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "레저스포츠",
+        "category_s": "기타레저스포츠",
+        "category": "레저스포츠",
+        "region": "횡성군",
+        "baseYm": "202608"
+      }
+    ],
+    "영월군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "1930dcad08aefd2095dc5c8e3d4164ed",
+        "name": "고씨동굴",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연생태",
+        "category": "자연관광",
+        "region": "영월군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "5ceb29adcd4b4944f1d50efcfac3aa12",
+        "name": "장릉",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "역사관광",
+        "category_s": "역사유적지",
+        "category": "역사관광",
+        "region": "영월군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "da790ca8850aed270504164ae74c8f12",
+        "name": "미자식당",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "전문음식",
+        "category": "음식",
+        "region": "영월군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "1930dcad08aefd2095dc5c8e3d4164ed",
+        "name": "고씨동굴",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연생태",
+        "category": "자연관광",
+        "region": "영월군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "981779515e956907977c3963fc0938e8",
+        "name": "김삿갓계곡",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(산)",
+        "category": "자연관광",
+        "region": "영월군",
+        "baseYm": "202608"
+      }
+    ],
+    "평창군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "e0217a6d3ce76414db481cb68f34079a",
+        "name": "진부전통시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "평창군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "ae54608c8216228a5532fba1907109ab",
+        "name": "바운스슈퍼파크 · 원주오크밸리센터",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "테마공원",
+        "category": "문화관광",
+        "region": "원주시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "776e7e89353e146a00645ecb2456c971",
+        "name": "월정사",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "역사관광",
+        "category_s": "종교성지",
+        "category": "역사관광",
+        "region": "평창군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "550e5f4965b5679019de11a9cb02a3af",
+        "name": "이모네생선찜",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "한식",
+        "category": "음식",
+        "region": "강릉시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "a67b367a39a0ab02bbe27f261a61c328",
+        "name": "발왕산케이블카",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "기타관광",
+        "category_s": "기타관광",
+        "category": "기타관광",
+        "region": "평창군",
+        "baseYm": "202608"
+      }
+    ],
+    "정선군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "a0805e1758ea419fa6a4e010de131df8",
+        "name": "정선아리랑시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "정선군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "5598ed773dbfa0384dc6f5d1e7de2a39",
+        "name": "메이힐스리조트",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "콘도미니엄",
+        "category": "숙박",
+        "region": "정선군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "a76e1412ec2851cc3338192a6b3593c1",
+        "name": "아우라지역",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "기타관광",
+        "category_s": "교통시설",
+        "category": "기타관광",
+        "region": "정선군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "6ff457dfb5b7d8e9d1ae013dea90725d",
+        "name": "마운틴콘도",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "콘도미니엄",
+        "category": "숙박",
+        "region": "정선군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "152ecf745bb18dbc185f7220af6380c4",
+        "name": "병방치스카이워크",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "랜드마크관광",
+        "category": "문화관광",
+        "region": "정선군",
+        "baseYm": "202608"
+      }
+    ],
+    "철원군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "65d2da230c6b21fccbbc86e95fede08e",
+        "name": "철원막국수",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "한식",
+        "category": "음식",
+        "region": "철원군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "0942d1c0df5fb124d12ff5db137c1424",
+        "name": "직탕폭포",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(산)",
+        "category": "자연관광",
+        "region": "철원군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "202afe0327489b219cbe25bc38451897",
+        "name": "리버포레스트카페&해오름가든",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "한식",
+        "category": "음식",
+        "region": "철원군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "d86db6cd89feb9e0c663a28171ff6fd5",
+        "name": "기와집",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "한식",
+        "category": "음식",
+        "region": "철원군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "378967397a2263528db8eea0b1259e60",
+        "name": "고석정국민관광지",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "복합관광시설",
+        "category": "문화관광",
+        "region": "철원군",
+        "baseYm": "202608"
+      }
+    ],
+    "화천군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "7e3cfe8decaab205e76386e61df6d4a5",
+        "name": "화음동민박",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "펜션/민박",
+        "category": "숙박",
+        "region": "화천군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8641250d9d536bb1e329bbb91aa3d6fb",
+        "name": "평화의댐물문화관",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "전시시설",
+        "category": "문화관광",
+        "region": "화천군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8ad85387e7671c53656946aca45d9d46",
+        "name": "붕어섬유원지",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "복합관광시설",
+        "category": "문화관광",
+        "region": "화천군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8641250d9d536bb1e329bbb91aa3d6fb",
+        "name": "평화의댐물문화관",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "전시시설",
+        "category": "문화관광",
+        "region": "화천군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8ad85387e7671c53656946aca45d9d46",
+        "name": "붕어섬유원지",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "복합관광시설",
+        "category": "문화관광",
+        "region": "화천군",
+        "baseYm": "202608"
+      }
+    ],
+    "양구군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "4ebe841f14df1dd81e8cfda6dc8c4996",
+        "name": "한반도섬",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "양구군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "538fc5cef07638fc824823535706423c",
+        "name": "광치자연휴양림",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연공원",
+        "category": "자연관광",
+        "region": "양구군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "b4b63cc95fdcf2653fc47bd96062df76",
+        "name": "양구백자박물관",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "전시시설",
+        "category": "문화관광",
+        "region": "양구군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "4ebe841f14df1dd81e8cfda6dc8c4996",
+        "name": "한반도섬",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "양구군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "01d409651a9251b3ddfabb15c94a8745",
+        "name": "양구농사꾼",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "카페/찻집",
+        "category": "음식",
+        "region": "양구군",
+        "baseYm": "202608"
+      }
+    ],
+    "인제군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "52bb7478327e64432010d90b9c933b57",
+        "name": "호텔더블루테라",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "호텔",
+        "category": "숙박",
+        "region": "속초시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "1e79ff0c606b299568498f3425f395ab",
+        "name": "오색약수터",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(산)",
+        "category": "자연관광",
+        "region": "양양군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "eaa1794e4c5641e77a5d75eeceef26d9",
+        "name": "아침가리계곡",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(산)",
+        "category": "자연관광",
+        "region": "인제군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "e41ec82c350e9d15e638c462c2dcdb58",
+        "name": "예당막국수식당",
+        "rank": 1,
+        "category_l": "음식",
+        "category_m": "음식",
+        "category_s": "한식",
+        "category": "음식",
+        "region": "인제군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "08710d1cd5ab77ba863bcfb3dfc80891",
+        "name": "백담사",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "역사관광",
+        "category_s": "종교성지",
+        "category": "역사관광",
+        "region": "인제군",
+        "baseYm": "202608"
+      }
+    ],
+    "고성군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "572286ce4f2b468f49e5c615cc32f151",
+        "name": "고성통일전망대",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "문화관광",
+        "category_s": "랜드마크관광",
+        "category": "문화관광",
+        "region": "고성군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8ec3066210239a1f58e819687394c419",
+        "name": "거진항",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "고성군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "d3165fff28ed4646da3d840d0ff99f7a",
+        "name": "송지호해변",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "고성군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8ec3066210239a1f58e819687394c419",
+        "name": "거진항",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "고성군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "39b96efd2c2220b235e358472b52531b",
+        "name": "화진포해변",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "고성군",
+        "baseYm": "202608"
+      }
+    ],
+    "양양군": [
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "689304f876ded3e60c7c75081ff82fed",
+        "name": "더앤리조트",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "콘도미니엄",
+        "category": "숙박",
+        "region": "양양군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "689304f876ded3e60c7c75081ff82fed",
+        "name": "더앤리조트",
+        "rank": 1,
+        "category_l": "숙박",
+        "category_m": "숙박",
+        "category_s": "콘도미니엄",
+        "category": "숙박",
+        "region": "양양군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "2eba6ef37ac9b1344c9c466446d0072a",
+        "name": "속초관광수산시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "속초시",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "8fb709bc5328f9b5fd2c9346f9576468",
+        "name": "하조대해변",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "자연관광",
+        "category_s": "자연경관(하천/해양)",
+        "category": "자연관광",
+        "region": "양양군",
+        "baseYm": "202608"
+      },
+      {
+        "anchor_code": "",
+        "anchor_name": "",
+        "code": "2eba6ef37ac9b1344c9c466446d0072a",
+        "name": "속초관광수산시장",
+        "rank": 1,
+        "category_l": "관광지",
+        "category_m": "쇼핑",
+        "category_s": "시장",
+        "category": "쇼핑",
+        "region": "속초시",
+        "baseYm": "202608"
+      }
+    ]
+  },
   "source": "TourAPI TarRlteTarService1 areaBasedList1",
-  "updated_at": "2026-06-16",
-  "baseYm": "202605",
-  "regions": {},
-  "by_anchor": {}
+  "baseYm": "202608",
+  "by_anchor": {
+    "춘천시": {
+      "기타": [
+        {
+          "code": "3c3d79962bae3d9f842812a4fd63ea17",
+          "name": "통나무집닭갈비 · 본점",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "fc19840e2c2960232e9e86cc0c516b3d",
+          "name": "통나무집닭갈비 · 남춘천점",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "7e5e3584b1f79c172caf097479b884ce",
+          "name": "엘리시안 · 강촌",
+          "rank": 1,
+          "category": "숙박"
+        },
+        {
+          "code": "fa35ed665853fcc91fb6256cb2397737",
+          "name": "모곡밤벌유원지",
+          "rank": 1,
+          "category": "문화관광"
+        }
+      ]
+    },
+    "원주시": {
+      "기타": [
+        {
+          "code": "3816e6ec41e2c0ccbb821954d69a1e95",
+          "name": "오크밸리리조트 · 빌리지센터",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "cb35a563c84908f3e18473a83980eaa9",
+          "name": "미로예술원주중앙시장",
+          "rank": 1,
+          "category": "쇼핑"
+        },
+        {
+          "code": "3a8892cc3d2a0beb74c154754d0a18c5",
+          "name": "보릿고개 · 본점 [한식]",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "5832911688836572b44d96da55f2ba7b",
+          "name": "성문안CC",
+          "rank": 1,
+          "category": "레저스포츠"
+        }
+      ]
+    },
+    "강릉시": {
+      "기타": [
+        {
+          "code": "922250a7229656aaff4843b7a47e74cf",
+          "name": "도깨비촬영지 · (영진해변)",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "5e08a345ca30e3971e9673e82f26d687",
+          "name": "강릉씨티호텔",
+          "rank": 1,
+          "category": "숙박"
+        },
+        {
+          "code": "e4e6d681aa052bd39d9c93a4c42eb925",
+          "name": "정암해변",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "b009afdb93b20a4f493a2e941cc88b0f",
+          "name": "오죽헌",
+          "rank": 1,
+          "category": "역사관광"
+        },
+        {
+          "code": "0c4e2344555b6361e8b22bce41ca942f",
+          "name": "강릉중앙시장",
+          "rank": 1,
+          "category": "쇼핑"
+        }
+      ]
+    },
+    "동해시": {
+      "기타": [
+        {
+          "code": "4dc2c207fd84ca72a16de07cd0cc856b",
+          "name": "망상해수욕장",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "3569f92f26e3051d76851e99881ea916",
+          "name": "천곡황금박쥐동굴",
+          "rank": 1,
+          "category": "자연관광"
+        }
+      ]
+    },
+    "태백시": {
+      "기타": [
+        {
+          "code": "57fc073dee9b5e57fe93285aadf0d530",
+          "name": "석탄박물관",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "233651f23d3f3eab1a6dd3b20e6a59ba",
+          "name": "몽토랑",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "7ad231387b8fb9a172528fe68871dc84",
+          "name": "용연동굴",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "f768b0f98cadacb8246e486f8caeb581",
+          "name": "통리탄탄파크",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "647b9f9311158635cdc0ff024d2b9091",
+          "name": "오투리조트 · 타워콘도",
+          "rank": 1,
+          "category": "숙박"
+        }
+      ]
+    },
+    "속초시": {
+      "기타": [
+        {
+          "code": "817c4a3902258090a27aca081b01743f",
+          "name": "속초해변",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "2eba6ef37ac9b1344c9c466446d0072a",
+          "name": "속초관광수산시장",
+          "rank": 1,
+          "category": "쇼핑"
+        }
+      ]
+    },
+    "삼척시": {
+      "기타": [
+        {
+          "code": "8ea6817e249bca6c3068903e1a55aa5b",
+          "name": "장호항",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "0498ac85ae9ffeb79c012eb6ce7f6899",
+          "name": "삼척중앙시장",
+          "rank": 1,
+          "category": "쇼핑"
+        },
+        {
+          "code": "99bd54c3b042e85c1a6cc1c45b65eff8",
+          "name": "갈남항",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "0900062823e70d787e821e77cce55a68",
+          "name": "대진항",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "0f34dc48b2ea4dfa79989a2252f49804",
+          "name": "원평해변",
+          "rank": 1,
+          "category": "자연관광"
+        }
+      ]
+    },
+    "홍천군": {
+      "기타": [
+        {
+          "code": "24d6d31a58a0b54d1963d22b8e9c1fc9",
+          "name": "가리산막국수",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "213804a272605db7f87d0fbc01afe714",
+          "name": "용오름계곡",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "58959bfb022d768a0e8a85d8f5fcc8dd",
+          "name": "팔봉산국민관광지",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "8da8e7ba803850434a9735bf38e5db1e",
+          "name": "러스틱라이프",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "7eda292a98aac221751ea3db56a496bc",
+          "name": "홍천무궁화수목원",
+          "rank": 1,
+          "category": "문화관광"
+        }
+      ]
+    },
+    "횡성군": {
+      "기타": [
+        {
+          "code": "5038ec2c616485770ea09ccbe34cd220",
+          "name": "웰리힐리파크",
+          "rank": 1,
+          "category": "숙박"
+        },
+        {
+          "code": "5222b70037a99736c6492943c5bccf14",
+          "name": "국립청태산자연휴양림",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "91cd8c89cd950b1681d3f63c344a5631",
+          "name": "횡성축협한우프라자 · 본점",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "4db4ac896e508852ed1d6d22b6516f8c",
+          "name": "횡성호수길 · 5구간",
+          "rank": 1,
+          "category": "레저스포츠"
+        }
+      ]
+    },
+    "영월군": {
+      "기타": [
+        {
+          "code": "1930dcad08aefd2095dc5c8e3d4164ed",
+          "name": "고씨동굴",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "5ceb29adcd4b4944f1d50efcfac3aa12",
+          "name": "장릉",
+          "rank": 1,
+          "category": "역사관광"
+        },
+        {
+          "code": "da790ca8850aed270504164ae74c8f12",
+          "name": "미자식당",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "981779515e956907977c3963fc0938e8",
+          "name": "김삿갓계곡",
+          "rank": 1,
+          "category": "자연관광"
+        }
+      ]
+    },
+    "평창군": {
+      "기타": [
+        {
+          "code": "e0217a6d3ce76414db481cb68f34079a",
+          "name": "진부전통시장",
+          "rank": 1,
+          "category": "쇼핑"
+        },
+        {
+          "code": "ae54608c8216228a5532fba1907109ab",
+          "name": "바운스슈퍼파크 · 원주오크밸리센터",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "776e7e89353e146a00645ecb2456c971",
+          "name": "월정사",
+          "rank": 1,
+          "category": "역사관광"
+        },
+        {
+          "code": "550e5f4965b5679019de11a9cb02a3af",
+          "name": "이모네생선찜",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "a67b367a39a0ab02bbe27f261a61c328",
+          "name": "발왕산케이블카",
+          "rank": 1,
+          "category": "기타관광"
+        }
+      ]
+    },
+    "정선군": {
+      "기타": [
+        {
+          "code": "a0805e1758ea419fa6a4e010de131df8",
+          "name": "정선아리랑시장",
+          "rank": 1,
+          "category": "쇼핑"
+        },
+        {
+          "code": "5598ed773dbfa0384dc6f5d1e7de2a39",
+          "name": "메이힐스리조트",
+          "rank": 1,
+          "category": "숙박"
+        },
+        {
+          "code": "a76e1412ec2851cc3338192a6b3593c1",
+          "name": "아우라지역",
+          "rank": 1,
+          "category": "기타관광"
+        },
+        {
+          "code": "6ff457dfb5b7d8e9d1ae013dea90725d",
+          "name": "마운틴콘도",
+          "rank": 1,
+          "category": "숙박"
+        },
+        {
+          "code": "152ecf745bb18dbc185f7220af6380c4",
+          "name": "병방치스카이워크",
+          "rank": 1,
+          "category": "문화관광"
+        }
+      ]
+    },
+    "철원군": {
+      "기타": [
+        {
+          "code": "65d2da230c6b21fccbbc86e95fede08e",
+          "name": "철원막국수",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "0942d1c0df5fb124d12ff5db137c1424",
+          "name": "직탕폭포",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "202afe0327489b219cbe25bc38451897",
+          "name": "리버포레스트카페&해오름가든",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "d86db6cd89feb9e0c663a28171ff6fd5",
+          "name": "기와집",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "378967397a2263528db8eea0b1259e60",
+          "name": "고석정국민관광지",
+          "rank": 1,
+          "category": "문화관광"
+        }
+      ]
+    },
+    "화천군": {
+      "기타": [
+        {
+          "code": "7e3cfe8decaab205e76386e61df6d4a5",
+          "name": "화음동민박",
+          "rank": 1,
+          "category": "숙박"
+        },
+        {
+          "code": "8641250d9d536bb1e329bbb91aa3d6fb",
+          "name": "평화의댐물문화관",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "8ad85387e7671c53656946aca45d9d46",
+          "name": "붕어섬유원지",
+          "rank": 1,
+          "category": "문화관광"
+        }
+      ]
+    },
+    "양구군": {
+      "기타": [
+        {
+          "code": "4ebe841f14df1dd81e8cfda6dc8c4996",
+          "name": "한반도섬",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "538fc5cef07638fc824823535706423c",
+          "name": "광치자연휴양림",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "b4b63cc95fdcf2653fc47bd96062df76",
+          "name": "양구백자박물관",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "01d409651a9251b3ddfabb15c94a8745",
+          "name": "양구농사꾼",
+          "rank": 1,
+          "category": "음식"
+        }
+      ]
+    },
+    "인제군": {
+      "기타": [
+        {
+          "code": "52bb7478327e64432010d90b9c933b57",
+          "name": "호텔더블루테라",
+          "rank": 1,
+          "category": "숙박"
+        },
+        {
+          "code": "1e79ff0c606b299568498f3425f395ab",
+          "name": "오색약수터",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "eaa1794e4c5641e77a5d75eeceef26d9",
+          "name": "아침가리계곡",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "e41ec82c350e9d15e638c462c2dcdb58",
+          "name": "예당막국수식당",
+          "rank": 1,
+          "category": "음식"
+        },
+        {
+          "code": "08710d1cd5ab77ba863bcfb3dfc80891",
+          "name": "백담사",
+          "rank": 1,
+          "category": "역사관광"
+        }
+      ]
+    },
+    "고성군": {
+      "기타": [
+        {
+          "code": "572286ce4f2b468f49e5c615cc32f151",
+          "name": "고성통일전망대",
+          "rank": 1,
+          "category": "문화관광"
+        },
+        {
+          "code": "8ec3066210239a1f58e819687394c419",
+          "name": "거진항",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "d3165fff28ed4646da3d840d0ff99f7a",
+          "name": "송지호해변",
+          "rank": 1,
+          "category": "자연관광"
+        },
+        {
+          "code": "39b96efd2c2220b235e358472b52531b",
+          "name": "화진포해변",
+          "rank": 1,
+          "category": "자연관광"
+        }
+      ]
+    },
+    "양양군": {
+      "기타": [
+        {
+          "code": "689304f876ded3e60c7c75081ff82fed",
+          "name": "더앤리조트",
+          "rank": 1,
+          "category": "숙박"
+        },
+        {
+          "code": "2eba6ef37ac9b1344c9c466446d0072a",
+          "name": "속초관광수산시장",
+          "rank": 1,
+          "category": "쇼핑"
+        },
+        {
+          "code": "8fb709bc5328f9b5fd2c9346f9576468",
+          "name": "하조대해변",
+          "rank": 1,
+          "category": "자연관광"
+        }
+      ]
+    }
+  }
 }

@@ -1,7 +1,5 @@
 {
-  "source": "TourAPI KorService2 areaBasedList2",
-  "updated_at": "2026-06-16",
-  "lDongRegnCd": "51",
+  "updated_at": "2026-09-21",
   "regions": {
     "춘천시": [
       {
@@ -60,11 +58,21 @@
         "id": "126644",
         "title": "간현관광지",
         "addr": "강원특별자치도 원주시 소금산길 12",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/72/3388672_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/72/3388672_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.8340575195",
-        "mapY": "37.3646293574"
+        "mapX": "127.8340358420",
+        "mapY": "37.3645761090"
+      },
+      {
+        "id": "125600",
+        "title": "감악산(원주)",
+        "addr": "강원특별자치도 원주시 신림면 황둔리",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/97/4108997_image2_1.jpg",
+        "tel": "",
+        "typeId": "12",
+        "mapX": "128.1422459691",
+        "mapY": "37.2283405001"
       },
       {
         "id": "3425419",
@@ -95,16 +103,6 @@
         "typeId": "12",
         "mapX": "128.0141255047",
         "mapY": "37.3336557250"
-      },
-      {
-        "id": "2762710",
-        "title": "구 조선식산은행 원주지점",
-        "addr": "강원특별자치도 원주시 중앙로 88 (중앙동)",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/78/3379278_image2_1.JPG",
-        "tel": "",
-        "typeId": "12",
-        "mapX": "127.9514307123",
-        "mapY": "37.3489694554"
       }
     ],
     "강릉시": [
@@ -122,11 +120,11 @@
         "id": "2900682",
         "title": "강릉 3·1운동 기념공원",
         "addr": "강원특별자치도 강릉시 경포로 349 (저동)",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/65/2900665_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/61/4076861_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.8964",
-        "mapY": "37.7922"
+        "mapX": "128.8964365109",
+        "mapY": "37.7920983122"
       },
       {
         "id": "125790",
@@ -225,12 +223,12 @@
       {
         "id": "127537",
         "title": "구문소 (강원고생대 국가지질공원)",
-        "addr": "강원 태백시 동점동 498-123",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/80/3588580_image2_1.jpg",
+        "addr": "강원특별자치도 태백시 동점동 498-123",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/76/4098776_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "129.0395743399356",
-        "mapY": "37.09487479380001"
+        "mapX": "129.0395743399",
+        "mapY": "37.0948747938"
       },
       {
         "id": "2610122",
@@ -245,12 +243,12 @@
       {
         "id": "617327",
         "title": "구와우마을",
-        "addr": "강원 태백시 황지동 287-22",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/33/3492733_image2_1.jpg",
+        "addr": "강원특별자치도 태백시 구와우길 38-20",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/64/4098764_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.987302",
-        "mapY": "37.207497"
+        "mapX": "128.9873020000",
+        "mapY": "37.2074970000"
       },
       {
         "id": "1809589",
@@ -264,16 +262,6 @@
       }
     ],
     "속초시": [
-      {
-        "id": "3041720",
-        "title": "간이해변",
-        "addr": "강원특별자치도 속초시 아바이마을1길 86-1 (청호동)",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/07/3041707_image2_1.jpg",
-        "tel": "",
-        "typeId": "12",
-        "mapX": "128.5946244301",
-        "mapY": "38.2041825190"
-      },
       {
         "id": "3468741",
         "title": "과자의성",
@@ -295,24 +283,34 @@
         "mapY": "38.1645"
       },
       {
-        "id": "2456701",
-        "title": "다이나믹 메이즈 속초점",
-        "addr": "강원특별자치도 속초시 원암학사평길 88",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/41/3339841_image2_1.jpg",
-        "tel": "",
-        "typeId": "12",
-        "mapX": "128.5173452990",
-        "mapY": "38.2055364158"
-      },
-      {
         "id": "3041338",
         "title": "닭전 골목",
         "addr": "강원특별자치도 속초시 중앙로147번길 16 (중앙동)",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/14/3041314_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/14/3041314_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.5902164853",
-        "mapY": "38.2045712769"
+        "mapX": "128.5901909793",
+        "mapY": "38.2045159183"
+      },
+      {
+        "id": "129032",
+        "title": "대포마을",
+        "addr": "강원특별자치도 속초시 대포항1길 6-13",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/20/3394120_image2_1.JPG",
+        "tel": "",
+        "typeId": "12",
+        "mapX": "128.6072936101",
+        "mapY": "38.1758166221"
+      },
+      {
+        "id": "129596",
+        "title": "대포항",
+        "addr": "강원특별자치도 속초시 대포항길 64",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/56/4066656_image2_1.jpg",
+        "tel": "",
+        "typeId": "12",
+        "mapX": "128.607433369894",
+        "mapY": "38.1748951238747"
       }
     ],
     "삼척시": [
@@ -320,11 +318,11 @@
         "id": "2994116",
         "title": "가곡유황온천&스파",
         "addr": "강원특별자치도 삼척시 가곡면 가곡천로 1510",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/54/2994054_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/54/2994054_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "129.2064490523",
-        "mapY": "37.1509022547"
+        "mapX": "129.2064191502",
+        "mapY": "37.1508517675"
       },
       {
         "id": "3534460",
@@ -434,11 +432,11 @@
         "id": "125266",
         "title": "국립 청태산자연휴양림",
         "addr": "강원특별자치도 횡성군 둔내면 청태산로 610",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/21/2657021_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/63/4096163_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.291886878335",
-        "mapY": "37.5224600610358"
+        "mapX": "128.2918868783",
+        "mapY": "37.5224600610"
       },
       {
         "id": "337517",
@@ -509,8 +507,8 @@
         "image": "https://tong.visitkorea.or.kr/cms/resource/06/1841606_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.496900185059",
-        "mapY": "37.1617632010169"
+        "mapX": "128.4969001851",
+        "mapY": "37.1617632010"
       },
       {
         "id": "125724",
@@ -548,21 +546,21 @@
         "id": "2798965",
         "title": "고랭길",
         "addr": "강원특별자치도 평창군 봉평면 태기로 254-1",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/90/3585090_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/90/3585090_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.3362530327",
-        "mapY": "37.5802666171"
+        "mapX": "128.3362288984",
+        "mapY": "37.5802150195"
       },
       {
         "id": "2798360",
         "title": "고랭지만두마을",
         "addr": "강원특별자치도 평창군 대관령면 갈골길 33-5",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/74/3388874_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/74/3388874_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.6919648396",
-        "mapY": "37.6903218100"
+        "mapX": "128.6919375523",
+        "mapY": "37.6902668789"
       },
       {
         "id": "2770458",
@@ -579,12 +577,12 @@
       {
         "id": "127508",
         "title": "가리왕산",
-        "addr": "강원특별자치도 정선군 정선읍 가리왕산로 707",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/68/2987668_image2_1.png",
+        "addr": "강원특별자치도 평창군 진부면 장전리 산 1",
+        "image": "https://tong.visitkorea.or.kr/cms/resource_photo/98/3462498_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.5634777835",
-        "mapY": "37.4618262980"
+        "mapX": "128.5631000000",
+        "mapY": "37.4615000000"
       },
       {
         "id": "3068424",
@@ -639,14 +637,24 @@
         "mapY": "38.1860265295"
       },
       {
+        "id": "2749319",
+        "title": "고석정 꽃밭",
+        "addr": "강원특별자치도 철원군 동송읍 태봉로 1769",
+        "image": "https://tong.visitkorea.or.kr/cms/resource_photo/76/4062476_image2_1.jpg",
+        "tel": "",
+        "typeId": "12",
+        "mapX": "127.2955061618",
+        "mapY": "38.1882273231"
+      },
+      {
         "id": "125782",
         "title": "고석정국민관광지",
         "addr": "강원특별자치도 철원군 동송읍 태봉로 1825",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/12/3331512_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/80/4090780_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.2869221163",
-        "mapY": "38.1860265295"
+        "mapX": "127.2869037442",
+        "mapY": "38.1859684995"
       },
       {
         "id": "1955957",
@@ -667,16 +675,6 @@
         "typeId": "12",
         "mapX": "127.4732201929",
         "mapY": "38.1437543593"
-      },
-      {
-        "id": "2569497",
-        "title": "김화군민 망향탑",
-        "addr": "강원특별자치도 철원군 근남면 사곡리",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/44/3558044_image2_1.jpg",
-        "tel": "",
-        "typeId": "12",
-        "mapX": "127.4604181049",
-        "mapY": "38.2530580143"
       }
     ],
     "화천군": [
@@ -765,22 +763,22 @@
       {
         "id": "800067",
         "title": "국토정중앙천문대",
-        "addr": "강원특별자치도 양구군 국토정중앙면 국토정중앙로 (127, 국토정중앙)",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/17/3351117_image2_1.jpg",
+        "addr": "강원특별자치도 양구군 국토정중앙면 국토정중앙로 127",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/47/4081747_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.029676269097",
-        "mapY": "38.0689357311277"
+        "mapX": "128.0296771827",
+        "mapY": "38.0689307367"
       },
       {
         "id": "126603",
         "title": "두타연 (강원평화지역 국가지질공원)",
         "addr": "강원특별자치도 양구군 방산면 두타연로 297",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/89/3493389_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/00/4081700_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.981692152081",
-        "mapY": "38.2467825069002"
+        "mapX": "127.9816921521",
+        "mapY": "38.2467825069"
       }
     ],
     "인제군": [
@@ -825,14 +823,14 @@
         "mapY": "38.1942037592"
       },
       {
-        "id": "126677",
-        "title": "국립 방태산자연휴양림",
-        "addr": "강원특별자치도 인제군 방태산길 241 방태산자연휴양림",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/35/3426835_image2_1.jpg",
+        "id": "125412",
+        "title": "국립 용대자연휴양림",
+        "addr": "강원특별자치도 인제군 북면 연화동길 7",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/53/3042453_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.387954026394",
-        "mapY": "37.9296818478176"
+        "mapX": "128.3646639310",
+        "mapY": "38.2316443099"
       }
     ],
     "고성군": [
@@ -939,5 +937,7 @@
         "mapY": "37.93902"
       }
     ]
-  }
+  },
+  "source": "TourAPI KorService2 areaBasedList2",
+  "lDongRegnCd": "51"
 }

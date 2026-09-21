@@ -1,0 +1,79 @@
+{
+  "updated_at": "2026-09-21",
+  "regions": {
+    "춘천시": {
+      "stay_intensity": 83.08,
+      "level": "high"
+    },
+    "원주시": {
+      "stay_intensity": 84.79,
+      "level": "high"
+    },
+    "강릉시": {
+      "stay_intensity": 118.53,
+      "level": "high"
+    },
+    "동해시": {
+      "stay_intensity": 77.39,
+      "level": "high"
+    },
+    "태백시": {
+      "stay_intensity": 68.56,
+      "level": "mid"
+    },
+    "속초시": {
+      "stay_intensity": 113.4,
+      "level": "high"
+    },
+    "삼척시": {
+      "stay_intensity": 85.18,
+      "level": "high"
+    },
+    "홍천군": {
+      "stay_intensity": 90.5,
+      "level": "high"
+    },
+    "횡성군": {
+      "stay_intensity": 76.39,
+      "level": "high"
+    },
+    "영월군": {
+      "stay_intensity": 81.19,
+      "level": "high"
+    },
+    "평창군": {
+      "stay_intensity": 98.98,
+      "level": "high"
+    },
+    "정선군": {
+      "stay_intensity": 87.45,
+      "level": "high"
+    },
+    "철원군": {
+      "stay_intensity": 67.29,
+      "level": "mid"
+    },
+    "화천군": {
+      "stay_intensity": 68.17,
+      "level": "mid"
+    },
+    "양구군": {
+      "stay_intensity": 65.4,
+      "level": "mid"
+    },
+    "인제군": {
+      "stay_intensity": 76.72,
+      "level": "high"
+    },
+    "고성군": {
+      "stay_intensity": 101.28,
+      "level": "high"
+    },
+    "양양군": {
+      "stay_intensity": 99.15,
+      "level": "high"
+    }
+  },
+  "source": "TourAPI AreaTarDemDsService areaTarSjrnDsList",
+  "baseYm": "202608"
+}
