@@ -1,20 +1,20 @@
 # backend
 
-데이터 SSOT, TourAPI 동기화, Supabase Edge Functions.
+데이터 SSOT + TourAPI/기상 동기화.
 
 | 경로 | 역할 |
 |------|------|
-| `data/` | JSON 원본 (spots, catalog, prompts, tour_*) |
-| `scripts/` | sync / generate |
+| `data/` | JSON SSOT (`web`이 직접 읽음) |
+| `scripts/` | sync / check |
 | `tour_api.py` | KTO TourAPI 클라이언트 |
-| `beach_weather_api.py` | 기상청 해수욕장 날씨 클라이언트 |
-| `fcst_msg_api.py` | 기상청 단기예보 통보문 클라이언트 |
-| `kto_aggregation_service.py` | 6-API 집계 |
-| `supabase/` | `kakao-directions` Edge Function |
-| `docs/TOUR_API.md` | TourAPI·해수욕장·통보문 연동 가이드 |
+| `beach_weather_api.py` | 해수욕장 날씨 |
+| `forecast_msg_api.py` | 단기예보 통보문 |
+| `kto_aggregation_service.py` | Tour 집계 |
+| `docs/` | TOUR_API · PROPOSAL |
 
 ```bash
 pip install -r backend/requirements.txt
 python backend/scripts/sync_tour_all.py
-python backend/scripts/sync_content.py generate
+python backend/scripts/sync_komsco_payments.py   # KOMSCO_PAYMENT_KEY 필요
+python backend/scripts/sync_content.py check
 ```

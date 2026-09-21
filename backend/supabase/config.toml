@@ -1,7 +1,0 @@
-# Supabase project: ocmykswlbeaaicyrmskl
-# Deploy: supabase functions deploy kakao-directions --no-verify-jwt
-
-project_id = "ocmykswlbeaaicyrmskl"
-
-[functions.kakao-directions]
-verify_jwt = false

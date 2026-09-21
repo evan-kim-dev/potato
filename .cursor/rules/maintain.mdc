@@ -1,0 +1,42 @@
+# 강원 온도(ON道) — 개발·유지보수
+
+주력 앱은 **`web/` (Next.js)**. 데이터 SSOT는 **`backend/data/*.json`**.
+
+## 폴더
+
+- `web/` — Next.js App Router (UI + `/api/*`)
+- `backend/` — TourAPI/기상 sync + JSON SSOT
+- `.github/workflows/` — `ci.yml` · `sync-data.yml`
+
+## 네이밍
+
+| 영역 | 규칙 | 예 |
+|------|------|----|
+| React 컴포넌트 | PascalCase + `*Board` | `SpotsBoard`, `ForecastBoard` |
+| lib | camelCase | `tripPlan.ts`, `forecastMsg.ts`, `tripTypes.ts` |
+| API 라우트 | kebab 한 단어 | `/api/forecast`, `/api/plan` |
+| backend 스크립트/데이터 | snake_case | `sync_forecast_msg.py`, `forecast_msg.json` |
+
+## 로컬 개발
+
+```powershell
+cd web
+copy .env.example .env.local
+npm install
+npm run dev
+```
+
+키는 `web/.env.local`에만 둔다.
+
+## 데이터 갱신
+
+```powershell
+python backend/scripts/sync_tour_all.py
+python backend/scripts/sync_content.py check
+```
+
+## 하지 말 것
+
+- `frontend/` · GitHub Pages · Supabase Edge 복구
+- 브라우저에 TourAPI/Gemini 키 노출
+- `backend/data` 밖 스팟 데이터 복제

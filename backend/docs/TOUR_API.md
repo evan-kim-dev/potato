@@ -24,7 +24,8 @@
 
 ## 환경 변수
 
-TourAPI 키는 **GitHub Actions Secret** `TOUR_API_SERVICE_KEY`로만 설정합니다. 로컬 `.env`는 사용하지 않습니다.
+TourAPI 키는 **GitHub Actions Secret** `TOUR_API_SERVICE_KEY` 또는 로컬 환경 변수로 설정합니다.
+`web` 앱 키는 `web/.env.local`을 사용합니다 (TourAPI sync 키와 분리).
 
 해수욕장 날씨는 같은 공공데이터포털 키로 **기상청_전국 해수욕장 날씨 조회서비스**를 활용신청하면 됩니다.  
 선택적으로 `KMA_BEACH_SERVICE_KEY`를 넣을 수 있고, 없으면 `TOUR_API_SERVICE_KEY`를 재사용합니다.
@@ -42,7 +43,7 @@ TourAPI 키는 **GitHub Actions Secret** `TOUR_API_SERVICE_KEY`로만 설정합�
 
 ```bash
 python backend/scripts/sync_tour_all.py
-python backend/scripts/sync_content.py generate       # frontend/data.js 반영
+python backend/scripts/sync_content.py check       # SSOT JSON 검증 (web이 직접 읽음)
 ```
 
 해수욕장만:
@@ -54,7 +55,7 @@ python backend/scripts/sync_beach_weather.py
 단기예보 통보문만:
 
 ```bash
-python backend/scripts/sync_fcst_msg.py
+python backend/scripts/sync_forecast_msg.py
 ```
 
 > **Note:** 개별 API 스크립트(`sync_tour_hub.py` 등)는 제거되었습니다. 부분 재동기화가 필요하면 `sync_tour_parallel_fetch.py`를 참고하거나 `sync_tour_ldong.py`만 단독 실행하세요.
@@ -86,7 +87,7 @@ python backend/scripts/import_sigungu_codes.py
 | `backend/data/tour_regional_insights.json` | 집중률+수요+다양성+자원+방문 매시업 | 지도 **혼잡·한산**·2안 분산 |
 | `backend/data/gangwon_beaches.json` | 날씨누리 `dataCode`(=`beach_num`) | 동해안 해수욕장 카탈로그 |
 | `backend/data/tour_beach_weather.json` | `BeachInfoservice` 초단기·단기·조석·일출 | 날씨 탭 **동해안 해수욕장** |
-| `backend/data/tour_fcst_msg.json` | `VilageFcstMsgService` 개황·육상·해상 | 날씨 탭 **단기예보 통보문** (+출처표시) |
+| `backend/data/forecast_msg.json` | `VilageFcstMsgService` 개황·육상·해상 | 날씨 탭 **단기예보 통보문** (+출처표시) |
 | `backend/data/gangwon_sigungu_codes.json` | 엑셀 + `ldongCode2` + `areaCode1` | API 요청용 코드 |
 
 ## API 상세
@@ -163,21 +164,14 @@ GET http://apis.data.go.kr/B551011/PhotoGalleryService1/gallerySearchList1
 
 응답: `galTitle`, `galWebImageUrl`, `galPhotographyLocation` …
 
-## GitHub Pages
+## CI · 데이터 sync
 
-Repository Secret `TOUR_API_SERVICE_KEY` 설정 시 배포 workflow가 자동 동기화합니다.
+Repository Secret `TOUR_API_SERVICE_KEY`가 있으면 Actions 워크플로 `Sync TourAPI data`가
+`backend/data`를 갱신합니다. `web`은 이 JSON을 서버에서 직접 읽습니다.
 
-### 카카오 길찾기 (CORS)
-
-브라우저에서 Kakao Mobility Directions API는 CORS가 막혀 있어 Supabase Edge Function 프록시를 사용합니다.
-
-```
-supabase secrets set KAKAO_REST_KEY=<REST_API_키>
-supabase functions deploy kakao-directions --no-verify-jwt
-```
-
-프록시 실패 시 OSRM(도로 추정)으로 폴백합니다.
+경로 API는 `web`의 `POST /api/directions`(카카오 REST → OSRM → 직선)를 사용합니다.
 
 ## 보안
 
-인증키는 브라우저에 노출하지 마세요. CI(GitHub Actions)에서만 사용합니다.
+TourAPI 인증키는 브라우저에 노출하지 마세요. sync는 CI 또는 로컬 CLI에서만 돌립니다.
+Gemini / Kakao JS 키는 `web/.env.local`(또는 호스팅 env)에만 둡니다.

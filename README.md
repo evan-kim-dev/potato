@@ -1,68 +1,68 @@
 # 샤이한 열정 감자들 · 강원 온도(ON道)
 
-강원의 **자연·휴양** 매력은 살리고, **교통·접근·인프라** 공백은 거점 동선과 KTO 데이터로 메우는 AI 여행 플래너.
+강원 **인구감소·내륙 소외 권역** 특화 AI 로컬 관광 큐레이션.
 
-**배포:** https://evan-kim-dev.github.io/potato/
+**주력 앱:** `web/` (Next.js)
 
-## 컨셉
-
-| 강원의 강점 | 현실의 공백 | 온도의 해법 |
-|-------------|-------------|-------------|
-| 바다·산·온천·휴양 | 환승·대중교통·외진 인프라 | 출발→거점→명소 동선 + 접근 가이드 |
-| 숨은 명소·상생 지역 | 발길이 닿기 어려움 | 1안 휴양 집중 / 2안 접근·상생 경유 |
-
-## 폴더 구조
+## 구조
 
 ```
-frontend/     # GitHub Pages 정적 앱 (브라우저)
-backend/      # 데이터·동기화 스크립트·Supabase Edge
-  data/       # JSON SSOT
-  scripts/    # TourAPI sync · data.js 생성
-  supabase/   # Edge Functions (kakao-directions)
+web/       # Next.js UI + API Routes  ← 여기만 손보면 됨
+backend/   # data/*.json SSOT + TourAPI sync
+.github/   # ci.yml · sync-data.yml
 ```
 
-## 배포 방식
+### 이름 규칙
 
-코드 변경 → `main`에 **commit & push** → GitHub Actions `Deploy GitHub Pages`가 자동 배포.
+| 영역 | 규칙 | 예 |
+|------|------|----|
+| 컴포넌트 | PascalCase · `*Board` | `SpotsBoard`, `ForecastBoard` |
+| lib | camelCase | `tripPlan.ts`, `forecastMsg.ts` |
+| API | 짧은 kebab | `/api/forecast`, `/api/plan` |
+| backend | snake_case | `sync_forecast_msg.py`, `forecast_msg.json` |
+## 로컬 실행
 
-| Secret (Repository) | 용도 |
-|---------------------|------|
-| `KAKAO_JS_KEY` | 카카오 지도 SDK |
-| `KAKAO_REST_KEY` | Kakao Directions API |
-| `GOOGLE_API_KEY` | Gemini |
-| `TOUR_API_SERVICE_KEY` | KTO TourAPI 동기화 (CI) |
-| `SUPABASE_URL`, `SUPABASE_ANON_KEY` | 커뮤니티·찜 (선택) |
+```powershell
+cd web
+copy .env.example .env.local
+npm install
+npm run dev
+```
 
-로컬 `config.js` / `.env` / `http.server`는 **사용하지 않습니다.**
+http://localhost:3000
 
-## CI 파이프라인
+환경 변수는 `web/.env.example` 참고. 키 없이도 로컬 코스·날씨·지도 폴백은 동작합니다.
 
-1. `backend/scripts/sync_tour_all.py` (Secret 있을 때) 또는 `sync_content.py generate`
-2. `sync_content.py --check` — `frontend/data.js` 일치 검증
-3. Secret → `frontend/config.js` 생성
-4. `frontend/` → GitHub Pages
+## 데이터 (SSOT)
 
-## 데이터 SSOT
-
-| 경로 | 내용 |
+| 경로 | 역할 |
 |------|------|
-| `backend/data/spots.json`, `catalog.json` | UI·장소 메타 |
-| `backend/data/prompts.json` | Gemini 프롬프트·라우팅 (`TOUR_PROMPTS`) |
-| `backend/data/tour_*.json` | TourAPI fetch 결과 |
-| `frontend/app.js` | 프론트 (AI·Kakao 라우팅·UI) |
+| `backend/data/*.json` | 스팟·축제·날씨 stub · Tour 집계 |
+| `web/src/lib/data.ts` | 위 JSON을 읽어 API/페이지에 제공 |
 
-```bash
-python backend/scripts/sync_content.py generate   # backend/data → frontend/data.js
+갱신:
+
+```powershell
+python backend/scripts/sync_tour_all.py   # 키 필요
+python backend/scripts/sync_content.py check
 ```
 
-## 아키텍처
+## API (`web`)
 
-| 레이어 | 경로 |
-|--------|------|
-| 프론트 | `frontend/app.js`, `frontend/data.js` |
-| 프롬프트 SSOT | `backend/data/prompts.json` |
-| KTO 집계 | `backend/kto_aggregation_service.py` |
-| TourAPI | `backend/tour_api.py`, `backend/scripts/sync_tour_parallel_fetch.py` |
-| Edge | `backend/supabase/functions/kakao-directions` |
+| Route | 역할 |
+|-------|------|
+| `POST /api/chat` | Gemini + 스팟 컨텍스트 |
+| `POST /api/plan` | 로컬 코스 + AI 소개 |
+| `GET /api/weather` | Open-Meteo 시·군 |
+| `GET /api/beaches` | 해수욕장 기온 |
+| `GET /api/forecast` | 단기예보 통보문 |
+| `POST /api/directions` | 카카오/OSRM 경로 |
 
-상세: `backend/docs/TOUR_API.md`
+## CI
+
+- `CI` — `web` typecheck + SSOT JSON 검증
+- `Sync TourAPI data` — 주간/수동으로 `backend/data` 갱신 후 커밋
+
+## 브랜치
+
+간단 운용: `main`에 머지. 큰 작업만 `feature/...` 후 PR.

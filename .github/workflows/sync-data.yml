@@ -1,0 +1,53 @@
+name: Sync TourAPI data
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 매주 월요일 03:00 UTC
+    - cron: "0 3 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-data
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sync TourAPI + weather into backend/data
+        run: |
+          strip_val() { printf '%s' "$1" | sed 's/^[Vv][Aa][Ll][Uu][Ee]:[[:space:]]*//'; }
+          export TOUR_API_SERVICE_KEY="$(strip_val "$TOUR_API_SERVICE_KEY")"
+          export KMA_BEACH_SERVICE_KEY="$(strip_val "$KMA_BEACH_SERVICE_KEY")"
+          export KMA_FCST_MSG_SERVICE_KEY="$(strip_val "$KMA_FCST_MSG_SERVICE_KEY")"
+          if [ -n "$TOUR_API_SERVICE_KEY" ]; then
+            python backend/scripts/sync_tour_all.py
+          else
+            echo "TOUR_API_SERVICE_KEY not set — validate committed JSON only"
+            python backend/scripts/sync_content.py check
+          fi
+        env:
+          TOUR_API_SERVICE_KEY: ${{ secrets.TOUR_API_SERVICE_KEY }}
+          KMA_BEACH_SERVICE_KEY: ${{ secrets.KMA_BEACH_SERVICE_KEY }}
+          KMA_FCST_MSG_SERVICE_KEY: ${{ secrets.KMA_FCST_MSG_SERVICE_KEY }}
+
+      - name: Commit updated JSON if changed
+        run: |
+          if git diff --quiet -- backend/data; then
+            echo "No data changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/data
+          git commit -m "chore(data): sync TourAPI / weather SSOT"
+          git push

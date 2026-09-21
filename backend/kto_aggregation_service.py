@@ -63,7 +63,7 @@ class AggregatedSpot:
     category_label: str = ""
 
     def to_catalog_entry(self) -> dict[str, Any]:
-        """Shape aligned with frontend/app.js TOUR_AGGREGATED_SPOTS."""
+        """Shape aligned with tour aggregated spots consumed by web/src/lib/data.ts."""
         theme_key = "nature" if "자연" in self.theme or "생태" in self.theme else (
             "experience" if "레저" in self.theme or "체험" in self.theme else "culture"
         )
@@ -426,7 +426,7 @@ class KtoAggregationService:
         return [s.to_catalog_entry() for s in self.aggregate_region(region)]
 
     def build_aggregated_export(self) -> dict[str, Any]:
-        """Pre-compute all regions for frontend/data.js (TOUR_AGGREGATED_SPOTS)."""
+        """Pre-compute all regions for kto_aggregated_spots.json (web SSOT)."""
         self.load_sources_parallel()
         regions: dict[str, list[dict[str, Any]]] = {}
         for region in GANGWON_REGIONS:

@@ -1577,7 +1577,22 @@ def build_gangwon_regional_insights(
             conc.get("level")
             or dem.get("level")
             or vis.get("visitor_level")
-            or ("low" if region in POPULATION_DECLINE_REGIONS else "unknown")
+            or (
+                "low"
+                if region in POPULATION_DECLINE_REGIONS
+                else "high"
+                if region
+                in {
+                    "강릉시",
+                    "속초시",
+                    "양양군",
+                    "동해시",
+                    "삼척시",
+                }
+                else "mid"
+                if region in {"춘천시", "원주시", "평창군", "홍천군", "횡성군"}
+                else "unknown"
+            )
         )
         level_map[region] = level
 

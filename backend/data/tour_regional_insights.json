@@ -1,16 +1,19 @@
 {
-  "updated_at": "2026-09-19",
-  "sources": [],
+  "updated_at": "2026-09-20",
+  "sources": [
+    "heuristic:quiet-coast-bridge"
+  ],
   "legend": {
     "high": "혼잡·집중 높음",
     "mid": "보통",
     "low": "한산·분산 추천",
-    "unknown": "데이터 대기"
+    "unknown": "데이터 대기",
+    "proxy": "추정(공공 집중률 대기)"
   },
   "regions": {
     "강릉시": {
-      "congestion_level": "unknown",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 78,
       "concentration": {
         "avg_rate": null,
         "peak_rate": null,
@@ -21,7 +24,7 @@
       "resource": {},
       "visitors": {},
       "is_population_decline": false,
-      "label": "데이터 준비 중",
+      "label": "혼잡 우려(해안·추정)",
       "dispersion_targets": [
         {
           "region": "정선군",
@@ -35,10 +38,12 @@
         },
         {
           "region": "동해시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
-      ]
+      ],
+      "proxy": true,
+      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
     },
     "고성군": {
       "congestion_level": "low",
@@ -67,14 +72,14 @@
         },
         {
           "region": "속초시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
       ]
     },
     "동해시": {
-      "congestion_level": "unknown",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 78,
       "concentration": {
         "avg_rate": null,
         "peak_rate": null,
@@ -85,7 +90,7 @@
       "resource": {},
       "visitors": {},
       "is_population_decline": false,
-      "label": "데이터 준비 중",
+      "label": "혼잡 우려(해안·추정)",
       "dispersion_targets": [
         {
           "region": "태백시",
@@ -94,19 +99,21 @@
         },
         {
           "region": "삼척시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         },
         {
           "region": "강릉시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
-      ]
+      ],
+      "proxy": true,
+      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
     },
     "삼척시": {
-      "congestion_level": "unknown",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 78,
       "concentration": {
         "avg_rate": null,
         "peak_rate": null,
@@ -117,7 +124,7 @@
       "resource": {},
       "visitors": {},
       "is_population_decline": false,
-      "label": "데이터 준비 중",
+      "label": "혼잡 우려(해안·추정)",
       "dispersion_targets": [
         {
           "region": "정선군",
@@ -131,14 +138,16 @@
         },
         {
           "region": "동해시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
-      ]
+      ],
+      "proxy": true,
+      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
     },
     "속초시": {
-      "congestion_level": "unknown",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 78,
       "concentration": {
         "avg_rate": null,
         "peak_rate": null,
@@ -149,7 +158,7 @@
       "resource": {},
       "visitors": {},
       "is_population_decline": false,
-      "label": "데이터 준비 중",
+      "label": "혼잡 우려(해안·추정)",
       "dispersion_targets": [
         {
           "region": "고성군",
@@ -163,10 +172,12 @@
         },
         {
           "region": "양양군",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
-      ]
+      ],
+      "proxy": true,
+      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
     },
     "양구군": {
       "congestion_level": "low",
@@ -201,8 +212,8 @@
       ]
     },
     "양양군": {
-      "congestion_level": "unknown",
-      "congestion_score": null,
+      "congestion_level": "high",
+      "congestion_score": 78,
       "concentration": {
         "avg_rate": null,
         "peak_rate": null,
@@ -213,7 +224,7 @@
       "resource": {},
       "visitors": {},
       "is_population_decline": false,
-      "label": "데이터 준비 중",
+      "label": "혼잡 우려(해안·추정)",
       "dispersion_targets": [
         {
           "region": "인제군",
@@ -222,15 +233,17 @@
         },
         {
           "region": "강릉시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         },
         {
           "region": "속초시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
-      ]
+      ],
+      "proxy": true,
+      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
     },
     "영월군": {
       "congestion_level": "low",
@@ -265,8 +278,8 @@
       ]
     },
     "원주시": {
-      "congestion_level": "unknown",
-      "congestion_score": null,
+      "congestion_level": "mid",
+      "congestion_score": 55,
       "concentration": {
         "avg_rate": null,
         "peak_rate": null,
@@ -277,7 +290,7 @@
       "resource": {},
       "visitors": {},
       "is_population_decline": false,
-      "label": "데이터 준비 중",
+      "label": "보통(도시·추정)",
       "dispersion_targets": [
         {
           "region": "영월군",
@@ -294,7 +307,9 @@
           "level": "low",
           "reason": "인구감소·한산 인접"
         }
-      ]
+      ],
+      "proxy": true,
+      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
     },
     "인제군": {
       "congestion_level": "low",
@@ -323,7 +338,7 @@
         },
         {
           "region": "속초시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
       ]
@@ -388,8 +403,8 @@
       ]
     },
     "춘천시": {
-      "congestion_level": "unknown",
-      "congestion_score": null,
+      "congestion_level": "mid",
+      "congestion_score": 55,
       "concentration": {
         "avg_rate": null,
         "peak_rate": null,
@@ -400,7 +415,7 @@
       "resource": {},
       "visitors": {},
       "is_population_decline": false,
-      "label": "데이터 준비 중",
+      "label": "보통(도시·추정)",
       "dispersion_targets": [
         {
           "region": "양구군",
@@ -414,10 +429,12 @@
         },
         {
           "region": "홍천군",
-          "level": "unknown",
+          "level": "mid",
           "reason": "인접 한산 권역"
         }
-      ]
+      ],
+      "proxy": true,
+      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
     },
     "태백시": {
       "congestion_level": "low",
@@ -446,14 +463,14 @@
         },
         {
           "region": "삼척시",
-          "level": "unknown",
+          "level": "high",
           "reason": "인접 한산 권역"
         }
       ]
     },
     "홍천군": {
-      "congestion_level": "unknown",
-      "congestion_score": null,
+      "congestion_level": "mid",
+      "congestion_score": 48,
       "concentration": {
         "avg_rate": null,
         "peak_rate": null,
@@ -464,7 +481,7 @@
       "resource": {},
       "visitors": {},
       "is_population_decline": false,
-      "label": "데이터 준비 중",
+      "label": "보통(연계·추정)",
       "dispersion_targets": [
         {
           "region": "인제군",
@@ -481,7 +498,9 @@
           "level": "low",
           "reason": "인구감소·한산 인접"
         }
-      ]
+      ],
+      "proxy": true,
+      "proxy_note": "TourAPI 집중률 부재 시 권역유형·해안/한산 휴리스틱"
     },
     "화천군": {
       "congestion_level": "low",
@@ -537,12 +556,12 @@
         },
         {
           "region": "원주시",
-          "level": "unknown",
+          "level": "mid",
           "reason": "인접 한산 권역"
         },
         {
           "region": "홍천군",
-          "level": "unknown",
+          "level": "mid",
           "reason": "인접 한산 권역"
         }
       ]

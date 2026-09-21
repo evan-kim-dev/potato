@@ -1,262 +1,95 @@
 #!/usr/bin/env python3
-"""Sync canonical backend/data/*.json → frontend/data.js.
+"""Validate canonical backend/data/*.json for the Next.js app (web/).
 
-SSoT: backend/data/spots.json, catalog.json, prompts.json
-Generated: frontend/data.js (do not hand-edit the JSON blocks)
+SSOT is JSON under backend/data/. The web app reads these files directly —
+there is no frontend/data.js anymore.
 
 Usage:
-  python backend/scripts/sync_content.py generate
-  python backend/scripts/sync_content.py --check
+  python backend/scripts/sync_content.py check
+  python backend/scripts/sync_content.py generate   # alias of check (compat)
 """
 
 from __future__ import annotations
 
 import json
-import re
 import sys
 from pathlib import Path
 
 BACKEND_ROOT = Path(__file__).resolve().parent.parent
-REPO_ROOT = BACKEND_ROOT.parent
 DATA_DIR = BACKEND_ROOT / "data"
-FRONTEND_DATA = REPO_ROOT / "frontend" / "data.js"
-ROOT = BACKEND_ROOT  # import path for kto_aggregation_service
-MARKER = "// === CANONICAL DATA (auto-generated from data/*.json) ==="
+
+REQUIRED = (
+    "spots.json",
+    "catalog.json",
+)
+
+OPTIONAL = (
+    "tour_kor_festivals.json",
+    "forecast_msg.json",
+    "kto_aggregated_spots.json",
+    "tour_region_photos.json",
+    "gangwon_sigungu_codes.json",
+)
 
 
-def _norm_name(s: str) -> str:
-    return re.sub(r"[\s·\-]+", "", (s or "").strip())
+def load_json(path: Path):
+    with path.open(encoding="utf-8") as f:
+        return json.load(f)
 
 
-def _title_matches_spot(title: str, spot_name: str) -> bool:
-    t, n = _norm_name(title), _norm_name(spot_name)
-    if not t or not n:
-        return False
-    if t in n or n in t:
-        return True
-    parts = re.split(r"[\s·\-]+", spot_name)
-    return any(len(p) >= 2 and p in title for p in parts)
+def check() -> int:
+    errors: list[str] = []
 
-
-def build_spot_tour_images(
-    spots: list[dict],
-    tour_aggregated: dict,
-    tour_photos: dict,
-) -> dict[str, str]:
-    agg_r = tour_aggregated.get("regions") or {}
-    photo_r = tour_photos.get("regions") or {}
-    out: dict[str, str] = {}
-    for spot in spots:
-        name = str(spot.get("name") or "")
-        region = str(spot.get("region") or "")
-        if not name or not region:
+    for name in REQUIRED:
+        path = DATA_DIR / name
+        if not path.exists():
+            errors.append(f"missing required {name}")
             continue
-        url: str | None = None
-        for entry in agg_r.get(region, []):
-            entry_name = str(entry.get("name") or "")
-            entry_url = str(entry.get("imageUrl") or "")
-            if entry_url and _title_matches_spot(entry_name, name):
-                url = entry_url
-                break
-        if not url:
-            reg_photos = photo_r.get(region) or []
-            if reg_photos and reg_photos[0].get("image"):
-                url = str(reg_photos[0]["image"])
-        if url:
-            out[name] = url
-    return out
+        try:
+            data = load_json(path)
+        except json.JSONDecodeError as e:
+            errors.append(f"{name}: invalid JSON ({e})")
+            continue
 
+        if name == "spots.json":
+            if not isinstance(data, list) or not data:
+                errors.append("spots.json must be a non-empty array")
+            else:
+                sample = data[0]
+                for key in ("name", "region"):
+                    if key not in sample:
+                        errors.append(f"spots.json items need '{key}'")
+                        break
+        elif name == "catalog.json":
+            if not isinstance(data, dict) or "cities" not in data:
+                errors.append("catalog.json needs a 'cities' array")
 
-def build_region_tour_photos(tour_photos: dict) -> dict[str, str]:
-    out: dict[str, str] = {}
-    for region, items in (tour_photos.get("regions") or {}).items():
-        if items and items[0].get("image"):
-            out[region] = str(items[0]["image"])
-    return out
+    for name in OPTIONAL:
+        path = DATA_DIR / name
+        if not path.exists():
+            print(f"optional missing: {name}")
+            continue
+        try:
+            load_json(path)
+        except json.JSONDecodeError as e:
+            errors.append(f"{name}: invalid JSON ({e})")
 
+    if errors:
+        for e in errors:
+            print(e, file=sys.stderr)
+        return 1
 
-def build_region_photo_gallery(tour_photos: dict) -> dict[str, list[str]]:
-    out: dict[str, list[str]] = {}
-    for region, items in (tour_photos.get("regions") or {}).items():
-        urls: list[str] = []
-        seen: set[str] = set()
-        for item in items or []:
-            img = str(item.get("image") or "").strip()
-            if img and img not in seen:
-                seen.add(img)
-                urls.append(img)
-        if urls:
-            out[region] = urls
-    return out
-
-
-def _js_array_block(name: str, data: object) -> str:
-    return f"const {name} = {json.dumps(data, ensure_ascii=False, indent=2)};"
-
-
-def generate_data_js() -> str:
-    spots = json.loads((DATA_DIR / "spots.json").read_text(encoding="utf-8"))
-    catalog = json.loads((DATA_DIR / "catalog.json").read_text(encoding="utf-8"))
-    tour_stats_path = DATA_DIR / "tour_visitor_stats.json"
-    tour_stats = (
-        json.loads(tour_stats_path.read_text(encoding="utf-8"))
-        if tour_stats_path.exists()
-        else {"regions": {}, "province": None}
-    )
-    tour_insights_path = DATA_DIR / "tour_regional_insights.json"
-    tour_insights = (
-        json.loads(tour_insights_path.read_text(encoding="utf-8"))
-        if tour_insights_path.exists()
-        else {"regions": {}, "legend": {}}
-    )
-    tour_relate_path = DATA_DIR / "tour_relate_spots.json"
-    tour_relate = (
-        json.loads(tour_relate_path.read_text(encoding="utf-8"))
-        if tour_relate_path.exists()
-        else {"regions": {}, "by_anchor": {}}
-    )
-    tour_photos_path = DATA_DIR / "tour_region_photos.json"
-    tour_photos = (
-        json.loads(tour_photos_path.read_text(encoding="utf-8"))
-        if tour_photos_path.exists()
-        else {"regions": {}}
-    )
-    tour_kor_fest_path = DATA_DIR / "tour_kor_festivals.json"
-    tour_kor_fest = (
-        json.loads(tour_kor_fest_path.read_text(encoding="utf-8"))
-        if tour_kor_fest_path.exists()
-        else {"items": [], "regions": {}}
-    )
-    beaches_path = DATA_DIR / "gangwon_beaches.json"
-    beaches_catalog = (
-        json.loads(beaches_path.read_text(encoding="utf-8"))
-        if beaches_path.exists()
-        else {"featured": [], "coastal_regions": []}
-    )
-    beach_wx_path = DATA_DIR / "tour_beach_weather.json"
-    beach_weather = (
-        json.loads(beach_wx_path.read_text(encoding="utf-8"))
-        if beach_wx_path.exists()
-        else {"beaches": [], "stub": True}
-    )
-    # Prefer synced beach rows; fall back to catalog featured list
-    if not beach_weather.get("beaches") and beaches_catalog.get("featured"):
-        beach_weather = {
-            **beach_weather,
-            "beaches": [{**b, "weather": None} for b in beaches_catalog["featured"]],
-            "count": len(beaches_catalog["featured"]),
-        }
-    fcst_msg_path = DATA_DIR / "tour_fcst_msg.json"
-    fcst_msg = (
-        json.loads(fcst_msg_path.read_text(encoding="utf-8"))
-        if fcst_msg_path.exists()
-        else {"stub": True, "situation": [], "land": [], "sea": [], "attribution": {}}
-    )
-    weather_icons = {
-        k: {**v, "bg": v.get("bg") or v.get("thumb_bg")}
-        for k, v in catalog["weather_icons"].items()
-    }
-
-    # 6-source AI aggregation (hub+kor+eco+relate+photos+stats)
-    sys.path.insert(0, str(ROOT))
-    from kto_aggregation_service import KtoAggregationService
-
-    tour_aggregated = KtoAggregationService(DATA_DIR).build_aggregated_export()
-    agg_path = DATA_DIR / "kto_aggregated_spots.json"
-    agg_path.write_text(json.dumps(tour_aggregated, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
-    spot_tour_images = build_spot_tour_images(spots, tour_aggregated, tour_photos)
-    region_tour_photos = build_region_tour_photos(tour_photos)
-    region_photo_gallery = build_region_photo_gallery(tour_photos)
-
-    prompts_path = DATA_DIR / "prompts.json"
-    tour_prompts = (
-        json.loads(prompts_path.read_text(encoding="utf-8"))
-        if prompts_path.exists()
-        else {}
-    )
-
-    blocks = [
-        _js_array_block("SPOTS", spots),
-        _js_array_block("GANGWON_CITIES", catalog["cities"]),
-        _js_array_block("THEME_META", catalog["theme_meta"]),
-        _js_array_block("SPOT_OVERRIDES", catalog["spot_overrides"]),
-        _js_array_block("FESTIVAL_ICONS", catalog["festival_icons"]),
-        _js_array_block("WEATHER_ICONS", weather_icons),
-        _js_array_block("THEME_BADGE", catalog["theme_badge"]),
-        f'const GEMINI_MODEL = {json.dumps(catalog["gemini_model"], ensure_ascii=False)};',
-        _js_array_block("TRANSIT_ORIGINS", catalog.get("transit_origins") or {}),
-        _js_array_block("LOCAL_BENEFITS", catalog.get("local_benefits") or {}),
-        _js_array_block("PREFERENCE_OPTIONS", catalog.get("preference_options") or {}),
-        _js_array_block("THEME_CAT_MAP", catalog.get("theme_cat_map") or {}),
-        f"const TOUR_VISITOR_STATS = {json.dumps(tour_stats, ensure_ascii=False, indent=2)};",
-        f"const TOUR_REGIONAL_INSIGHTS = {json.dumps(tour_insights, ensure_ascii=False, indent=2)};",
-        f"const TOUR_RELATE_SPOTS = {json.dumps(tour_relate, ensure_ascii=False, indent=2)};",
-        f"const TOUR_KOR_FESTIVALS = {json.dumps(tour_kor_fest, ensure_ascii=False, indent=2)};",
-        f"const GANGWON_BEACHES = {json.dumps(beaches_catalog, ensure_ascii=False, indent=2)};",
-        f"const TOUR_BEACH_WEATHER = {json.dumps(beach_weather, ensure_ascii=False, indent=2)};",
-        f"const TOUR_FCST_MSG = {json.dumps(fcst_msg, ensure_ascii=False, indent=2)};",
-        f"const TOUR_AGGREGATED_SPOTS = {json.dumps(tour_aggregated, ensure_ascii=False, indent=2)};",
-        f"const TOUR_PROMPTS = {json.dumps(tour_prompts, ensure_ascii=False, indent=2)};",
-        f"const SPOT_TOUR_IMAGES = {json.dumps(spot_tour_images, ensure_ascii=False, indent=2)};",
-        f"const REGION_TOUR_PHOTOS = {json.dumps(region_tour_photos, ensure_ascii=False, indent=2)};",
-        f"const TOUR_REGION_PHOTO_GALLERY = {json.dumps(region_photo_gallery, ensure_ascii=False, indent=2)};",
-    ]
-
-    runtime = """
-function enrichSpot(raw) {
-  const theme = THEME_META[raw.theme] || {};
-  const extra = SPOT_OVERRIDES[raw.name] || {};
-  return {
-    ...raw,
-    lat: extra.map_lat ?? raw.lat,
-    lng: extra.map_lng ?? raw.lng,
-    stay_min: extra.stay_min ?? theme.stay_min ?? 60,
-    fee: extra.fee ?? theme.fee ?? "현장 확인",
-    hours: extra.hours ?? theme.hours ?? "연중",
-    parking: extra.parking ?? theme.parking ?? "인근 주차 가능",
-    best_time: extra.best_time ?? theme.best_time ?? "주말·휴일",
-    tip: extra.tip ?? theme.tip ?? raw.description,
-    contentId: extra.contentId ?? raw.contentId ?? null,
-    tourImage: SPOT_TOUR_IMAGES[raw.name] ?? null,
-    tags: extra.tags ?? [raw.theme, raw.region.replace(/[시군]$/, "")],
-  };
-}
-
-const ENRICHED_SPOTS = SPOTS.map(enrichSpot);
-"""
-
-    header = f"""// VoyageAI · 강원 — canonical data lives in backend/data/*.json
-// {MARKER}
-// Regenerate: python backend/scripts/sync_content.py generate
-"use strict";
-
-"""
-    footer = """
-// API 키는 GitHub Actions Secret → frontend/config.js (저장소·로컬 파일 없음)
-"""
-    return header + "\n\n".join(blocks) + runtime + footer
+    print(f"OK - SSOT under {DATA_DIR} ({len(REQUIRED)} required files)")
+    return 0
 
 
 def main() -> int:
     args = sys.argv[1:]
-    if not args or args[0] == "generate":
-        content = generate_data_js()
-        FRONTEND_DATA.write_text(content, encoding="utf-8")
-        print(f"Wrote {FRONTEND_DATA}")
-        return 0
-    if args[0] == "--check":
-        if not FRONTEND_DATA.exists():
-            print("frontend/data.js missing — run sync_content.py generate", file=sys.stderr)
-            return 1
-        current = FRONTEND_DATA.read_text(encoding="utf-8")
-        expected = generate_data_js()
-        if current != expected:
-            print("frontend/data.js is stale — run: python backend/scripts/sync_content.py generate", file=sys.stderr)
-            return 1
-        print("frontend/data.js is up to date")
-        return 0
-    print("Usage: generate | --check", file=sys.stderr)
+    cmd = args[0] if args else "check"
+    if cmd in ("check", "--check", "generate"):
+        # generate kept as alias so older scripts/docs keep working
+        return check()
+    print("Usage: check | generate", file=sys.stderr)
     return 2
 
 
