@@ -13,6 +13,7 @@ const TABS = [
   { href: "/weather", label: "날씨" },
   { href: "/community", label: "이야기" },
   { href: "/passport", label: "여권" },
+  { href: "/admin", label: "관리" },
 ] as const;
 
 export function AppNav() {
