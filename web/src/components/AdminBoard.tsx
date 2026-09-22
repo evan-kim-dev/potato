@@ -2,18 +2,12 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { Button, Field, PageHeader, Panel } from "@/components/ui";
+import { Button, PageHeader, Panel } from "@/components/ui";
 import {
   applyDemoSeed,
   clearDemoSeed,
   isDemoSeeded,
 } from "@/lib/demoSeed";
-
-const PIN_SESSION = "gw_admin_unlocked";
-const EXPECTED_PIN =
-  (typeof process !== "undefined" &&
-    process.env.NEXT_PUBLIC_ADMIN_PIN?.trim()) ||
-  "ondoh";
 
 type AdminStatus = {
   ok: boolean;
@@ -60,19 +54,11 @@ function Flag({ on, label }: { on: boolean; label: string }) {
 }
 
 export function AdminBoard() {
-  const [unlocked, setUnlocked] = useState(false);
-  const [pin, setPin] = useState("");
-  const [pinError, setPinError] = useState("");
   const [status, setStatus] = useState<AdminStatus | null>(null);
   const [statusError, setStatusError] = useState("");
   const [loading, setLoading] = useState(false);
   const [seeded, setSeeded] = useState(false);
   const [flash, setFlash] = useState("");
-
-  useEffect(() => {
-    setUnlocked(sessionStorage.getItem(PIN_SESSION) === "1");
-    setSeeded(isDemoSeeded());
-  }, []);
 
   const loadStatus = useCallback(async () => {
     setLoading(true);
@@ -90,24 +76,9 @@ export function AdminBoard() {
   }, []);
 
   useEffect(() => {
-    if (unlocked) void loadStatus();
-  }, [unlocked, loadStatus]);
-
-  function unlock() {
-    if (pin.trim() !== EXPECTED_PIN) {
-      setPinError("PIN이 맞지 않아요");
-      return;
-    }
-    sessionStorage.setItem(PIN_SESSION, "1");
-    setUnlocked(true);
-    setPinError("");
-    setPin("");
-  }
-
-  function lock() {
-    sessionStorage.removeItem(PIN_SESSION);
-    setUnlocked(false);
-  }
+    setSeeded(isDemoSeeded());
+    void loadStatus();
+  }, [loadStatus]);
 
   function seed() {
     applyDemoSeed();
@@ -123,48 +94,11 @@ export function AdminBoard() {
     window.setTimeout(() => setFlash(""), 3000);
   }
 
-  if (!unlocked) {
-    return (
-      <div className="mx-auto max-w-sm space-y-4">
-        <PageHeader
-          title="관리"
-          sub="운영 콘솔 · 데모용 PIN (실보안 아님)"
-        />
-        <Panel className="space-y-3 p-4">
-          <p className="m-0 text-[0.78rem] leading-relaxed text-muted">
-            데이터 상태·카탈로그·심사 시드를 보려면 PIN을 입력하세요.
-          </p>
-          <Field
-            type="password"
-            value={pin}
-            onChange={(e) => setPin(e.target.value)}
-            placeholder="PIN"
-            autoComplete="off"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") unlock();
-            }}
-          />
-          {pinError ? (
-            <p className="m-0 text-[0.75rem] text-red-700">{pinError}</p>
-          ) : null}
-          <Button className="w-full" onClick={unlock}>
-            들어가기
-          </Button>
-        </Panel>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-5">
       <PageHeader
         title="관리"
         sub="운영 콘솔 · TourAPI SSOT · 심사 데모"
-        action={
-          <Button variant="ghost" onClick={lock}>
-            잠금
-          </Button>
-        }
       />
 
       {flash ? (
