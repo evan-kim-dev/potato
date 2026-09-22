@@ -60,6 +60,8 @@ export function AdminBoard() {
   const [seeded, setSeeded] = useState(false);
   const [flash, setFlash] = useState("");
 
+  const [seedBusy, setSeedBusy] = useState(false);
+
   const loadStatus = useCallback(async () => {
     setLoading(true);
     setStatusError("");
@@ -80,11 +82,20 @@ export function AdminBoard() {
     void loadStatus();
   }, [loadStatus]);
 
-  function seed() {
-    applyDemoSeed();
-    setSeeded(true);
-    setFlash("심사 데모 데이터를 채웠어요. 여권·임팩트·이야기를 확인해 보세요.");
-    window.setTimeout(() => setFlash(""), 4000);
+  async function seed() {
+    setSeedBusy(true);
+    try {
+      const result = await applyDemoSeed();
+      setSeeded(true);
+      setFlash(
+        result.source === "catalog"
+          ? `카탈로그 실스팟으로 「${result.tripTitle}」를 채웠어요. 일정·여권·이야기를 확인해 보세요.`
+          : `폴백 데모로 「${result.tripTitle}」를 채웠어요.`
+      );
+      window.setTimeout(() => setFlash(""), 4500);
+    } finally {
+      setSeedBusy(false);
+    }
   }
 
   function clearSeed() {
@@ -203,12 +214,15 @@ export function AdminBoard() {
         </h2>
         <Panel className="space-y-3 p-4">
           <p className="m-0 text-[0.78rem] leading-relaxed text-muted">
-            일정·여권·혜택 CTR·이야기·강원페이(MOCK) 샘플을 이 기기에 채웁니다.
+            TourAPI 동기화 카탈로그에서 한산 스팟을 골라 일정·여권·이야기·가맹
+            영수증(MOCK)을 이 기기에 채웁니다.
             {seeded ? " · 현재 시드됨" : ""}
           </p>
           <div className="flex flex-wrap gap-2">
-            <Button onClick={seed}>데모 데이터 채우기</Button>
-            <Button variant="secondary" onClick={clearSeed}>
+            <Button onClick={() => void seed()} disabled={seedBusy}>
+              {seedBusy ? "채우는 중…" : "데모 데이터 채우기"}
+            </Button>
+            <Button variant="secondary" onClick={clearSeed} disabled={seedBusy}>
               시드 초기화
             </Button>
           </div>

@@ -271,8 +271,10 @@ export function ImpactBoard() {
           <div className="mt-3 flex flex-wrap gap-2">
             <Button
               onClick={() => {
-                applyDemoSeed();
-                reloadLocal();
+                void (async () => {
+                  await applyDemoSeed();
+                  reloadLocal();
+                })();
               }}
             >
               데모 데이터 채우기

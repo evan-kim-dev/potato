@@ -6,6 +6,7 @@ import type { WeatherCard } from "@/lib/weather";
 import { Button, PageHeader, Panel } from "@/components/ui";
 import { QUIET_REGIONS } from "@/lib/prefs";
 import { loadGangwonHeroSvg } from "@/lib/gangwonSvg";
+import { fetchWeatherCached } from "@/lib/weatherClientCache";
 
 const QUIET_SET = new Set<string>(QUIET_REGIONS);
 const COASTAL = new Set(["강릉시", "고성군", "동해시", "삼척시", "속초시", "양양군"]);
@@ -71,14 +72,13 @@ export function WeatherBoard({
     setBusy(true);
     setError("");
     try {
-      const [wxRes, beachRes] = await Promise.all([
-        fetch("/api/weather", { cache: "no-store" }),
-        fetch("/api/beaches", { cache: "no-store" }),
+      const [cities, beachRes] = await Promise.all([
+        fetchWeatherCached({ force: true }),
+        fetch("/api/beaches"),
       ]);
-      const wxData = await wxRes.json();
+      if (!cities) throw new Error("날씨 실패");
+      setCards(cities as WeatherCard[]);
       const beachData = await beachRes.json();
-      if (!wxRes.ok) throw new Error(wxData?.error || `날씨 실패 ${wxRes.status}`);
-      setCards(wxData.cities || []);
       if (beachRes.ok) setBeaches(beachData.beaches || []);
     } catch (e) {
       setError(e instanceof Error ? e.message : "날씨 갱신 실패");

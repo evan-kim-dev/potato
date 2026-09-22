@@ -6,6 +6,7 @@ import type { RegionTip } from "@/lib/data";
 import { congestionHintForRegion } from "@/lib/impactScore";
 import { QUIET_REGIONS } from "@/lib/prefs";
 import type { WeatherCard } from "@/lib/weather";
+import { fetchWeatherCached } from "@/lib/weatherClientCache";
 
 const COASTAL_HOT = new Set(["강릉시", "속초시", "양양군", "동해시"]);
 
@@ -108,11 +109,9 @@ export function CongestionBanner({ tips }: { tips: Record<string, RegionTip> }) 
         return;
       }
       try {
-        const res = await fetch("/api/weather");
-        if (!res.ok) return;
-        const data = await res.json();
-        if (!cancelled && Array.isArray(data.cities)) {
-          setWeather(data.cities);
+        const cities = await fetchWeatherCached();
+        if (!cancelled && Array.isArray(cities)) {
+          setWeather(cities as WeatherCard[]);
           setLive(true);
           setNow(clockLabel());
         }
