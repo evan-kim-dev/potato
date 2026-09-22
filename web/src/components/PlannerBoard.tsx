@@ -89,6 +89,8 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
   const [focus, setFocus] = useState(seed?.steps?.[0]?.order || 1);
   const [day, setDay] = useState(0);
   const [savedMsg, setSavedMsg] = useState("");
+  const [nickDraft, setNickDraft] = useState("");
+  const [saveError, setSaveError] = useState("");
   const [route, setRoute] = useState<RoutePlan | null>(null);
   const [routeBusy, setRouteBusy] = useState(false);
   const [routeAt, setRouteAt] = useState<string | null>(null);
@@ -422,12 +424,17 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
 
   function saveTrip() {
     if (!trip) return;
+    setSaveError("");
     let session = auth;
     if (!session) {
-      const nick = window.prompt("찜하려면 닉네임을 입력하세요 (2~12자)");
-      if (!nick || nick.trim().length < 2) return;
+      const nick = nickDraft.trim();
+      if (nick.length < 2 || nick.length > 12) {
+        setSaveError("닉네임 2~12자를 입력한 뒤 찜해 주세요");
+        return;
+      }
       session = loginLocal(nick);
       setAuth(session);
+      setNickDraft("");
     }
     if (!session) return;
     const scored = {
@@ -448,7 +455,6 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
         ? `찜했어요 · 한산 여권 스탬프 ${added}곳`
         : "찜 목록에 저장했어요"
     );
-    window.setTimeout(() => setSavedMsg(""), 2800);
   }
 
   if (!trip?.steps?.length) {
@@ -584,7 +590,41 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
           </button>
         </div>
       </div>
-      {savedMsg && <p className="text-sm font-semibold text-sea">{savedMsg}</p>}
+      {!auth ? (
+        <div className="flex flex-wrap items-center gap-2">
+          <input
+            className="ui-field !max-w-[11rem] !py-1.5 text-[0.8rem]"
+            value={nickDraft}
+            onChange={(e) => setNickDraft(e.target.value)}
+            maxLength={12}
+            placeholder="닉네임 2~12자 (찜용)"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") saveTrip();
+            }}
+          />
+          {saveError ? (
+            <span className="text-[0.75rem] text-red-700">{saveError}</span>
+          ) : (
+            <span className="text-[0.7rem] text-muted">찜하면 한산 여권 스탬프가 찍혀요</span>
+          )}
+        </div>
+      ) : null}
+      {savedMsg ? (
+        <div className="ui-empty !py-3">
+          <p className="m-0 text-[0.85rem] font-semibold text-sea-deep">{savedMsg}</p>
+          <div className="mt-2.5 flex flex-wrap gap-2">
+            <Link href="/passport" className="ui-btn ui-btn-primary !min-h-8 !px-3 !text-[0.75rem]">
+              여권 보기
+            </Link>
+            <Link href="/impact" className="ui-btn ui-btn-secondary !min-h-8 !px-3 !text-[0.75rem]">
+              임팩트 KPI
+            </Link>
+            <Link href="/trips" className="ui-btn ui-btn-ghost !min-h-8 !px-3 !text-[0.75rem]">
+              찜 목록
+            </Link>
+          </div>
+        </div>
+      ) : null}
 
       {days.length > 1 && (
         <div className="flex flex-wrap gap-1.5" role="group" aria-label="일차 필터">

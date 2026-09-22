@@ -54,7 +54,33 @@ export function MerchantNearStop({
       </aside>
     );
   }
-  if (!items.length) return null;
+  if (!items.length) {
+    return (
+      <aside className="merchant-panel">
+        <p className="m-0 text-[0.68rem] font-bold tracking-wide text-mountain">
+          강원페이 · 로컬 가맹
+        </p>
+        <p className="mt-1.5 m-0 text-[0.75rem] leading-relaxed text-muted">
+          {spotName} 인근 시드 가맹이 아직 없어요. 강원상품권·관광주민증 안내로
+          체류 소비를 이어갈 수 있어요.
+        </p>
+        <div className="mt-2.5 flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--outline)]/70 pt-2">
+          <a
+            href="https://www.gwgs.kr.gov.kr/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[0.7rem] font-semibold text-sea hover:underline"
+            onClick={() => trackBenefitClick("gangwon-pay-home")}
+          >
+            강원상품권 안내
+          </a>
+          {meta?.needsKakaoKey ? (
+            <span className="text-[0.65rem] text-muted">카카오 키 시 주변 검색 보강</span>
+          ) : null}
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <aside className="merchant-panel animate-[ui-fade-up_0.35s_var(--ease)_both]">

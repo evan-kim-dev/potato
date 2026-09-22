@@ -142,6 +142,62 @@ select {
   color: var(--mountain-deep);
 }
 
+.review-hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.45rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in srgb, var(--sea) 22%, var(--outline));
+  background: color-mix(in srgb, var(--sea-mist) 70%, white);
+}
+
+.review-hint-text {
+  margin: 0;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: var(--on-surface-variant);
+}
+
+.review-hint-text strong {
+  color: var(--sea-deep);
+  font-weight: 700;
+}
+
+.review-hint-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.55rem;
+}
+
+.review-hint-link {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--sea);
+}
+
+.review-hint-link:hover {
+  text-decoration: underline;
+}
+
+.review-hint-dismiss {
+  border: 0;
+  background: transparent;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  padding: 0.15rem 0.25rem;
+}
+
+.review-hint-dismiss:hover {
+  color: var(--mountain-deep);
+}
+
 .ui-chip {
   display: inline-flex;
   align-items: center;

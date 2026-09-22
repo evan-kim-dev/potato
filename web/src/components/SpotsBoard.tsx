@@ -138,9 +138,25 @@ export function SpotsBoard({
       </div>
 
       {!filtered.length && (
-        <p className="ui-panel mt-2 p-6 text-center text-sm text-muted">
-          조건에 맞는 관광지가 없어요.
-        </p>
+        <div className="ui-empty mt-2 text-center">
+          <p className="m-0 text-sm text-muted">조건에 맞는 관광지가 없어요.</p>
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            <button
+              type="button"
+              className="ui-btn ui-btn-secondary !min-h-8 !text-[0.75rem]"
+              onClick={() => {
+                setQuietOnly(false);
+                setTheme("전체");
+                setQ("");
+              }}
+            >
+              필터 초기화
+            </button>
+            <a href="/?ask=%ED%95%9C%EC%82%B0%20%EA%B6%8C%EC%97%AD%20%EC%BD%94%EC%8A%A4" className="ui-btn ui-btn-primary !min-h-8 !text-[0.75rem]">
+              AI에게 물어보기
+            </a>
+          </div>
+        </div>
       )}
     </div>
   );

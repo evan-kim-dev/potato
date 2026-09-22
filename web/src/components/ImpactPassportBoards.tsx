@@ -38,7 +38,10 @@ export function PassportBoard() {
 
   if (!passport) {
     return (
-      <div className="animate-pulse rounded-[var(--radius)] border border-[var(--outline)] bg-white/80 p-8" />
+      <div className="space-y-3">
+        <p className="m-0 text-[0.8rem] text-muted">여권 불러오는 중…</p>
+        <div className="animate-pulse rounded-[var(--radius)] border border-[var(--outline)] bg-white/80 p-8" />
+      </div>
     );
   }
 
@@ -53,6 +56,34 @@ export function PassportBoard() {
           </>
         }
       />
+
+      {progress.collected === 0 ? (
+        <div className="ui-empty">
+          <p className="ui-empty-title">아직 스탬프가 없어요</p>
+          <p className="mt-1.5 m-0 text-[0.8rem] leading-relaxed text-muted">
+            일정을 찜하면 한산 시·군 스탬프가 찍혀요. 심사·체험용으로 바로 채워 볼 수도
+            있습니다.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Button
+              onClick={() => {
+                void (async () => {
+                  await applyDemoSeed();
+                  reload();
+                })();
+              }}
+            >
+              데모 스탬프 채우기
+            </Button>
+            <Link href="/planner" className="ui-btn ui-btn-secondary">
+              코스 찜하러 가기
+            </Link>
+            <Link href="/" className="ui-btn ui-btn-ghost">
+              홈에서 코스 짜기
+            </Link>
+          </div>
+        </div>
+      ) : null}
 
       <section className="rounded-[var(--radius)] border border-mountain/15 bg-white/94 px-4 py-4">
         <div className="flex flex-wrap items-end justify-between gap-3">
@@ -291,27 +322,51 @@ export function ImpactBoard() {
 
       <section className="rounded-[var(--radius)] border border-[var(--outline)] bg-white/94 px-4 py-4">
         <h2 className="m-0 text-[0.85rem] font-bold text-mountain-deep">
-          필수 KPI 체크리스트 (제안서 Phase 2)
+          KPI 체크 (이 기기 미리보기)
         </h2>
         <ul className="mt-3 space-y-2 text-[0.8rem] leading-relaxed text-on-surface">
-          <li>
-            <strong>분산 전환율</strong> — 해안 핫플 검색 → 인접 한산 권역 일정 확정 비율
-          </li>
-          <li>
-            <strong>한산 체류 스탑 수·비중</strong> — 인구감소 시·군 스팟 / 전체 스탑
-          </li>
-          <li>
-            <strong>인접 동선 준수율</strong> — 시·군 간 점프 없는 레그 비율 (뺑뺑이 방지)
-          </li>
-          <li>
-            <strong>지역화폐·관광주민증 CTR</strong> — 혜택 안내 노출 대비 클릭·연동
-          </li>
-          <li>
-            <strong>재방문·여권 스탬프</strong> — 동일 사용자 한산 시·군 누적 커버리지
-          </li>
-          <li>
-            <strong>저밀도 ESG 점수 분포</strong> — A/B 등급 코스 비중 (혼잡 완화 기여)
-          </li>
+          {[
+            {
+              ok: kpis.tripCount > 0,
+              label: "분산 일정 저장",
+              hint: "찜한 코스",
+            },
+            {
+              ok: kpis.quietShare >= 50,
+              label: "한산 스팟 비중",
+              hint: `${kpis.quietShare}%`,
+            },
+            {
+              ok: kpis.avgScore >= 65,
+              label: "분산 점수 A·B권",
+              hint: `평균 ${kpis.avgScore}`,
+            },
+            {
+              ok: kpis.ctrTotal > 0,
+              label: "혜택 CTR",
+              hint: `${kpis.ctrTotal}회`,
+            },
+            {
+              ok: kpis.stampCount > 0,
+              label: "여권 스탬프",
+              hint: `${kpis.stampCount}곳`,
+            },
+            {
+              ok: Boolean(pay?.ok),
+              label: "조폐 결제 데이터",
+              hint: pay?.ok ? "연동됨" : "캐시/키 확인",
+            },
+          ].map((row) => (
+            <li key={row.label} className="flex items-start justify-between gap-3">
+              <span>
+                <span className={row.ok ? "text-sea font-bold" : "text-muted"}>
+                  {row.ok ? "✓" : "—"}
+                </span>{" "}
+                <strong>{row.label}</strong>
+              </span>
+              <span className="shrink-0 text-[0.72rem] text-muted">{row.hint}</span>
+            </li>
+          ))}
         </ul>
       </section>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Festival } from "@/lib/data";
 import { isQuietRegion } from "@/lib/benefits";
 import { Chip, Field, PageHeader } from "@/components/ui";
@@ -31,6 +31,7 @@ export function FestivalsBoard({ festivals }: { festivals: Festival[] }) {
   const [region, setRegion] = useState("전체");
   const [quietOnly, setQuietOnly] = useState(true);
   const [timing, setTiming] = useState<"all" | "live" | "soon">("live");
+  const [autoSoon, setAutoSoon] = useState(false);
 
   const regions = useMemo(
     () => ["전체", ...[...new Set(festivals.map((f) => f.place).filter(Boolean))].sort()],
@@ -55,14 +56,34 @@ export function FestivalsBoard({ festivals }: { festivals: Festival[] }) {
       .filter(({ f, quiet, status }) => {
         if (quietOnly && !quiet) return false;
         if (region !== "전체" && f.place !== region) return false;
-        if (timing === "live" && status !== "ongoing" && status !== "unknown") return false;
-        if (timing === "soon" && status !== "upcoming" && status !== "ongoing") return false;
+        const effectiveTiming = autoSoon && timing === "live" ? "soon" : timing;
+        if (effectiveTiming === "live" && status !== "ongoing" && status !== "unknown")
+          return false;
+        if (
+          effectiveTiming === "soon" &&
+          status !== "upcoming" &&
+          status !== "ongoing"
+        )
+          return false;
         if (!query) return true;
         return `${f.title} ${f.place} ${f.desc || ""} ${f.period}`.includes(query);
       })
       .sort((a, b) => b.score - a.score || a.f.title.localeCompare(b.f.title, "ko"));
     return rows;
-  }, [festivals, region, q, quietOnly, timing, today]);
+  }, [festivals, region, q, quietOnly, timing, today, autoSoon]);
+
+  useEffect(() => {
+    if (timing !== "live" || autoSoon) return;
+    const liveCount = festivals.filter((f) => {
+      if (quietOnly && !isQuietRegion(f.place)) return false;
+      if (region !== "전체" && f.place !== region) return false;
+      const st = festStatus(f, today);
+      return st === "ongoing" || st === "unknown";
+    }).length;
+    if (liveCount === 0 && festivals.length > 0) {
+      setAutoSoon(true);
+    }
+  }, [festivals, quietOnly, region, timing, today, autoSoon]);
 
   return (
     <div>
@@ -86,16 +107,41 @@ export function FestivalsBoard({ festivals }: { festivals: Festival[] }) {
         <Chip on={quietOnly} onClick={() => setQuietOnly((v) => !v)}>
           인구감소 권역만
         </Chip>
-        <Chip on={timing === "live"} onClick={() => setTiming("live")}>
+        <Chip
+          on={timing === "live" && !autoSoon}
+          onClick={() => {
+            setAutoSoon(false);
+            setTiming("live");
+          }}
+        >
           진행·상시
         </Chip>
-        <Chip on={timing === "soon"} onClick={() => setTiming("soon")}>
+        <Chip
+          on={timing === "soon" || autoSoon}
+          onClick={() => {
+            setAutoSoon(false);
+            setTiming("soon");
+          }}
+        >
           다가오는
         </Chip>
-        <Chip on={timing === "all"} onClick={() => setTiming("all")}>
+        <Chip
+          on={timing === "all"}
+          onClick={() => {
+            setAutoSoon(false);
+            setTiming("all");
+          }}
+        >
           전체 기간
         </Chip>
       </div>
+
+      {autoSoon ? (
+        <p className="mb-3 m-0 rounded-[var(--radius-sm)] border border-sea/20 bg-sea-mist/40 px-3 py-2 text-[0.75rem] text-sea-deep">
+          지금 진행 중 축제가 적어 <strong>다가오는 축제</strong>로 보여 드려요 ·{" "}
+          {filtered.length}곳
+        </p>
+      ) : null}
 
       <div className="mb-4 flex flex-wrap gap-1.5">
         {regions.map((r) => (

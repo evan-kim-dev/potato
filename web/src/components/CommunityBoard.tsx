@@ -39,6 +39,7 @@ export function CommunityBoard() {
   const [nickDraft, setNickDraft] = useState("");
   const [openComments, setOpenComments] = useState<string | null>(null);
   const [commentDraft, setCommentDraft] = useState("");
+  const [authError, setAuthError] = useState("");
 
   useEffect(() => {
     setAuth(loadAuth());
@@ -56,12 +57,19 @@ export function CommunityBoard() {
   }, [posts, filter, regionFilter]);
 
   function ensureAuth() {
-    if (auth) return auth;
+    if (auth) {
+      setAuthError("");
+      return auth;
+    }
     const nick = nickDraft.trim();
-    if (nick.length < 2 || nick.length > 12) return null;
+    if (nick.length < 2 || nick.length > 12) {
+      setAuthError("닉네임 2~12자를 입력해 주세요");
+      return null;
+    }
     const session = loginLocal(nick);
     setAuth(session);
     setNickDraft("");
+    setAuthError("");
     return session;
   }
 
@@ -188,6 +196,9 @@ export function CommunityBoard() {
             aria-label="닉네임"
           />
         )}
+        {authError ? (
+          <p className="m-0 text-[0.75rem] text-red-700">{authError}</p>
+        ) : null}
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
@@ -273,9 +284,23 @@ export function CommunityBoard() {
             </article>
           );
         })}
-        {!filtered.length && (
-          <p className="ui-panel p-5 text-sm text-muted">조건에 맞는 글이 없어요.</p>
-        )}
+      {!filtered.length && (
+        <div className="ui-empty text-center">
+          <p className="m-0 text-sm text-muted">조건에 맞는 글이 없어요.</p>
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            <Button
+              variant="secondary"
+              className="!min-h-8 !text-[0.75rem]"
+              onClick={() => {
+                setFilter("all");
+                setRegionFilter("전체");
+              }}
+            >
+              전체 보기
+            </Button>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );

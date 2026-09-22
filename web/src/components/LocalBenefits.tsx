@@ -26,6 +26,13 @@ export function LocalBenefits({ benefit }: { benefit: LocalBenefit }) {
         {benefit.title}
       </strong>
       <p className="mt-1 text-[0.75rem] leading-relaxed text-muted">{benefit.body}</p>
+      <p className="mt-2 m-0 text-[0.68rem] text-muted">
+        혜택 탭은{" "}
+        <a href="/impact" className="font-semibold text-sea hover:underline">
+          임팩트 KPI
+        </a>
+        의 클릭 지표에 반영돼요.
+      </p>
     </aside>
   );
 }

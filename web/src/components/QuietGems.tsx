@@ -31,7 +31,7 @@ function GemThumb({ spot }: { spot: Spot }) {
 function GemCard({ spot }: { spot: Spot }) {
   return (
     <Link
-      href={`/?ask=${encodeURIComponent(`${spot.name} 포함 조용한 여행 코스`)}`}
+      href={`/?ask=${encodeURIComponent(`${spot.name} 포함 한산·인구감소 권역 조용한 여행 코스`)}`}
       className="quiet-gem-card w-[148px] shrink-0 overflow-hidden rounded-[var(--radius-sm)] border border-[var(--outline)] bg-white transition hover:border-sea/30"
     >
       <GemThumb spot={spot} />
@@ -48,7 +48,26 @@ function GemCard({ spot }: { spot: Spot }) {
 }
 
 export function QuietGems({ gems }: { gems: Spot[] }) {
-  if (!gems.length) return null;
+  if (!gems.length) {
+    return (
+      <section className="shrink-0" aria-labelledby="quiet-gems-title">
+        <div className="flex items-baseline justify-between gap-2">
+          <h2
+            id="quiet-gems-title"
+            className="m-0 text-[0.9rem] font-semibold tracking-tight text-mountain-deep"
+          >
+            한산한 명소
+          </h2>
+          <Link href="/spots" className="text-[0.7rem] font-semibold text-sea hover:underline">
+            명소 더보기
+          </Link>
+        </div>
+        <p className="mt-2 m-0 text-[0.75rem] text-muted">
+          카탈로그를 불러오는 중이거나 비어 있어요.
+        </p>
+      </section>
+    );
+  }
 
   const base =
     gems.length >= 4
@@ -59,12 +78,17 @@ export function QuietGems({ gems }: { gems: Spot[] }) {
 
   return (
     <section className="shrink-0" aria-labelledby="quiet-gems-title">
-      <h2
-        id="quiet-gems-title"
-        className="m-0 text-[0.9rem] font-semibold tracking-tight text-mountain-deep"
-      >
-        한산한 명소
-      </h2>
+      <div className="flex items-baseline justify-between gap-2">
+        <h2
+          id="quiet-gems-title"
+          className="m-0 text-[0.9rem] font-semibold tracking-tight text-mountain-deep"
+        >
+          한산한 명소
+        </h2>
+        <Link href="/spots" className="text-[0.7rem] font-semibold text-sea hover:underline">
+          명소 더보기
+        </Link>
+      </div>
       <div className="quiet-gems-marquee mt-2.5">
         <div className="quiet-gems-track" style={{ animationDuration: `${durationSec}s` }}>
           {track.map((g, i) => (

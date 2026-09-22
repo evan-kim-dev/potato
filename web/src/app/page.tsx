@@ -2,6 +2,7 @@ import { HomeMap } from "@/components/HomeMap";
 import { HomeChat } from "@/components/HomeChat";
 import { QuietGems } from "@/components/QuietGems";
 import { CongestionBanner } from "@/components/CongestionBanner";
+import { ReviewHint } from "@/components/ReviewHint";
 import { getQuietGems, getRegionTipsMap } from "@/lib/data";
 import { Suspense } from "react";
 
@@ -22,6 +23,7 @@ export default function HomePage() {
               한산한 강원을 먼저
             </h1>
           </header>
+          <ReviewHint />
           <CongestionBanner tips={tips} />
           <div className="home-map-wrap flex min-h-0 flex-1 flex-col items-center justify-center">
             <HomeMap tips={tips} compact />

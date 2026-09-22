@@ -343,20 +343,30 @@ export function HomeChat() {
                 <strong className="mt-0.5 block text-[0.85rem] text-mountain-deep">
                   {m.planTitle || "맞춤 일정"}
                 </strong>
+                <p className="mt-1.5 m-0 text-[0.68rem] leading-snug text-muted">
+                  ① 일정 다듬기 → ② 찜하면 여권 스탬프 → ③ 임팩트 KPI
+                </p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   <button
                     type="button"
                     onClick={() => router.push("/planner")}
                     className="ui-btn ui-btn-primary !min-h-8 !px-3 !text-[0.72rem]"
                   >
-                    일정·지도·가맹
+                    ① 일정·지도·가맹
                   </button>
                   <button
                     type="button"
-                    onClick={() => router.push("/passport")}
-                    className="rounded-lg border border-[var(--outline)] bg-white px-2.5 py-1.5 text-[0.7rem] font-semibold text-sea"
+                    onClick={() => router.push("/planner")}
+                    className="rounded-lg border border-sea/35 bg-sea-mist/50 px-2.5 py-1.5 text-[0.7rem] font-semibold text-sea-deep"
                   >
-                    한산 여권
+                    ② 찜·스탬프
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => router.push("/impact")}
+                    className="rounded-lg border border-[var(--outline)] bg-white px-2.5 py-1.5 text-[0.7rem] font-semibold text-muted"
+                  >
+                    ③ 임팩트
                   </button>
                 </div>
               </div>
