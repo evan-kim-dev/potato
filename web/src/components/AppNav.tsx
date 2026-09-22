@@ -11,8 +11,8 @@ const TABS = [
   { href: "/spots", label: "명소" },
   { href: "/festivals", label: "축제" },
   { href: "/weather", label: "날씨" },
+  { href: "/community", label: "이야기" },
   { href: "/passport", label: "여권" },
-  { href: "/impact", label: "임팩트" },
 ] as const;
 
 export function AppNav() {
@@ -136,6 +136,13 @@ export function AppNav() {
                   className="block rounded-[var(--radius-sm)] px-2 py-2 text-[0.8rem] font-medium hover:bg-sea-mist"
                 >
                   임팩트
+                </Link>
+                <Link
+                  href="/admin"
+                  onClick={() => setOpen(false)}
+                  className="block rounded-[var(--radius-sm)] px-2 py-2 text-[0.8rem] font-medium hover:bg-sea-mist"
+                >
+                  관리
                 </Link>
                 <Link
                   href="/about"

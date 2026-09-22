@@ -5,7 +5,6 @@ import {
   loadAuth,
   loadCommunityComments,
   loadCommunityLikes,
-  loadCommunityPosts,
   loginLocal,
   saveCommunityComments,
   saveCommunityLikes,
@@ -16,6 +15,7 @@ import {
 } from "@/lib/storage";
 import { QUIET_REGIONS } from "@/lib/prefs";
 import { Button, Chip, PageHeader } from "@/components/ui";
+import { ensureCommunitySeed } from "@/lib/demoSeed";
 
 const FILTERS = [
   { id: "all", label: "전체" },
@@ -42,7 +42,7 @@ export function CommunityBoard() {
 
   useEffect(() => {
     setAuth(loadAuth());
-    setPosts(loadCommunityPosts());
+    setPosts(ensureCommunitySeed());
     setComments(loadCommunityComments());
     setLikes(loadCommunityLikes());
   }, []);

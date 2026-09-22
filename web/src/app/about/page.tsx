@@ -49,7 +49,7 @@ export default function AboutPage() {
           </li>
           <li>
             <strong>임팩트 KPI</strong>
-            <span>지자체가 볼 한산 비중·클릭·여권 지표(프로토타입)</span>
+            <span>지자체가 볼 한산 비중·클릭·여권 지표(이 기기 미리보기)</span>
           </li>
         </ul>
 

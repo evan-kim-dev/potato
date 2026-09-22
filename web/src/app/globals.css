@@ -125,6 +125,21 @@ select {
   margin: 0.35rem 0 0;
   font-size: 0.8125rem;
   color: var(--on-surface-variant);
+  line-height: 1.5;
+}
+
+.ui-empty {
+  border: 1px dashed var(--outline-strong);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.78);
+  padding: 1rem 1.1rem;
+}
+
+.ui-empty-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--mountain-deep);
 }
 
 .ui-chip {

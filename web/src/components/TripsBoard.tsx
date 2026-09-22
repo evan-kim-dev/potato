@@ -14,6 +14,7 @@ import {
 import type { TripPlan } from "@/lib/tripTypes";
 import { scoreTripDispersion } from "@/lib/impactScore";
 import { DispersionScoreBar } from "@/components/DispersionScoreBar";
+import { Button, EmptyState, PageHeader } from "@/components/ui";
 
 export function TripsBoard() {
   const router = useRouter();
@@ -59,34 +60,53 @@ export function TripsBoard() {
 
   if (!auth) {
     return (
-      <div className="rounded-xl border border-[var(--outline)] bg-white/94 p-6 text-center">
-        <h1 className="m-0 text-xl font-bold">찜 목록</h1>
-        <p className="mt-2 text-sm text-muted">로그인(닉네임) 후 찜한 코스를 볼 수 있어요.</p>
-        <button
-          type="button"
-          onClick={() => {
-            const s = ensureLogin();
-            if (s) refresh(s);
-          }}
-          className="mt-4 rounded-lg bg-sea px-4 py-2 text-sm font-bold text-white"
+      <div className="space-y-4">
+        <PageHeader title="찜한 일정" sub="닉네임으로 시작하면 이 기기에 코스가 저장돼요." />
+        <EmptyState
+          action={
+            <Button
+              onClick={() => {
+                const s = ensureLogin();
+                if (s) refresh(s);
+              }}
+            >
+              닉네임으로 시작
+            </Button>
+          }
         >
-          닉네임으로 시작
-        </button>
+          <p className="m-0 text-[0.8rem] text-muted">
+            로그인(닉네임) 후 찜한 한산 코스를 볼 수 있어요.
+          </p>
+        </EmptyState>
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-end justify-between gap-3">
-        <div>
-          <h1 className="m-0 text-xl font-bold text-mountain-deep">찜 목록</h1>
-          <p className="mt-1 text-sm text-muted">{auth.name}님 · {trips.length}개</p>
-        </div>
-        <Link href="/planner" className="text-[0.78rem] font-bold text-sea hover:underline">
-          현재 일정 →
-        </Link>
-      </div>
+      <PageHeader
+        title="찜한 일정"
+        sub={`${auth.name}님 · ${trips.length}개`}
+        action={
+          <Link href="/planner" className="text-[0.78rem] font-bold text-sea hover:underline">
+            현재 일정 →
+          </Link>
+        }
+      />
+
+      {trips.length === 0 ? (
+        <EmptyState
+          action={
+            <Link href="/" className="ui-btn ui-btn-primary">
+              홈에서 코스 만들기
+            </Link>
+          }
+        >
+          <p className="m-0 text-[0.8rem] text-muted">
+            아직 찜한 일정이 없어요. AI 코스를 만든 뒤 플래너에서 저장해 보세요.
+          </p>
+        </EmptyState>
+      ) : null}
 
       <div className="space-y-3">
         {trips.map((t) => {
@@ -94,7 +114,7 @@ export function TripsBoard() {
           return (
           <article
             key={t.id}
-            className="rounded-xl border border-[var(--outline)] bg-white/94 p-3.5 shadow-sm transition hover:border-sea/25"
+            className="rounded-[var(--radius)] border border-[var(--outline)] bg-white/94 p-3.5"
           >
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="min-w-0 flex-1">
@@ -110,30 +130,24 @@ export function TripsBoard() {
                 </p>
               </div>
               <div className="flex gap-2">
-                <button
-                  type="button"
+                <Button
+                  className="!min-h-8 !px-3 !text-[0.72rem]"
                   onClick={() => openTrip(t)}
-                  className="rounded-lg bg-sea px-3 py-1.5 text-[0.72rem] font-bold text-white"
                 >
                   열기
-                </button>
-                <button
-                  type="button"
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="!min-h-8 !px-3 !text-[0.72rem]"
                   onClick={() => removeTrip(t.id)}
-                  className="rounded-lg border border-[var(--outline)] px-3 py-1.5 text-[0.72rem] font-semibold"
                 >
                   삭제
-                </button>
+                </Button>
               </div>
             </div>
           </article>
           );
         })}
-        {!trips.length && (
-          <p className="rounded-xl border border-[var(--outline)] bg-white p-5 text-sm text-muted">
-            찜한 코스가 없어요. 플래너에서 ♡ 찜하기를 눌러 보세요.
-          </p>
-        )}
       </div>
     </div>
   );

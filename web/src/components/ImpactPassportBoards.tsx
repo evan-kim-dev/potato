@@ -17,6 +17,8 @@ import type { TripPlan } from "@/lib/tripTypes";
 import { PassportStampMap } from "@/components/PassportStampMap";
 import { GangwonPayReceiptMock } from "@/components/GangwonPayReceiptMock";
 import { loadPayReceipts, payReceiptTotals } from "@/lib/payReceipts";
+import { applyDemoSeed } from "@/lib/demoSeed";
+import { Button, PageHeader } from "@/components/ui";
 
 export function PassportBoard() {
   const [passport, setPassport] = useState<QuietPassport | null>(null);
@@ -42,16 +44,15 @@ export function PassportBoard() {
 
   return (
     <div className="space-y-5">
-      <header>
-        <p className="m-0 text-[0.72rem] font-bold tracking-wide text-sea">
-          리텐션 · 게이미피케이션
-        </p>
-        <h1 className="mt-1 text-xl font-bold text-mountain-deep">한산 여권</h1>
-        <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-muted">
-          인구감소 권역이 일정에 담길 때마다 스탬프가 쌓입니다. 강원페이 영수증을
-          남기면 한산 권역 소비까지 여권에 연결됩니다.
-        </p>
-      </header>
+      <PageHeader
+        title="한산 여권"
+        sub={
+          <>
+            인구감소 권역이 일정에 담길 때마다 스탬프가 쌓입니다. 강원페이 영수증(데모)을
+            남기면 한산 권역 소비까지 여권에 연결됩니다.
+          </>
+        }
+      />
 
       <section className="rounded-[var(--radius)] border border-mountain/15 bg-white/94 px-4 py-4">
         <div className="flex flex-wrap items-end justify-between gap-3">
@@ -158,12 +159,16 @@ export function ImpactBoard() {
   } | null>(null);
   const [payLoading, setPayLoading] = useState(true);
 
-  useEffect(() => {
+  function reloadLocal() {
     const auth = loadAuth();
     const list = auth ? loadSavedTrips(auth.userId) : [];
     setTrips(list);
     setPassport(loadPassport());
     setCtrTotal(loadBenefitCtr().total);
+  }
+
+  useEffect(() => {
+    reloadLocal();
     setPayLoading(true);
     fetch("/api/komsco/payments")
       .then((r) => r.json())
@@ -239,15 +244,10 @@ export function ImpactBoard() {
 
   return (
     <div className="space-y-5">
-      <header>
-        <p className="m-0 text-[0.72rem] font-bold tracking-wide text-sea">B2G · 성과 지표</p>
-        <h1 className="mt-1 text-xl font-bold text-mountain-deep">임팩트 대시보드</h1>
-        <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted">
-          지자체가 예산·혜택을 지원하도록 설득할 때 쓰는 KPI 프로토타입입니다. 실제 서비스에서는
-          서버 집계·익명화 이동 데이터로 확장합니다. 지금은 이 브라우저에 저장된 일정·여권으로
-          미리보기를 보여 줍니다.
-        </p>
-      </header>
+      <PageHeader
+        title="임팩트"
+        sub="지자체 설득용 KPI · 이 기기(브라우저)에 저장된 일정·여권 기준 미리보기입니다."
+      />
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {kpiCards.map((c) => (
@@ -263,13 +263,28 @@ export function ImpactBoard() {
       </section>
 
       {kpis.tripCount === 0 ? (
-        <p className="m-0 rounded-[var(--radius-sm)] border border-dashed border-[var(--outline)] bg-white/80 px-3 py-2.5 text-[0.75rem] text-muted">
-          아직 저장된 일정이 없어요.{" "}
-          <Link href="/planner" className="font-semibold text-sea hover:underline">
-            플래너
-          </Link>
-          에서 코스를 찜하면 위 수치가 채워집니다.
-        </p>
+        <div className="ui-empty">
+          <p className="m-0 text-[0.8rem] leading-relaxed text-muted">
+            아직 저장된 일정이 없어요. 플래너에서 코스를 찜하거나, 심사 데모 데이터로
+            KPI를 바로 채울 수 있어요.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Button
+              onClick={() => {
+                applyDemoSeed();
+                reloadLocal();
+              }}
+            >
+              데모 데이터 채우기
+            </Button>
+            <Link href="/planner" className="ui-btn ui-btn-secondary">
+              플래너로
+            </Link>
+            <Link href="/admin" className="ui-btn ui-btn-ghost">
+              관리 콘솔
+            </Link>
+          </div>
+        </div>
       ) : null}
 
       <section className="rounded-[var(--radius)] border border-[var(--outline)] bg-white/94 px-4 py-4">

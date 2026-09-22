@@ -101,3 +101,9 @@ export function loadBenefitCtr(): {
     return { total: 0, byId: {} };
   }
 }
+
+/** 관리자 데모 시드용 · map은 `_total` 포함 가능 */
+export function setBenefitCtr(map: Record<string, number>) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(CTR_KEY, JSON.stringify(map));
+}

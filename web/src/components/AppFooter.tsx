@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 
 const LINKS = [
   { href: "/about", label: "소개" },
+  { href: "/community", label: "이야기" },
   { href: "/impact", label: "임팩트" },
   { href: "/passport", label: "한산 여권" },
-  { href: "/", label: "홈" },
+  { href: "/admin", label: "관리" },
   { href: "/privacy", label: "개인정보" },
   { href: "/terms", label: "약관" },
   { href: "/credits", label: "출처" },

@@ -39,6 +39,17 @@ export function loadPassport(): QuietPassport {
   return read();
 }
 
+/** 관리자 데모 시드·초기화용 */
+export function replacePassport(p: QuietPassport): QuietPassport {
+  const next: QuietPassport = {
+    stamps: p.stamps || [],
+    totalQuietVisits: p.totalQuietVisits ?? 0,
+    updatedAt: p.updatedAt || new Date().toISOString(),
+  };
+  write(next);
+  return next;
+}
+
 /** 일정에 포함된 한산 시·군을 여권 스탬프로 적립 */
 export function stampQuietRegionsFromTrip(
   tripId: string,

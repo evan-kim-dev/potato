@@ -81,8 +81,27 @@ export function Panel({
   children,
   className = "",
 }: {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 }) {
   return <div className={`ui-panel ${className}`.trim()}>{children}</div>;
 }
+
+export function EmptyState({
+  title,
+  children,
+  action,
+}: {
+  title?: string;
+  children: ReactNode;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="ui-empty">
+      {title ? <p className="ui-empty-title">{title}</p> : null}
+      <div className={title ? "mt-1.5" : undefined}>{children}</div>
+      {action ? <div className="mt-3 flex flex-wrap gap-2">{action}</div> : null}
+    </div>
+  );
+}
+

@@ -106,14 +106,14 @@ export function GangwonPayReceiptMock({ onStamped }: Props) {
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <p className="m-0 text-[0.65rem] font-bold tracking-wide text-sea">
-            MOCK · 강원페이 연동
+            데모 · 강원페이 샘플
           </p>
           <h2 className="mt-0.5 m-0 text-[0.9rem] font-bold text-mountain-deep">
             영수증 첨부 → 소비 기록
           </h2>
           <p className="mt-1 m-0 max-w-md text-[0.72rem] leading-relaxed text-muted">
-            한산 권역 가맹점에서 강원페이로 결제한 뒤 영수증을 남기면, 여권
-            스탬프와 연결되는 흐름 목업입니다. 실제 결제 API는 아닙니다.
+            한산 권역 가맹점 강원페이 결제 흐름 데모입니다. 실제 결제 API가 아니며,
+            이 기기에만 샘플로 저장됩니다.
           </p>
         </div>
         <div className="text-right">
