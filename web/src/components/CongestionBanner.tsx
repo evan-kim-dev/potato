@@ -149,7 +149,7 @@ export function CongestionBanner({ tips }: { tips: Record<string, RegionTip> }) 
   if (!pick) return null;
 
   const toNames = pick.to.map((t) => t.short).join(" · ");
-  const ask = `${pick.from.short} 대신 ${toNames} 한산 코스`;
+  const ask = `${pick.from.short}는 혼잡하니 ${toNames} 당일 자연 코스로`;
 
   return (
     <div

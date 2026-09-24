@@ -277,7 +277,7 @@ export function ImpactBoard() {
     <div className="space-y-5">
       <PageHeader
         title="임팩트"
-        sub="지자체 설득용 KPI · 이 기기(브라우저)에 저장된 일정·여권 기준 미리보기입니다."
+        sub="혼잡을 한산 권역으로 옮긴 만큼 지역에 남는 효과를, 이 기기에 저장된 일정으로 보여 줍니다."
       />
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

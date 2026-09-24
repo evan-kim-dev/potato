@@ -89,14 +89,27 @@ export function normalizeRegionName(raw: string): string | null {
 
 /** 문장에서 강원 시·군 추출 */
 export function regionsMentionedInText(...texts: string[]): string[] {
+  return regionsInMentionOrder(...texts);
+}
+
+/** 문장에 나온 순서대로 강원 시·군. 키 목록 순이 아니라 사용자가 말한 순서 */
+export function regionsInMentionOrder(...texts: string[]): string[] {
   const blob = texts.filter(Boolean).join(" ");
   if (!blob) return [];
-  const hit: string[] = [];
-  for (const r of ALL_REGIONS) {
-    const short = r.replace(/(시|군)$/, "");
-    if (blob.includes(r) || blob.includes(short)) hit.push(r);
+  const found: { region: string; index: number }[] = [];
+  for (const region of ALL_REGIONS) {
+    const short = region.replace(/(시|군)$/, "");
+    const fullAt = blob.indexOf(region);
+    const shortAt = blob.indexOf(short);
+    const index = fullAt >= 0 ? fullAt : shortAt;
+    if (index >= 0) found.push({ region, index });
   }
-  return [...new Set(hit)];
+  found.sort((a, b) => a.index - b.index);
+  const out: string[] = [];
+  for (const row of found) {
+    if (!out.includes(row.region)) out.push(row.region);
+  }
+  return out;
 }
 
 /** seed 시·군에서 hops만큼 인접 확장 */

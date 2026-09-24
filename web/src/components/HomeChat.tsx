@@ -31,12 +31,12 @@ type Msg = {
 };
 
 const GREETING =
-  "한산 권역 위주로 코스를 짜 드려요. 동선(출발·도착·이동수단)을 고른 뒤 말해 주세요.";
+  "강원 어느 시·군이든 그 가는 길에 맞춰 코스를 짜 드려요. 출발·도착을 고르거나 지역 이름을 말해 주세요.";
 
 const QUICK_ASKS = [
-  "정선·영월 당일 한산 코스",
-  "속초 대신 인제·양구로",
-  "태백·정선 1박2일 조용히",
+  "춘천에서 속초 당일",
+  "원주에서 태백 1박",
+  "동해·삼척 해안 코스",
 ];
 
 export function HomeChat() {
@@ -57,6 +57,7 @@ export function HomeChat() {
   const [origin, setOrigin] = useState<PlacePick | null>(null);
   const [destination, setDestination] = useState<PlacePick | null>(null);
   const [mode, setMode] = useState<TravelMode>("car");
+  const [duration, setDuration] = useState("당일");
   const [lastPlan, setLastPlan] = useState<TripPlan | null>(null);
   const [prefsOpen, setPrefsOpen] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -111,6 +112,7 @@ export function HomeChat() {
         budget: budget || slots.budget,
         origin: origin?.name || slots.origin,
         destination: destination?.name || slots.destination,
+        duration,
         mode,
       };
 
@@ -348,7 +350,7 @@ export function HomeChat() {
                   {m.planTitle || "맞춤 일정"}
                 </strong>
                 <p className="mt-1.5 m-0 text-[0.68rem] leading-snug text-muted">
-                  ① 일정 다듬기 → ② 찜하면 여권 스탬프 → ③ 임팩트 KPI
+                  지도에서 경유를 다듬고 찜하면 여권 스탬프가 찍힙니다.
                 </p>
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   <button
@@ -356,21 +358,14 @@ export function HomeChat() {
                     onClick={() => router.push("/planner")}
                     className="ui-btn ui-btn-primary !min-h-8 !px-3 !text-[0.72rem]"
                   >
-                    ① 일정·지도·가맹
+                    지도에서 다듬기
                   </button>
                   <button
                     type="button"
-                    onClick={() => router.push("/planner")}
-                    className="rounded-lg border border-sea/35 bg-sea-mist/50 px-2.5 py-1.5 text-[0.7rem] font-semibold text-sea-deep"
-                  >
-                    ② 찜·스탬프
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => router.push("/impact")}
+                    onClick={() => router.push("/passport")}
                     className="rounded-lg border border-[var(--outline)] bg-white px-2.5 py-1.5 text-[0.7rem] font-semibold text-muted"
                   >
-                    ③ 임팩트
+                    여권
                   </button>
                 </div>
               </div>
@@ -408,7 +403,7 @@ export function HomeChat() {
               label="도착지"
               value={destination}
               onChange={setDestination}
-              placeholder="정선, 영월…"
+              placeholder="강릉, 또는 서울"
             />
           </div>
           <div>
@@ -425,6 +420,24 @@ export function HomeChat() {
                   className={chipClass(mode === m.id, "sea")}
                 >
                   {m.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="mb-1 text-[0.62rem] font-semibold tracking-wide text-muted">
+              일수 · 출발과 도착이 가까우면 이 일정으로 강원을 다녀옵니다
+            </p>
+            <div className="grid grid-cols-3 gap-1">
+              {(["당일", "1박", "2박"] as const).map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  aria-pressed={duration === item}
+                  onClick={() => setDuration(item)}
+                  className={chipClass(duration === item, "mountain")}
+                >
+                  {item}
                 </button>
               ))}
             </div>

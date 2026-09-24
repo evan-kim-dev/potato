@@ -110,25 +110,24 @@ export async function POST(req: NextRequest) {
       : namedDest
         ? await geocodePlace(namedDest)
         : null;
-    let corridorSpots: Awaited<ReturnType<typeof suggestStopsAlongDrive>>["picks"][number]["spot"][] = [];
-    if (originPoint || destPoint) {
-      const along = await suggestStopsAlongDrive({
-        origin: originPoint,
-        destination: destPoint,
-        mode: (slots.mode || "car") as TravelMode,
-        durationHint: slots.duration || prompt,
-        text: `${prompt}\n${namedOrigin}\n${namedDest}`,
-      });
-      corridorSpots = along.picks.map((p) => p.spot);
-    }
+    const along = await suggestStopsAlongDrive({
+      origin: originPoint,
+      destination: destPoint,
+      mode: (slots.mode || "car") as TravelMode,
+      durationHint: slots.duration || prompt,
+      text: `${prompt}\n${namedOrigin}\n${namedDest}\n${(slots.regions || []).join(" ")}`,
+    });
+    const corridorSpots = along.picks.map((p) => p.spot);
     const live = await generateLiveTripPlan(planPrompt, prefs, {
       weatherNote: weather,
       festivalNote,
       placeNote,
       durationHint: slots.duration,
       corridorSpots,
-      requireCorridor: Boolean(originPoint || destPoint),
+      requireCorridor: Boolean(along.origin || along.destination),
     });
+    if (along.origin) live.plan.origin = along.origin;
+    if (along.destination) live.plan.destination = along.destination;
 
     if (slots.mode === "car" || slots.mode === "walk" || slots.mode === "bicycle") {
       live.plan.mode = slots.mode;

@@ -140,6 +140,7 @@ function measureOnLine(
 function selectChain(pool: Measured[], budget: number, minGap: number): CorridorPick[] {
   if (!pool.length || budget < 1) return [];
   const items = [...pool].sort((a, b) => a.t - b.t || b.utility - a.utility);
+  const regionKinds = new Set(items.map((p) => p.spot.region)).size;
   const n = items.length;
   const maxK = Math.min(budget, n);
   const dp: number[][] = Array.from({ length: n }, () => Array(maxK + 1).fill(-1e9));
@@ -149,8 +150,11 @@ function selectChain(pool: Measured[], budget: number, minGap: number): Corridor
   for (let k = 2; k <= maxK; k++) {
     for (let i = 0; i < n; i++) {
       for (let j = 0; j < i; j++) {
-        if (items[i].t - items[j].t < minGap) continue;
-        if (items[i].spot.region === items[j].spot.region) continue;
+        const sameRegion = items[i].spot.region === items[j].spot.region;
+        const gapNeed = sameRegion && regionKinds <= 2 ? Math.min(minGap, 0.035) : minGap;
+        if (items[i].t - items[j].t < gapNeed) continue;
+        if (sameRegion && regionKinds > 2) continue;
+        if (sameRegion && haversineKm(items[i].spot, items[j].spot) < 5) continue;
         const score = dp[j][k - 1] + items[i].utility;
         if (score > dp[i][k]) {
           dp[i][k] = score;
@@ -210,13 +214,22 @@ function pickNearby(
   }
   ranked.sort((a, b) => b.utility - a.utility);
   const chosen: CorridorPick[] = [];
-  const used = new Set<string>();
+  const used = new Map<string, number>();
+  const local = new Set(ranked.map((p) => p.spot.region)).size <= 2;
+  const perRegion = local ? 3 : 1;
   for (const pick of ranked) {
     if (chosen.length >= budget) break;
-    if (used.has(pick.spot.region)) continue;
-    if (chosen.some((c) => haversineKm(c.spot, pick.spot) < (mode === "walk" ? 0.8 : 4))) continue;
+    const count = used.get(pick.spot.region) || 0;
+    if (count >= perRegion) continue;
+    if (
+      chosen.some(
+        (c) => haversineKm(c.spot, pick.spot) < (mode === "walk" ? 0.6 : local ? 1.6 : 4)
+      )
+    ) {
+      continue;
+    }
     chosen.push(pick);
-    used.add(pick.spot.region);
+    used.set(pick.spot.region, count + 1);
   }
   return chosen;
 }
@@ -265,7 +278,7 @@ export function fitRouteStops(input: {
         picks,
       };
     }
-    const margin = clamp(14 / Math.max(routeKm, 1), 0.05, 0.2);
+    const margin = clamp(8 / Math.max(routeKm, 1), 0.03, 0.12);
     const windowed = measured.filter((p) => p.t >= margin && p.t <= 1 - margin);
     const gap = clamp(16 / Math.max(routeKm, 1), 0.06, 0.22);
     const picks = selectChain(windowed, budget, gap);

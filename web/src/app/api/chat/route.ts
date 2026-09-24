@@ -218,27 +218,24 @@ export async function POST(req: NextRequest) {
       pinnedDest ||
         (slots.destination ? geocodePlace(slots.destination) : Promise.resolve(null)),
     ]);
-    let corridorSpots: Awaited<ReturnType<typeof suggestStopsAlongDrive>>["picks"][number]["spot"][] = [];
-    if (geoOrigin || geoDest) {
-      const along = await suggestStopsAlongDrive({
-        origin: geoOrigin,
-        destination: geoDest,
-        mode: (slots.mode || "car") as TravelMode,
-        durationHint: slots.duration || prompt,
-        text: `${prompt}\n${slots.origin || ""}\n${slots.destination || ""}`,
-      });
-      corridorSpots = along.picks.map((p) => p.spot);
-    }
+    const along = await suggestStopsAlongDrive({
+      origin: geoOrigin,
+      destination: geoDest,
+      mode: (slots.mode || "car") as TravelMode,
+      durationHint: slots.duration || prompt,
+      text: `${prompt}\n${slots.duration || ""}\n${(slots.themes || []).join(" ")}\n${slots.origin || ""}\n${slots.destination || ""}\n${(slots.regions || []).join(" ")}`,
+    });
+    const corridorSpots = along.picks.map((p) => p.spot);
     const live = await generateLiveTripPlan(planPrompt, prefs, {
       weatherNote: weather,
       festivalNote,
       placeNote: place,
       durationHint: slots.duration,
       corridorSpots,
-      requireCorridor: Boolean(geoOrigin || geoDest),
+      requireCorridor: Boolean(along.origin || along.destination),
     });
-    if (geoOrigin) live.plan.origin = geoOrigin;
-    if (geoDest) live.plan.destination = geoDest;
+    if (along.origin) live.plan.origin = along.origin;
+    if (along.destination) live.plan.destination = along.destination;
 
     if (slots.mode === "car" || slots.mode === "walk" || slots.mode === "bicycle") {
       live.plan.mode = slots.mode;

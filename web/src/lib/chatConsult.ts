@@ -301,7 +301,11 @@ export function buildPlanPrompt(userText: string, slots: ChatSlots): string {
     slots.origin ? `출발지: ${slots.origin}` : "",
     slots.destination ? `도착지: ${slots.destination}` : "",
     modeLabel ? `이동수단: ${modeLabel}` : "",
-    slots.regions?.length ? `희망 권역: ${slots.regions.join(", ")}` : "한산·인구감소 권역 우선",
+    slots.regions?.length
+      ? `희망 권역: ${slots.regions.join(", ")}`
+      : slots.origin || slots.destination
+        ? "권역은 출발·도착 가는 길에 맞출 것. 특정 시·군으로 고정하지 말 것."
+        : "강원 18개 시·군 중 요청에 나온 곳만. 정선·영월로 고정하지 말 것.",
   ].filter(Boolean);
   return bits.join("\n");
 }

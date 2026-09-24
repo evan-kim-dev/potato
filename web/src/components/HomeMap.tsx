@@ -257,22 +257,13 @@ export function HomeMap({
     setActive(tip);
     setHint(
       nextPinned
-        ? tip.quiet
-          ? `${tip.short} · 한산 권역`
-          : `${tip.short} · 인근 한산으로 분산`
+        ? `${tip.short} · 이 지역 맞춤`
         : "다시 누르면 고정됩니다"
     );
   }
 
   function draftAsk(tip: RegionTip) {
-    const draft = tip.quiet
-      ? `${tip.short} 한산한 숨은 명소 당일 코스`
-      : tip.dispersion.length
-        ? `${tip.short} 대신 인근 한산 권역(${tip.dispersion
-            .map((d) => d.replace(/\(.*\)$/, ""))
-            .slice(0, 2)
-            .join("·")}) 숨은 명소 당일 코스`
-        : `${tip.short}에서 가까운 한산·인구감소 권역 숨은 명소 코스`;
+    const draft = `${tip.short} 가는 길에 맞춘 당일 코스. ${tip.short} 명소를 우선하고, 인접 시·군은 동선이 이어질 때만 넣어 주세요.`;
     window.dispatchEvent(
       new CustomEvent(REGION_DRAFT_EVENT, {
         detail: { region: tip.region, short: tip.short, draft, autoSend: true },
@@ -435,7 +426,7 @@ export function HomeMap({
                 data-region={active.region}
                 onClick={() => draftAsk(active)}
               >
-                {active.quiet ? "코스 물어보기" : "한산으로 분산"}
+                이 지역 코스
               </button>
               <a
                 href={active.officialUrl}

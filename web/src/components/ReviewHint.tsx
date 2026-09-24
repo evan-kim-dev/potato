@@ -46,9 +46,9 @@ export function ReviewHint() {
   return (
     <div className="review-hint shrink-0" role="region" aria-label="체험 가이드">
       <p className="review-hint-text">
-        <strong>체험 순서</strong>
+        <strong>체험</strong>
         <span aria-hidden> · </span>
-        빠른 질문 → 일정 찜 → 여권·임팩트
+        일수·목적 고르기 → 강원 코스 → 찜하면 여권
         {isDemoSeeded() || note ? (
           <span className="text-sea"> · {note || "데모 시드됨"}</span>
         ) : null}

@@ -46,6 +46,20 @@ const TripMap = dynamic(
 );
 
 const MODES = TRAVEL_MODES;
+const STAYS = ["당일", "1박", "2박"] as const;
+const PURPOSES = ["자연", "바다", "드라이브", "문화", "한산"] as const;
+
+function readStay(duration?: string): (typeof STAYS)[number] {
+  if (/2\s*박/.test(duration || "")) return "2박";
+  if (/1\s*박/.test(duration || "")) return "1박";
+  return "당일";
+}
+
+function stayLabel(stay: (typeof STAYS)[number]) {
+  if (stay === "1박") return "1박 2일";
+  if (stay === "2박") return "2박 3일";
+  return "당일";
+}
 
 function renumber(steps: PlanStep[]): PlanStep[] {
   return steps.map((s, i) => ({ ...s, order: i + 1 }));
@@ -97,6 +111,8 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
   const [origin, setOrigin] = useState<PlacePick | null>(null);
   const [destination, setDestination] = useState<PlacePick | null>(null);
   const [mode, setMode] = useState<TravelMode>("car");
+  const [stay, setStay] = useState<(typeof STAYS)[number]>("당일");
+  const [purpose, setPurpose] = useState<(typeof PURPOSES)[number]>("자연");
   const [regen, setRegen] = useState("");
   const [regenBusy, setRegenBusy] = useState(false);
   const [regenErr, setRegenErr] = useState("");
@@ -148,6 +164,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
       ) {
         setMode(current.mode);
       }
+      setStay(readStay(current.duration));
       return;
     }
     if (seed?.steps?.length) {
@@ -334,7 +351,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
 
   useEffect(() => {
     if (!origin || !destination || !trip?.steps?.length || regenBusy) return;
-    const sig = `live4|${mode}|${tripRef.current?.duration || ""}|${origin.lat.toFixed(3)},${origin.lng.toFixed(3)}|${destination.lat.toFixed(3)},${destination.lng.toFixed(3)}`;
+    const sig = `live7|${mode}|${stay}|${purpose}|${origin.lat.toFixed(3)},${origin.lng.toFixed(3)}|${destination.lat.toFixed(3)},${destination.lng.toFixed(3)}`;
     if (corridorSig.current === sig) return;
     const ac = new AbortController();
     const ends = { origin, destination };
@@ -347,7 +364,8 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
           signal: ac.signal,
           body: JSON.stringify({
             mode,
-            duration: tripRef.current?.duration || "",
+            duration: stay,
+            text: purpose,
             origin: { name: ends.origin.name, lat: ends.origin.lat, lng: ends.origin.lng },
             destination: {
               name: ends.destination.name,
@@ -397,15 +415,18 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
           )
         );
         setFocus(1);
+        const summary = String(data.summary || "");
         setRouteNote(
-          `${ends.origin.name} → ${ends.destination.name} 경로 적합 모델로 경유를 골랐어요 · ${names.join(" · ")}`
+          summary.includes("다녀오는")
+            ? summary
+            : `${ends.origin.name} → ${ends.destination.name} 가는 길 경유 · ${names.join(" · ")}`
         );
       } catch {
         if (!ac.signal.aborted) setRouteNote("");
       }
     })();
     return () => ac.abort();
-  }, [origin, destination, mode, trip?.steps?.length, trip?.duration, regenBusy]);
+  }, [origin, destination, mode, stay, purpose, trip?.steps?.length, regenBusy]);
 
   function moveStep(order: number, dir: -1 | 1) {
     if (!trip) return;
@@ -742,7 +763,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
 
       <div className="space-y-2 rounded-[var(--radius)] border border-[var(--outline)] bg-white/94 p-3">
         <p className="m-0 text-[0.72rem] text-muted">
-          출발·도착을 정하면 그 도로 위에서 실시간으로 경유를 다시 고릅니다. 핀은 초록 출발, 경1·경2, 주황 도착입니다.
+          출발·도착이 멀면 그 도로 위 명소를, 서울처럼 출발과 도착이 가까우면 일수와 목적에 맞춰 강원을 다녀오는 코스를 고릅니다. 핀은 초록 출발, 경1·경2, 주황 도착입니다.
           {routeNote ? (
             <span className="mt-1 block font-semibold text-sea-deep">{routeNote}</span>
           ) : null}
@@ -758,7 +779,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
             label="도착지"
             value={destination}
             onChange={(p) => persistEnds(origin, p)}
-            placeholder="예: 강남역, 인천공항…"
+            placeholder="예: 강릉역, 서울로 돌아오기"
           />
         </div>
         <fieldset className="m-0 border-0 p-0">
@@ -789,6 +810,52 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
             ))}
           </div>
         </fieldset>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <div className="flex flex-wrap items-center gap-1" role="group" aria-label="여행 일수">
+            <span className="mr-1 text-[0.72rem] font-semibold text-muted">일수</span>
+            {STAYS.map((item) => (
+              <button
+                key={item}
+                type="button"
+                aria-pressed={stay === item}
+                onClick={() => {
+                  setStay(item);
+                  setTrip((prev) => {
+                    if (!prev) return prev;
+                    const next = { ...prev, duration: stayLabel(item), savedAt: new Date().toISOString() };
+                    setCurrentTrip(next);
+                    return next;
+                  });
+                }}
+                className={
+                  stay === item
+                    ? "rounded-lg bg-mountain px-2.5 py-1.5 text-[0.72rem] font-bold text-white"
+                    : "rounded-lg border border-[var(--outline)] bg-white px-2.5 py-1.5 text-[0.72rem] font-semibold"
+                }
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center gap-1" role="group" aria-label="여행 목적">
+            <span className="mr-1 text-[0.72rem] font-semibold text-muted">목적</span>
+            {PURPOSES.map((item) => (
+              <button
+                key={item}
+                type="button"
+                aria-pressed={purpose === item}
+                onClick={() => setPurpose(item)}
+                className={
+                  purpose === item
+                    ? "rounded-lg bg-sea px-2.5 py-1.5 text-[0.72rem] font-bold text-white"
+                    : "rounded-lg border border-[var(--outline)] bg-white px-2.5 py-1.5 text-[0.72rem] font-semibold"
+                }
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {route && route.provider === "straight" && (
