@@ -87,18 +87,21 @@ export function scoreTripDispersion(
     )
   );
   const grade = gradeOf(score);
+  const onTheWay = coastalHotStops === 0 && quietRatio < 0.5;
 
   const esgNote =
     grade === "A" || grade === "B"
       ? "혼잡 분산·한산 체류로 지역 상권·저밀도 여행(ESG)에 기여하는 코스예요."
-      : grade === "C"
-        ? "일부 핫플이 섞여 있어요. 인접 한산 권역을 더 넣으면 분산 효과가 커집니다."
-        : "해안·핫플 편중이 커요. 인구감소 권역으로 동선을 옮겨 보세요.";
+      : onTheWay
+        ? "가는 길 위 경유입니다. 한산 권역을 더 머물면 분산 점수가 올라갑니다."
+        : grade === "C"
+          ? "일부 해안 핫플이 섞여 있어요. 인접 한산 권역을 더 넣으면 분산 효과가 커집니다."
+          : "해안·핫플 편중이 커요. 인구감소 권역으로 동선을 옮겨 보세요.";
 
   return {
     score,
     grade,
-    label: labelOf(grade),
+    label: onTheWay && grade === "D" ? "경로 우선" : labelOf(grade),
     quietRatio,
     quietStops,
     totalStops,

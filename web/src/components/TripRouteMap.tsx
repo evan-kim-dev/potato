@@ -6,6 +6,14 @@ import type { RoutePlan } from "@/lib/route";
 import type { MapEndpoint, PlanStep } from "@/lib/tripTypes";
 import "leaflet/dist/leaflet.css";
 
+export type MapSearchPick = {
+  name: string;
+  lat: number;
+  lng: number;
+  address?: string;
+  region?: string;
+};
+
 type Props = {
   steps: PlanStep[];
   focusOrder?: number;
@@ -14,34 +22,18 @@ type Props = {
   /** 서울·경기 등 임의 출발/도착 */
   origin?: MapEndpoint | null;
   destination?: MapEndpoint | null;
+  /** 지도 검색 결과를 출발·경유·도착으로 지정 */
+  onAssignPlace?: (place: MapSearchPick, role: "origin" | "waypoint" | "destination") => void;
 };
 
 type Engine = "kakao" | "leaflet";
 
-function escapeHtml(s: string) {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function divIconHtml(order: number, active: boolean) {
-  const bg = active ? "#164866" : "#2a6a94";
+function pinHtml(label: string, color: string, active = false) {
+  const ring = active ? "box-shadow:0 0 0 3px rgba(22,72,102,.28),0 2px 8px rgba(22,40,48,.28);" : "box-shadow:0 2px 8px rgba(22,40,48,.28);";
   return `<div style="
-    width:28px;height:28px;border-radius:50%;
-    background:${bg};color:#fff;font:800 12px/28px Pretendard,sans-serif;
-    text-align:center;border:2.5px solid #fff;
-    box-shadow:0 2px 8px rgba(22,40,48,.28);
-  ">${order}</div>`;
-}
-
-function endIconHtml(label: string, color: string) {
-  return `<div style="
-    padding:2px 7px;border-radius:999px;background:${color};color:#fff;
-    font:700 11px/1.4 Pretendard,sans-serif;border:2px solid #fff;
-    box-shadow:0 2px 8px rgba(22,40,48,.28);white-space:nowrap;
+    min-width:26px;height:26px;padding:0 7px;border-radius:999px;
+    background:${color};color:#fff;font:800 11px/26px Pretendard,sans-serif;
+    text-align:center;border:2px solid #fff;white-space:nowrap;${ring}
   ">${label}</div>`;
 }
 
@@ -90,9 +82,9 @@ async function mountLeaflet(
     L.marker([origin.lat, origin.lng], {
       icon: L.divIcon({
         className: "trip-map-pin",
-        html: endIconHtml("출발", "#1a7a4c"),
-        iconSize: [48, 22],
-        iconAnchor: [24, 11],
+        html: pinHtml("출발", "#1a7a4c"),
+        iconSize: [52, 26],
+        iconAnchor: [26, 26],
       }),
     })
       .addTo(map)
@@ -102,9 +94,9 @@ async function mountLeaflet(
     L.marker([destination.lat, destination.lng], {
       icon: L.divIcon({
         className: "trip-map-pin",
-        html: endIconHtml("도착", "#b45309"),
-        iconSize: [48, 22],
-        iconAnchor: [24, 11],
+        html: pinHtml("도착", "#b45309"),
+        iconSize: [52, 26],
+        iconAnchor: [26, 26],
       }),
     })
       .addTo(map)
@@ -114,9 +106,9 @@ async function mountLeaflet(
   pts.forEach((step) => {
     const icon = L.divIcon({
       className: "trip-map-pin",
-      html: divIconHtml(step.order, step.order === focusOrder),
-      iconSize: [28, 28],
-      iconAnchor: [14, 14],
+      html: pinHtml(`경${step.order}`, step.order === focusOrder ? "#164866" : "#2a6a94", step.order === focusOrder),
+      iconSize: [44, 26],
+      iconAnchor: [22, 26],
     });
     L.marker([step.spot.lat, step.spot.lng], { icon })
       .addTo(map)
@@ -138,6 +130,35 @@ async function mountLeaflet(
  * var options = { center: new kakao.maps.LatLng(lat, lng), level: 3 };
  * var map = new kakao.maps.Map(container, options);
  */
+function kakaoPin(
+  maps: NonNullable<NonNullable<typeof window.kakao>["maps"]>,
+  map: import("@/lib/kakaoMap").KakaoMap,
+  lat: number,
+  lng: number,
+  label: string,
+  color: string,
+  title: string,
+  active = false
+) {
+  const wrap = document.createElement("button");
+  wrap.type = "button";
+  wrap.title = title;
+  wrap.setAttribute("aria-label", title);
+  wrap.style.cssText =
+    "border:0;padding:0;background:transparent;cursor:pointer;transform:translateY(4px);";
+  wrap.innerHTML = pinHtml(label, color, active);
+  const position = new maps.LatLng(lat, lng);
+  const overlay = new maps.CustomOverlay({
+    position,
+    content: wrap,
+    xAnchor: 0.5,
+    yAnchor: 1,
+    zIndex: active ? 4 : 3,
+  });
+  overlay.setMap(map);
+  return overlay;
+}
+
 function paintKakaoMap(
   host: HTMLElement,
   maps: NonNullable<NonNullable<typeof window.kakao>["maps"]>,
@@ -156,30 +177,32 @@ function paintKakaoMap(
   const map = new maps.Map(host, { center, level: 9 });
   map.relayout?.();
 
-  const markEnd = (end: MapEndpoint, label: string) => {
-    const marker = new maps.Marker({
-      position: new maps.LatLng(end.lat, end.lng),
+  if (origin) {
+    kakaoPin(maps, map, origin.lat, origin.lng, "출발", "#1a7a4c", `출발 · ${origin.name}`);
+  }
+  if (destination) {
+    kakaoPin(
+      maps,
       map,
-      title: `${label} ${end.name}`,
-    });
-    const iw = new maps.InfoWindow({
-      content: `<div style="padding:8px 12px;font-size:12px;font-weight:700;">${label}<br/><span style="font-weight:500">${escapeHtml(end.name)}</span></div>`,
-    });
-    maps.event.addListener(marker, "click", () => iw.open(map, marker));
-  };
-  if (origin) markEnd(origin, "출발");
-  if (destination) markEnd(destination, "도착");
+      destination.lat,
+      destination.lng,
+      "도착",
+      "#b45309",
+      `도착 · ${destination.name}`
+    );
+  }
 
   pts.forEach((step) => {
-    const marker = new maps.Marker({
-      position: new maps.LatLng(step.spot.lat, step.spot.lng),
+    kakaoPin(
+      maps,
       map,
-      title: `${step.order}. ${step.spot.name}`,
-    });
-    const iw = new maps.InfoWindow({
-      content: `<div style="padding:8px 12px;font-size:12px;line-height:1.45;font-weight:700;min-width:120px;">${step.order}. ${escapeHtml(step.spot.name)}<br/><span style="font-weight:500;color:#5a6b64">${escapeHtml(step.spot.region)}</span></div>`,
-    });
-    maps.event.addListener(marker, "click", () => iw.open(map, marker));
+      step.spot.lat,
+      step.spot.lng,
+      `경${step.order}`,
+      step.order === focusOrder ? "#164866" : "#2a6a94",
+      `경유 ${step.order}. ${step.spot.name} · ${step.spot.region}`,
+      step.order === focusOrder
+    );
   });
 
   const fallback: Array<{ lat: number; lng: number }> = [];
@@ -202,7 +225,7 @@ function paintKakaoMap(
     });
     const bounds = new maps.LatLngBounds();
     path.forEach((ll) => bounds.extend(ll));
-    map.setBounds(bounds, 56);
+    map.setBounds(bounds, 72);
   }
 
   window.setTimeout(() => map.relayout?.(), 100);
@@ -216,6 +239,7 @@ export function TripRouteMap({
   className,
   origin,
   destination,
+  onAssignPlace,
 }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const kakaoRef = useRef<{
@@ -226,11 +250,21 @@ export function TripRouteMap({
   const [engine, setEngine] = useState<Engine>("leaflet");
   const [mapError, setMapError] = useState("");
   const [retryTick, setRetryTick] = useState(0);
+  const [query, setQuery] = useState("");
+  const [hits, setHits] = useState<MapSearchPick[]>([]);
+  const [searchBusy, setSearchBusy] = useState(false);
+  const [picked, setPicked] = useState<MapSearchPick | null>(null);
+  const [searchErr, setSearchErr] = useState("");
+  const [painted, setPainted] = useState(0);
+  const searchOverlay = useRef<import("@/lib/kakaoMap").KakaoCustomOverlay | null>(null);
+  const leafletSearchRef = useRef<{ remove: () => void } | null>(null);
 
   const pts = steps.filter(
     (s) => Number.isFinite(s.spot.lat) && Number.isFinite(s.spot.lng)
   );
-  const ptsKey = pts.map((p) => `${p.order}:${p.spot.lat},${p.spot.lng}`).join("|");
+  const ptsKey = pts
+    .map((p) => `${p.order}:${p.spot.name}:${p.spot.region}:${p.spot.lat},${p.spot.lng}`)
+    .join("|");
   const endsKey = `${origin?.lat || ""}:${origin?.lng || ""}|${destination?.lat || ""}:${destination?.lng || ""}`;
   const routeKey = route
     ? `${route.provider}:${route.distance_m}:${route.polyline?.length || 0}`
@@ -266,6 +300,7 @@ export function TripRouteMap({
             destination
           );
           setEngine("kakao");
+          setPainted((n) => n + 1);
           window.setTimeout(() => kakaoRef.current?.map.relayout?.(), 120);
           window.setTimeout(() => kakaoRef.current?.map.relayout?.(), 400);
           return;
@@ -290,6 +325,7 @@ export function TripRouteMap({
           destination
         );
         setEngine("leaflet");
+        setPainted((n) => n + 1);
       } catch {
         if (alive) setMapError((prev) => prev || "지도를 표시할 수 없어요");
       }
@@ -302,7 +338,7 @@ export function TripRouteMap({
       kakaoRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ptsKey, routeKey, hasKakaoKey, endsKey, canDraw, retryTick]);
+  }, [ptsKey, routeKey, hasKakaoKey, endsKey, canDraw, retryTick, focusOrder]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -316,25 +352,193 @@ export function TripRouteMap({
   }, [engine, canDraw]);
 
   useEffect(() => {
-    if (!pts.length) return;
-    const focus = pts.find((p) => p.order === focusOrder) || pts[0];
+    const term = query.trim();
+    if (term.length < 2) {
+      setHits([]);
+      setSearchErr("");
+      return;
+    }
+    const ac = new AbortController();
+    const t = window.setTimeout(async () => {
+      setSearchBusy(true);
+      try {
+        const res = await fetch(`/api/places?q=${encodeURIComponent(term)}`, {
+          signal: ac.signal,
+        });
+        const data = await res.json();
+        if (ac.signal.aborted) return;
+        if (!res.ok) {
+          setHits([]);
+          setSearchErr(typeof data.error === "string" ? data.error : "장소 검색에 실패했어요");
+          return;
+        }
+        setSearchErr("");
+        setHits((data.places || []).slice(0, 6) as MapSearchPick[]);
+      } catch {
+        if (!ac.signal.aborted) {
+          setHits([]);
+          setSearchErr("장소 검색에 실패했어요");
+        }
+      } finally {
+        if (!ac.signal.aborted) setSearchBusy(false);
+      }
+    }, 280);
+    return () => {
+      ac.abort();
+      window.clearTimeout(t);
+    };
+  }, [query]);
+
+  useEffect(() => {
+    searchOverlay.current?.setMap(null);
+    searchOverlay.current = null;
+    leafletSearchRef.current?.remove();
+    leafletSearchRef.current = null;
+    if (!picked) return;
+
     if (engine === "kakao" && kakaoRef.current && window.kakao?.maps) {
-      kakaoRef.current.map.setCenter(
-        new window.kakao.maps.LatLng(focus.spot.lat, focus.spot.lng)
+      const maps = window.kakao.maps;
+      const pos = new maps.LatLng(picked.lat, picked.lng);
+      kakaoRef.current.map.setCenter(pos);
+      kakaoRef.current.map.setLevel?.(5);
+      searchOverlay.current = kakaoPin(
+        maps,
+        kakaoRef.current.map,
+        picked.lat,
+        picked.lng,
+        "검색",
+        "#5b3a8c",
+        `검색 · ${picked.name}`
       );
+      return;
+    }
+
+    if (engine === "leaflet" && leafletRef.current) {
+      const map = leafletRef.current;
+      const place = picked;
+      void import("leaflet").then((L) => {
+        if (leafletRef.current !== map) return;
+        leafletSearchRef.current?.remove();
+        leafletSearchRef.current = L.marker([place.lat, place.lng], {
+          icon: L.divIcon({
+            className: "trip-map-pin",
+            html: pinHtml("검색", "#5b3a8c"),
+            iconSize: [52, 26],
+            iconAnchor: [26, 26],
+          }),
+        })
+          .addTo(map)
+          .bindPopup(`<strong>검색</strong><br/>${place.name}`);
+        map.panTo([place.lat, place.lng], { animate: true });
+      });
+    }
+  }, [picked, engine, painted]);
+
+  function assign(role: "origin" | "waypoint" | "destination") {
+    if (!picked || !onAssignPlace) return;
+    onAssignPlace(picked, role);
+    setPicked(null);
+    setQuery("");
+    setHits([]);
+  }
+
+  function showWholeRoute() {
+    setPicked(null);
+    setQuery("");
+    setHits([]);
+    const maps = window.kakao?.maps;
+    const path: Array<{ lat: number; lng: number }> =
+      route?.polyline && route.polyline.length > 1
+        ? route.polyline
+        : [
+            ...(origin ? [origin] : []),
+            ...pts.map((p) => ({ lat: p.spot.lat, lng: p.spot.lng })),
+            ...(destination ? [destination] : []),
+          ];
+    if (path.length < 1) return;
+    if (engine === "kakao" && kakaoRef.current && maps) {
+      const bounds = new maps.LatLngBounds();
+      path.forEach((p) => bounds.extend(new maps.LatLng(p.lat, p.lng)));
+      kakaoRef.current.map.setBounds(bounds, 72);
+      return;
     }
     if (engine === "leaflet" && leafletRef.current) {
-      leafletRef.current.panTo([focus.spot.lat, focus.spot.lng], { animate: true });
+      void import("leaflet").then((L) => {
+        leafletRef.current?.fitBounds(
+          L.latLngBounds(path.map((p) => [p.lat, p.lng] as [number, number])).pad(0.18)
+        );
+      });
     }
-  }, [focusOrder, pts, engine]);
+  }
 
   return (
     <div
       className={
         className ||
-        "relative overflow-hidden rounded-[var(--radius)] border border-[var(--outline)] bg-[#dfe8e4]"
+        "overflow-hidden rounded-[var(--radius)] border border-[var(--outline)] bg-white"
       }
     >
+      <form
+        className="border-b border-[var(--outline)] bg-white px-3 py-2.5"
+        onSubmit={(e) => e.preventDefault()}
+      >
+        <label className="block text-[0.68rem] font-bold text-sea-deep">
+          지도에서 장소 찾기
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="명소, 주소, 역 이름"
+            className="ui-field mt-1 !py-1.5 text-[0.78rem]"
+            aria-label="지도 장소 검색"
+          />
+        </label>
+        {searchErr ? <p className="mb-0 mt-1 text-[0.68rem] text-red-700">{searchErr}</p> : null}
+        {(hits.length > 0 || searchBusy) && (
+          <ul className="mt-1 max-h-40 overflow-auto rounded-[var(--radius-sm)] border border-[var(--outline)] bg-white">
+            {searchBusy && !hits.length ? (
+              <li className="px-2 py-1.5 text-[0.7rem] text-muted">찾는 중…</li>
+            ) : null}
+            {hits.map((h) => (
+              <li key={`${h.name}-${h.lat}`}>
+                <button
+                  type="button"
+                  className="w-full px-2 py-1.5 text-left text-[0.75rem] hover:bg-sea-mist"
+                  onClick={() => {
+                    setPicked(h);
+                    setHits([]);
+                    setQuery(h.name);
+                    setSearchErr("");
+                  }}
+                >
+                  <strong>{h.name}</strong>
+                  {h.address ? (
+                    <span className="block truncate text-[0.65rem] text-muted">{h.address}</span>
+                  ) : null}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+        {picked && onAssignPlace ? (
+          <div className="mt-2 flex flex-wrap items-center gap-1">
+            <span className="mr-1 text-[0.68rem] font-semibold text-muted">{picked.name}</span>
+            <button type="button" className="ui-btn ui-btn-ghost !min-h-7 !px-2 !text-[0.68rem]" onClick={() => assign("origin")}>
+              출발
+            </button>
+            <button type="button" className="ui-btn ui-btn-ghost !min-h-7 !px-2 !text-[0.68rem]" onClick={() => assign("waypoint")}>
+              경유
+            </button>
+            <button type="button" className="ui-btn ui-btn-primary !min-h-7 !px-2 !text-[0.68rem]" onClick={() => assign("destination")}>
+              도착
+            </button>
+            <button type="button" className="ui-btn ui-btn-ghost !min-h-7 !px-2 !text-[0.68rem]" onClick={showWholeRoute}>
+              전체 경로
+            </button>
+          </div>
+        ) : null}
+      </form>
+
+      <div className="relative bg-[#dfe8e4]">
       <div
         id="map"
         ref={hostRef}
@@ -362,18 +566,26 @@ export function TripRouteMap({
         </div>
       ) : null}
 
-      {route && (
-        <p className="pointer-events-none absolute left-2 top-2 z-[500] rounded-[var(--radius-sm)] bg-white/95 px-2.5 py-1 text-[0.7rem] font-bold text-sea-deep shadow-sm">
+      <div className="pointer-events-none absolute left-2 top-2 z-[500] flex max-w-[calc(100%-1rem)] flex-col gap-1">
+        <p className="m-0 w-fit rounded-[var(--radius-sm)] bg-white/95 px-2.5 py-1 text-[0.68rem] font-bold text-sea-deep shadow-sm">
           {engine === "kakao" ? "카카오맵" : "경로 지도"}
-          {" · "}
-          {route.provider === "kakao"
-            ? "카카오 내비"
-            : route.provider === "osrm"
-              ? "도로 경로"
-              : "직선 추정"}{" "}
-          · {route.duration_label} · {route.distance_label}
+          {route
+            ? ` · ${
+                route.provider === "kakao"
+                  ? "카카오 내비"
+                  : route.provider === "osrm"
+                    ? "도로 경로"
+                    : "직선 추정"
+              } · ${route.duration_label} · ${route.distance_label}`
+            : ""}
         </p>
-      )}
+        <p className="m-0 w-fit rounded-[var(--radius-sm)] bg-white/95 px-2 py-1 text-[0.65rem] font-semibold text-mountain-deep shadow-sm">
+          <span className="text-[#1a7a4c]">출발</span>
+          {pts.length ? ` → 경유 ${pts.map((p) => p.order).join("·")}` : ""}
+          <span className="text-[#b45309]"> → 도착</span>
+        </p>
+      </div>
+      </div>
     </div>
   );
 }

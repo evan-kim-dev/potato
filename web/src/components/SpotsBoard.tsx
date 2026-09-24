@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Spot } from "@/lib/data";
 import { isQuietRegion } from "@/lib/benefits";
 import { Chip, Field, PageHeader } from "@/components/ui";
@@ -53,14 +53,50 @@ export function SpotsBoard({
   const [theme, setTheme] = useState("전체");
   const [quietOnly, setQuietOnly] = useState(true);
   const [q, setQ] = useState("");
+  const [live, setLive] = useState<Spot[]>([]);
+  const [searching, setSearching] = useState(false);
+
+  useEffect(() => {
+    const query = q.trim();
+    if (query.length < 2) {
+      setLive([]);
+      setSearching(false);
+      return;
+    }
+    const ctrl = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setSearching(true);
+      try {
+        const res = await fetch(
+          `/api/spots?q=${encodeURIComponent(query)}&limit=18`,
+          { signal: ctrl.signal }
+        );
+        const data = await res.json();
+        if (!ctrl.signal.aborted && Array.isArray(data.spots)) {
+          setLive(data.spots as Spot[]);
+        }
+      } catch {
+        if (!ctrl.signal.aborted) setLive([]);
+      } finally {
+        if (!ctrl.signal.aborted) setSearching(false);
+      }
+    }, 280);
+    return () => {
+      ctrl.abort();
+      window.clearTimeout(timer);
+    };
+  }, [q]);
 
   const filtered = useMemo(() => {
     const query = q.trim();
-    const list = spots.filter((s) => {
+    const pool = query.length >= 2 ? live : spots;
+    const list = pool.filter((s) => {
+      if (query.length >= 2) {
+        return theme === "전체" || s.theme === theme;
+      }
       if (quietOnly && !isQuietRegion(s.region)) return false;
       if (theme !== "전체" && s.theme !== theme) return false;
-      if (!query) return true;
-      return `${s.name} ${s.region} ${s.description} ${s.theme}`.includes(query);
+      return true;
     });
     return [...list]
       .map((s) => {
@@ -74,7 +110,7 @@ export function SpotsBoard({
       })
       .sort((a, b) => b.score - a.score || a.s.name.localeCompare(b.s.name, "ko"))
       .map((x) => x.s);
-  }, [spots, theme, quietOnly, q]);
+  }, [spots, live, theme, quietOnly, q]);
 
   return (
     <div>
@@ -83,8 +119,10 @@ export function SpotsBoard({
         sub={
           <>
             <strong className="text-sea">{filtered.length}</strong>곳
+            {q.trim().length >= 2 ? " · 실시간 검색" : " · TourAPI 카탈로그"}
             {quietOnly ? "" : " · 전체"}
             {theme !== "전체" ? ` · ${theme}` : ""}
+            {searching ? " · 찾는 중" : ""}
           </>
         }
         action={
@@ -137,7 +175,7 @@ export function SpotsBoard({
         ))}
       </div>
 
-      {!filtered.length && (
+      {!filtered.length && !searching && (
         <div className="ui-empty mt-2 text-center">
           <p className="m-0 text-sm text-muted">조건에 맞는 관광지가 없어요.</p>
           <div className="mt-3 flex flex-wrap justify-center gap-2">

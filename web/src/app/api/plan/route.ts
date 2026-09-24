@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateLiveTripPlan, hasGeminiKey } from "@/lib/gemini";
+import { geocodePlace, suggestStopsAlongDrive } from "@/lib/routeStops";
+import type { TravelMode } from "@/lib/tripTypes";
 import { prefsLabelFromBody } from "@/lib/prefs";
 import {
   buildPlanPrompt,
@@ -92,11 +94,40 @@ export async function POST(req: NextRequest) {
     ]);
 
     const planPrompt = buildPlanPrompt(prompt, slots);
+    const originLat = Number(body?.originLat);
+    const originLng = Number(body?.originLng);
+    const destLat = Number(body?.destinationLat);
+    const destLng = Number(body?.destinationLng);
+    const namedOrigin = slots.origin || String(body?.originName || "");
+    const namedDest = slots.destination || String(body?.destinationName || "");
+    const originPoint = Number.isFinite(originLat) && Number.isFinite(originLng)
+      ? { name: namedOrigin || "출발", lat: originLat, lng: originLng }
+      : namedOrigin
+        ? await geocodePlace(namedOrigin)
+        : null;
+    const destPoint = Number.isFinite(destLat) && Number.isFinite(destLng)
+      ? { name: namedDest || "도착", lat: destLat, lng: destLng }
+      : namedDest
+        ? await geocodePlace(namedDest)
+        : null;
+    let corridorSpots: Awaited<ReturnType<typeof suggestStopsAlongDrive>>["picks"][number]["spot"][] = [];
+    if (originPoint || destPoint) {
+      const along = await suggestStopsAlongDrive({
+        origin: originPoint,
+        destination: destPoint,
+        mode: (slots.mode || "car") as TravelMode,
+        durationHint: slots.duration || prompt,
+        text: `${prompt}\n${namedOrigin}\n${namedDest}`,
+      });
+      corridorSpots = along.picks.map((p) => p.spot);
+    }
     const live = await generateLiveTripPlan(planPrompt, prefs, {
       weatherNote: weather,
       festivalNote,
       placeNote,
       durationHint: slots.duration,
+      corridorSpots,
+      requireCorridor: Boolean(originPoint || destPoint),
     });
 
     if (slots.mode === "car" || slots.mode === "walk" || slots.mode === "bicycle") {

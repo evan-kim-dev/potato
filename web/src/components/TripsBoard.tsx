@@ -14,12 +14,13 @@ import {
 import type { TripPlan } from "@/lib/tripTypes";
 import { scoreTripDispersion } from "@/lib/impactScore";
 import { DispersionScoreBar } from "@/components/DispersionScoreBar";
-import { Button, EmptyState, PageHeader } from "@/components/ui";
+import { Button, EmptyState, Field, PageHeader } from "@/components/ui";
 
 export function TripsBoard() {
   const router = useRouter();
   const [auth, setAuth] = useState<AuthSession | null>(null);
   const [trips, setTrips] = useState<TripPlan[]>([]);
+  const [nick, setNick] = useState("");
 
   function refresh(session: AuthSession | null) {
     if (!session) {
@@ -35,15 +36,13 @@ export function TripsBoard() {
     refresh(session);
   }, []);
 
-  function ensureLogin() {
-    let session = auth;
-    if (!session) {
-      const nick = window.prompt("닉네임을 입력하세요 (2~12자)");
-      if (!nick || nick.trim().length < 2) return null;
-      session = loginLocal(nick);
-      setAuth(session);
-    }
-    return session;
+  function startWithNick() {
+    const name = nick.trim();
+    if (name.length < 2 || name.length > 12) return;
+    const session = loginLocal(name);
+    setAuth(session);
+    setNick("");
+    refresh(session);
   }
 
   function openTrip(trip: TripPlan) {
@@ -52,9 +51,8 @@ export function TripsBoard() {
   }
 
   function removeTrip(id: string) {
-    const session = ensureLogin();
-    if (!session) return;
-    const next = deleteTripForUser(session.userId, id);
+    if (!auth) return;
+    const next = deleteTripForUser(auth.userId, id);
     setTrips(next);
   }
 
@@ -64,18 +62,28 @@ export function TripsBoard() {
         <PageHeader title="찜한 일정" sub="닉네임으로 시작하면 이 기기에 코스가 저장돼요." />
         <EmptyState
           action={
-            <Button
-              onClick={() => {
-                const s = ensureLogin();
-                if (s) refresh(s);
+            <form
+              className="flex w-full max-w-xs flex-col gap-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                startWithNick();
               }}
             >
-              닉네임으로 시작
-            </Button>
+              <Field
+                value={nick}
+                onChange={(e) => setNick(e.target.value)}
+                placeholder="닉네임 2~12자"
+                maxLength={12}
+                aria-label="닉네임"
+              />
+              <Button type="submit" disabled={nick.trim().length < 2}>
+                닉네임으로 시작
+              </Button>
+            </form>
           }
         >
           <p className="m-0 text-[0.8rem] text-muted">
-            로그인(닉네임) 후 찜한 한산 코스를 볼 수 있어요.
+            이 기기에만 저장됩니다. 닉네임을 입력하면 찜한 코스를 볼 수 있어요.
           </p>
         </EmptyState>
       </div>

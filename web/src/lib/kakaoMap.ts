@@ -30,6 +30,13 @@ declare global {
         }) => KakaoPolyline;
         InfoWindow: new (options: { content: string }) => KakaoInfoWindow;
         LatLngBounds: new () => KakaoLatLngBounds;
+        CustomOverlay: new (options: {
+          position: KakaoLatLng;
+          content: string | HTMLElement;
+          xAnchor?: number;
+          yAnchor?: number;
+          zIndex?: number;
+        }) => KakaoCustomOverlay;
         event: {
           addListener: (
             target: KakaoMarker | KakaoMap,
@@ -59,6 +66,10 @@ export type KakaoInfoWindow = {
 };
 export type KakaoLatLngBounds = {
   extend: (latlng: KakaoLatLng) => void;
+};
+export type KakaoCustomOverlay = {
+  setMap: (map: KakaoMap | null) => void;
+  setPosition?: (latlng: KakaoLatLng) => void;
 };
 
 let loadPromise: Promise<NonNullable<typeof window.kakao>> | null = null;

@@ -35,6 +35,8 @@ type DemoPack = {
     source: string;
     stopNames: string[];
     mode: "car";
+    origin?: TripPlan["origin"];
+    destination?: TripPlan["destination"];
     steps: TripPlan["steps"];
     dispersion: TripPlan["dispersion"];
     regions: string[];
@@ -251,6 +253,8 @@ export async function applyDemoSeed(): Promise<DemoSeedResult> {
       source: pack.trip.source,
       stopNames: pack.trip.stopNames,
       mode: pack.trip.mode,
+      origin: pack.trip.origin || undefined,
+      destination: pack.trip.destination || undefined,
       steps: pack.trip.steps,
       dispersion: pack.trip.dispersion || scoreTripDispersion(pack.trip.steps),
     };

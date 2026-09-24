@@ -301,9 +301,66 @@ function enrichSpots(spots: Spot[]): Spot[] {
   }));
 }
 
+let tourCatalogCache: Spot[] | null = null;
+
+/** TourAPI 동기화 좌표. 일정 목업 spots.json 과 별개 */
+export function getTourCatalogSpots(): Spot[] {
+  if (tourCatalogCache) return tourCatalogCache;
+  const out: Spot[] = [];
+  try {
+    const kor = readJson<{
+      regions?: Record<
+        string,
+        Array<{ title?: string; addr?: string; mapX?: string; mapY?: string }>
+      >;
+    }>("tour_kor_spots.json");
+    for (const [region, entries] of Object.entries(kor.regions || {})) {
+      for (const e of entries || []) {
+        const lat = Number(e.mapY);
+        const lng = Number(e.mapX);
+        const name = (e.title || "").trim();
+        if (!name || !Number.isFinite(lat) || !Number.isFinite(lng)) continue;
+        out.push({
+          name,
+          region,
+          description: e.addr || region,
+          lat,
+          lng,
+          theme: "관광",
+        });
+      }
+    }
+  } catch {
+    /* catalog optional */
+  }
+  tourCatalogCache = out;
+  return out;
+}
+
 export function getSpots(): Spot[] {
   if (!spotsCache) {
-    spotsCache = enrichSpots(readJson<Spot[]>("spots.json"));
+    const byKey = new Map<string, Spot>();
+    for (const s of getTourCatalogSpots()) {
+      byKey.set(`${s.region}|${s.name}`, s);
+    }
+    for (const s of enrichSpots(readJson<Spot[]>("spots.json"))) {
+      const key = `${s.region}|${s.name}`;
+      const prev = byKey.get(key);
+      byKey.set(
+        key,
+        prev
+          ? {
+              ...prev,
+              ...s,
+              lat: Number.isFinite(s.lat) ? s.lat : prev.lat,
+              lng: Number.isFinite(s.lng) ? s.lng : prev.lng,
+              description: s.description || prev.description,
+              image: s.image || prev.image,
+            }
+          : s
+      );
+    }
+    spotsCache = enrichSpots([...byKey.values()]);
     spotsByRegionCache = new Map();
     for (const s of spotsCache) {
       const list = spotsByRegionCache.get(s.region) || [];
@@ -541,11 +598,43 @@ function regionPhoto(region: string): RegionTip["photo"] | undefined {
   return undefined;
 }
 
+function proxyCongestion(region: string): {
+  level: string;
+  label: string;
+  proxy?: boolean;
+} {
+  const quiet = new Set<string>(QUIET_REGIONS).has(region);
+  if (quiet) return { level: "low", label: "한산·여유", proxy: true };
+  if (/강릉|속초|양양|동해|삼척/.test(region))
+    return { level: "high", label: "혼잡 우려", proxy: true };
+  return { level: "mid", label: "보통", proxy: true };
+}
+
+/** 인사이트 파일이 거의 한 등급이면 판단 근거로 쓰지 않음 (현재 전 권역 high) */
+function insightsTrustworthy(): boolean {
+  try {
+    const raw = readJson<{
+      regions?: Record<string, { congestion_level?: string }>;
+    }>("tour_regional_insights.json");
+    const levels = Object.values(raw.regions || {})
+      .map((r) => r.congestion_level)
+      .filter(Boolean) as string[];
+    if (levels.length < 8) return false;
+    const counts = new Map<string, number>();
+    for (const level of levels) counts.set(level, (counts.get(level) || 0) + 1);
+    const top = Math.max(...counts.values());
+    return top / levels.length < 0.8;
+  } catch {
+    return false;
+  }
+}
+
 function regionCongestion(region: string): {
   level: string;
   label: string;
   proxy?: boolean;
 } {
+  if (!insightsTrustworthy()) return proxyCongestion(region);
   try {
     const raw = readJson<{
       regions?: Record<
@@ -568,11 +657,7 @@ function regionCongestion(region: string): {
   } catch {
     /* fall through */
   }
-  const quiet = new Set<string>(QUIET_REGIONS).has(region);
-  if (quiet) return { level: "low", label: "한산·여유", proxy: true };
-  if (/강릉|속초|양양|동해|삼척/.test(region))
-    return { level: "high", label: "혼잡 우려", proxy: true };
-  return { level: "mid", label: "보통", proxy: true };
+  return proxyCongestion(region);
 }
 
 export function getRegionCongestionMap(): Record<

@@ -3,10 +3,11 @@ import { getQuietGems, getSpots } from "@/lib/data";
 import { getSeedMerchants } from "@/lib/merchants";
 import { scoreTripDispersion } from "@/lib/impactScore";
 import { QUIET_REGIONS } from "@/lib/prefs";
+import { geocodePlace, suggestStopsAlongDrive } from "@/lib/routeStops";
 import type { PlanStep } from "@/lib/tripTypes";
 
 export const runtime = "nodejs";
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 const PREFERRED = ["정선군", "영월군", "태백시", "인제군"] as const;
 
@@ -16,6 +17,59 @@ const PREFERRED = ["정선군", "영월군", "태백시", "인제군"] as const;
  */
 export async function GET() {
   const quietSet = new Set<string>(QUIET_REGIONS);
+  try {
+    const [origin, destination] = await Promise.all([
+      geocodePlace("서울역"),
+      geocodePlace("강릉역"),
+    ]);
+    if (origin && destination) {
+      const along = await suggestStopsAlongDrive({
+        origin,
+        destination,
+        mode: "car",
+        durationHint: "당일",
+      });
+      if (along.picks.length >= 2) {
+        const steps: PlanStep[] = along.steps;
+        const dispersion = scoreTripDispersion(steps);
+        const regions = [...new Set(steps.map((s) => s.spot.region))];
+        const merchants = getSeedMerchants().filter((m) =>
+          regions.includes(m.region)
+        );
+        const merchant = merchants[0] || getSeedMerchants()[0] || null;
+        return NextResponse.json({
+          ok: true,
+          source: "live-route",
+          generatedAt: new Date().toISOString(),
+          trip: {
+            id: "demo-trip-seoul-gangneung",
+            query: "서울역 → 강릉역",
+            title: along.title || "서울역 → 강릉역 가는 길",
+            summary: along.summary,
+            duration: "당일",
+            source: "demo-seed-live",
+            stopNames: steps.map((s) => s.spot.name),
+            mode: "car" as const,
+            origin,
+            destination,
+            steps,
+            dispersion,
+            regions,
+          },
+          merchant: merchant
+            ? { name: merchant.name, region: merchant.region, amount: 16000 }
+            : { name: "한산 권역 가맹 샘플", region: regions[0] || "영월군", amount: 16000 },
+          communityHints: steps.slice(0, 3).map((s) => ({
+            region: s.spot.region,
+            name: s.spot.name,
+          })),
+          catalog: { quietSpots: 0, picked: steps.length, live: true },
+        });
+      }
+    }
+  } catch {
+    /* 카탈로그 폴백 */
+  }
   const gems = getQuietGems(24);
   const all = getSpots().filter((s) => quietSet.has(s.region));
 

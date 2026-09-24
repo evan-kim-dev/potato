@@ -129,6 +129,10 @@ export function HomeChat() {
           slots: mergedSlots,
           originName: origin?.name || "",
           destinationName: destination?.name || "",
+          originLat: origin?.lat,
+          originLng: origin?.lng,
+          destinationLat: destination?.lat,
+          destinationLng: destination?.lng,
           mode,
         }),
       });

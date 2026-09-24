@@ -17,6 +17,8 @@ import {
 } from "@/lib/gemini";
 import { benefitsForRegions } from "@/lib/benefits";
 import { prefsLabelFromBody } from "@/lib/prefs";
+import { geocodePlace, suggestStopsAlongDrive } from "@/lib/routeStops";
+import type { TravelMode } from "@/lib/tripTypes";
 
 export const runtime = "nodejs";
 
@@ -198,12 +200,45 @@ export async function POST(req: NextRequest) {
     }
 
     const planPrompt = buildPlanPrompt(prompt, slots);
+    const bodyOLat = Number(body?.originLat);
+    const bodyOLng = Number(body?.originLng);
+    const bodyDLat = Number(body?.destinationLat);
+    const bodyDLng = Number(body?.destinationLng);
+    const pinnedOrigin =
+      slots.origin && Number.isFinite(bodyOLat) && Number.isFinite(bodyOLng)
+        ? { name: slots.origin, lat: bodyOLat, lng: bodyOLng }
+        : null;
+    const pinnedDest =
+      slots.destination && Number.isFinite(bodyDLat) && Number.isFinite(bodyDLng)
+        ? { name: slots.destination, lat: bodyDLat, lng: bodyDLng }
+        : null;
+    const [geoOrigin, geoDest] = await Promise.all([
+      pinnedOrigin ||
+        (slots.origin ? geocodePlace(slots.origin) : Promise.resolve(null)),
+      pinnedDest ||
+        (slots.destination ? geocodePlace(slots.destination) : Promise.resolve(null)),
+    ]);
+    let corridorSpots: Awaited<ReturnType<typeof suggestStopsAlongDrive>>["picks"][number]["spot"][] = [];
+    if (geoOrigin || geoDest) {
+      const along = await suggestStopsAlongDrive({
+        origin: geoOrigin,
+        destination: geoDest,
+        mode: (slots.mode || "car") as TravelMode,
+        durationHint: slots.duration || prompt,
+        text: `${prompt}\n${slots.origin || ""}\n${slots.destination || ""}`,
+      });
+      corridorSpots = along.picks.map((p) => p.spot);
+    }
     const live = await generateLiveTripPlan(planPrompt, prefs, {
       weatherNote: weather,
       festivalNote,
       placeNote: place,
       durationHint: slots.duration,
+      corridorSpots,
+      requireCorridor: Boolean(geoOrigin || geoDest),
     });
+    if (geoOrigin) live.plan.origin = geoOrigin;
+    if (geoDest) live.plan.destination = geoDest;
 
     if (slots.mode === "car" || slots.mode === "walk" || slots.mode === "bicycle") {
       live.plan.mode = slots.mode;

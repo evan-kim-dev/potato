@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   getCurrentTrip,
@@ -104,6 +104,10 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
   const [addQ, setAddQ] = useState("");
   const [addHits, setAddHits] = useState<PlanSpot[]>([]);
   const [wx, setWx] = useState<Record<string, { temp: number; label?: string }>>({});
+  const [routeNote, setRouteNote] = useState("");
+  const corridorSig = useRef("");
+  const tripRef = useRef(trip);
+  tripRef.current = trip;
 
   function persistEnds(nextOrigin: PlacePick | null, nextDest: PlacePick | null) {
     setOrigin(nextOrigin);
@@ -184,6 +188,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
     if (!day) return trip.steps;
     return trip.steps.filter((s) => s.day === day);
   }, [trip, day]);
+  const routeSteps = trip?.steps?.length ? trip.steps : visible;
 
   const active = trip?.steps.find((s) => s.order === focus) || visible[0];
   const benefit = trip
@@ -192,17 +197,15 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
   const quietCount = trip
     ? trip.steps.filter((s) => isQuietRegion(s.spot.region)).length
     : 0;
-  const dispersion = trip
-    ? trip.dispersion || scoreTripDispersion(trip.steps)
-    : null;
+  const dispersion = trip ? scoreTripDispersion(trip.steps) : null;
 
   // 실시간 경로 — 경유 2곳+ 또는 출발·도착 지정 시
   useEffect(() => {
     const canRoute =
-      visible.length >= 2 ||
+      routeSteps.length >= 2 ||
       (Boolean(origin) && Boolean(destination)) ||
-      (Boolean(origin) && visible.length >= 1) ||
-      (Boolean(destination) && visible.length >= 1);
+      (Boolean(origin) && routeSteps.length >= 1) ||
+      (Boolean(destination) && routeSteps.length >= 1);
     if (!canRoute) {
       setRoute(null);
       setRouteErr("");
@@ -221,7 +224,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
             mode,
             origin: origin || undefined,
             destination: destination || undefined,
-            points: visible.map((s) => ({
+            points: routeSteps.map((s) => ({
               name: s.spot.name,
               lat: s.spot.lat,
               lng: s.spot.lng,
@@ -257,7 +260,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
       ac.abort();
       window.clearTimeout(timer);
     };
-  }, [visible, mode, origin, destination]);
+  }, [routeSteps, mode, origin, destination]);
 
   // 실시간 날씨 (코스 권역)
   useEffect(() => {
@@ -329,6 +332,81 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
     });
   }, [origin, destination, focus]);
 
+  useEffect(() => {
+    if (!origin || !destination || !trip?.steps?.length || regenBusy) return;
+    const sig = `live4|${mode}|${tripRef.current?.duration || ""}|${origin.lat.toFixed(3)},${origin.lng.toFixed(3)}|${destination.lat.toFixed(3)},${destination.lng.toFixed(3)}`;
+    if (corridorSig.current === sig) return;
+    const ac = new AbortController();
+    const ends = { origin, destination };
+    setRouteNote("경로 위 장소를 실시간으로 찾는 중…");
+    (async () => {
+      try {
+        const res = await fetch("/api/route-stops", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: ac.signal,
+          body: JSON.stringify({
+            mode,
+            duration: tripRef.current?.duration || "",
+            origin: { name: ends.origin.name, lat: ends.origin.lat, lng: ends.origin.lng },
+            destination: {
+              name: ends.destination.name,
+              lat: ends.destination.lat,
+              lng: ends.destination.lng,
+            },
+          }),
+        });
+        const data = await res.json();
+        if (ac.signal.aborted || !res.ok) return;
+        if (!data.steps?.length) {
+          corridorSig.current = sig;
+          setRouteNote("이 출발·도착 경로 위에 넣을 만한 명소가 없어요. 경유는 그대로 둡니다.");
+          return;
+        }
+        corridorSig.current = sig;
+        const nextSteps = data.steps as PlanStep[];
+        const names = nextSteps.map((s) => s.spot.name);
+        const prev = tripRef.current;
+        if (!prev) return;
+        const same =
+          prev.steps.length === nextSteps.length &&
+          prev.steps.every((s, i) => {
+            const n = nextSteps[i]?.spot;
+            return (
+              s.spot.name === n?.name &&
+              s.spot.region === n?.region &&
+              s.spot.lat === n?.lat
+            );
+          });
+        if (same) {
+          setRouteNote(
+            `${ends.origin.name} → ${ends.destination.name} 가는 길 경유를 유지해요 · ${names.join(" · ")}`
+          );
+          return;
+        }
+        setTrip(
+          withTrip(
+            {
+              ...prev,
+              title: String(data.title || prev.title),
+              summary: String(data.summary || prev.summary),
+              dispersion: data.dispersion || scoreTripDispersion(data.steps),
+            },
+            data.steps as PlanStep[],
+            { origin: ends.origin, destination: ends.destination }
+          )
+        );
+        setFocus(1);
+        setRouteNote(
+          `${ends.origin.name} → ${ends.destination.name} 경로 적합 모델로 경유를 골랐어요 · ${names.join(" · ")}`
+        );
+      } catch {
+        if (!ac.signal.aborted) setRouteNote("");
+      }
+    })();
+    return () => ac.abort();
+  }, [origin, destination, mode, trip?.steps?.length, trip?.duration, regenBusy]);
+
   function moveStep(order: number, dir: -1 | 1) {
     if (!trip) return;
     const idx = trip.steps.findIndex((s) => s.order === order);
@@ -385,6 +463,10 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
           },
           originName: origin?.name || "",
           destinationName: destination?.name || "",
+          originLat: origin?.lat,
+          originLng: origin?.lng,
+          destinationLat: destination?.lat,
+          destinationLng: destination?.lng,
           slots: {
             origin: origin?.name,
             destination: destination?.name,
@@ -504,7 +586,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
         }
       : null);
 
-  const externalLink = kakaoMapLink(visible, {
+  const externalLink = kakaoMapLink(routeSteps, {
     from: origin || routeOrigin,
     to: destination || routeDest,
     mode,
@@ -660,7 +742,10 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
 
       <div className="space-y-2 rounded-[var(--radius)] border border-[var(--outline)] bg-white/94 p-3">
         <p className="m-0 text-[0.72rem] text-muted">
-          출발·도착은 서울·경기 어디든 검색하세요. 아래 명소는 경유이며 순서 변경·삭제·추가가 바로 경로에 반영됩니다.
+          출발·도착을 정하면 그 도로 위에서 실시간으로 경유를 다시 고릅니다. 핀은 초록 출발, 경1·경2, 주황 도착입니다.
+          {routeNote ? (
+            <span className="mt-1 block font-semibold text-sea-deep">{routeNote}</span>
+          ) : null}
         </p>
         <div className="grid gap-2 sm:grid-cols-2">
           <PlaceSearchField
@@ -734,7 +819,7 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
           )}
 
           {visible.map((step, idx) => {
-            const leg = route?.legs?.[idx];
+            const leg = route?.legs?.[origin ? idx + 1 : idx];
             const quiet = isQuietRegion(step.spot.region);
             const temp = wx[step.spot.region]?.temp;
             return (
@@ -840,11 +925,25 @@ export function PlannerBoard(props: { seed?: TripPlan | null } = {}) {
 
         <aside className="order-1 space-y-3 lg:sticky lg:top-[calc(var(--nav-h)+1rem)] lg:order-2 lg:self-start">
           <TripMap
-            steps={visible}
+            steps={routeSteps}
             focusOrder={focus}
             route={route}
             origin={origin}
             destination={destination}
+            onAssignPlace={(place, role) => {
+              if (role === "origin") persistEnds(place, destination);
+              else if (role === "destination") persistEnds(origin, place);
+              else {
+                addSpot({
+                  name: place.name,
+                  region: place.region || place.address || "검색",
+                  description: place.address || place.name,
+                  lat: place.lat,
+                  lng: place.lng,
+                  theme: "경유",
+                });
+              }
+            }}
           />
           <div className="flex flex-wrap gap-2">
             <a

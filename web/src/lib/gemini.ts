@@ -304,6 +304,10 @@ export async function generateLiveTripPlan(
     festivalNote?: string;
     placeNote?: string;
     durationHint?: string;
+    /** 출발→도착 경로 적합 모델이 고른 후보. 있으면 이 목록·순서를 유지 */
+    corridorSpots?: Spot[];
+    /** 출발 또는 도착이 있으면, 경로 밖 기본 클러스터로 되돌리지 않음 */
+    requireCorridor?: boolean;
   }
 ): Promise<{
   plan: TripPlan;
@@ -312,12 +316,23 @@ export async function generateLiveTripPlan(
   pipeline: PlanPipelineMeta;
 }> {
   const durationHint = extra?.durationHint || inferDurationLabel(prompt) || "당일 코스";
-  const catalog = candidateSpotsForPlan(prompt, prefs, {
-    placeNote: extra?.placeNote,
-    durationHint,
-  });
+  const alongRoute = (extra?.corridorSpots || []).filter(
+    (s) => Number.isFinite(s.lat) && Number.isFinite(s.lng)
+  );
+  const catalog = extra?.requireCorridor
+    ? alongRoute
+    : alongRoute.length >= 2
+      ? alongRoute
+      : candidateSpotsForPlan(prompt, prefs, {
+          placeNote: extra?.placeNote,
+          durationHint,
+        });
   if (!catalog.length) {
-    throw new Error("매칭되는 관광지 후보가 없습니다. 권역·키워드를 바꿔 보세요.");
+    throw new Error(
+      extra?.requireCorridor
+        ? "이 출발·도착 경로 위에 넣을 만한 명소가 없습니다. 목적지를 강원 쪽으로 잡아 보세요."
+        : "매칭되는 관광지 후보가 없습니다. 권역·키워드를 바꿔 보세요."
+    );
   }
 
   const spotLines = catalog
@@ -332,7 +347,9 @@ export async function generateLiveTripPlan(
     "역할: 아래 후보 목록에서만 스팟을 골라 실시간 여행 코스 JSON을 만드세요. 목록에 없는 장소명 금지.",
     "로컬 템플릿·고정 코스를 쓰지 말고, 요청·날씨·축제·출발/도착에 맞게 매번 새로 고르세요.",
     "한산·인구감소 권역 스팟을 우선. 해안 핫플만으로 채우지 마세요.",
-    "동선 규칙(필수): 같은 시·군 또는 서로 인접한 시·군만 연속 배치. 멀리 떨어진 권역을 번갈아 넣지 마세요.",
+    alongRoute.length >= 1
+      ? "동선 규칙(필수): 후보는 경로 적합 모델이 도로 우회가 적은 순으로 고른 목록이다. 순서를 유지하고 목록 밖 장소를 넣지 마세요."
+      : "동선 규칙(필수): 같은 시·군 또는 서로 인접한 시·군만 연속 배치. 멀리 떨어진 권역을 번갈아 넣지 마세요.",
     "예: 정선→영월→태백(OK). 정선→철원→삼척(금지). 하루 동선은 좁은 권역 안에서 가까운 순.",
     "steps 순서는 실제 이동 경로(가까운 곳부터). move_to_next에 짧은 이동 안내.",
     "당일 3~5곳, 1박2일 5~7곳, 2박3일 6~8곳. day는 1부터. 일차가 바뀌어도 전날 마지막과 가까운 권역에서 이어가세요.",
@@ -428,7 +445,14 @@ export async function generateLiveTripPlan(
       spot,
     };
   });
-  const steps = orderPlanStepsByProximity(rawSteps);
+  const steps =
+    alongRoute.length >= 1
+      ? [...rawSteps].sort((a, b) => {
+          const ia = alongRoute.findIndex((s) => s.name === a.spot.name);
+          const ib = alongRoute.findIndex((s) => s.name === b.spot.name);
+          return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        }).map((s, i) => ({ ...s, order: i + 1 }))
+      : orderPlanStepsByProximity(rawSteps);
 
   const plan: TripPlan = withDispersionSummary({
     id: `trip-${Date.now()}`,
