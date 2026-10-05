@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T18:51+09:00",
+  "updated_at": "2026-10-05T19:07+09:00",
   "api": "https://apis.data.go.kr/1360000/BeachInfoservice",
   "ops": [
     "getUltraSrtFcstBeach",
@@ -8,67 +8,12 @@
     "getSunInfoBeach"
   ],
   "count": 12,
-  "ok": 0,
+  "ok": 11,
   "errors": [
-    {
-      "beach_num": "176",
-      "name": "경포",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "179",
-      "name": "주문진",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "182",
-      "name": "정동진",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "198",
-      "name": "망상",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "195",
-      "name": "추암",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "201",
-      "name": "속초",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "202",
-      "name": "외옹치",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
     {
       "beach_num": "203",
       "name": "삼척",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "262",
-      "name": "낙산",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "249",
-      "name": "하조대",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "231",
-      "name": "송지호",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
-    },
-    {
-      "beach_num": "226",
-      "name": "화진포(현내)",
-      "error": "getUltraSrtFcstBeach network: <urlopen error timed out>"
+      "error": "getSunInfoBeach network: <urlopen error _ssl.c:993: The handshake operation timed out>"
     }
   ],
   "beaches": [
@@ -81,7 +26,52 @@
       "lat": 37.81,
       "lng": 128.91,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 176,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 17.0,
+        "label": "구름많음",
+        "cond": "partly_cloudy",
+        "humidity": 60.0,
+        "wind_ms": 1.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 17.0,
+          "sky": "3",
+          "pty": "0",
+          "humidity": 60.0,
+          "wind_ms": 1.0,
+          "precip": "강수없음",
+          "label": "구름많음",
+          "cond": "partly_cloudy"
+        },
+        "vilage": {
+          "temp_c": 19.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 50.0,
+          "wind_ms": 4.0,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 179,
@@ -92,7 +82,52 @@
       "lat": 37.91,
       "lng": 128.82,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 179,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 14.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 70.0,
+        "wind_ms": 1.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 14.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 70.0,
+          "wind_ms": 1.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 55.0,
+          "wind_ms": 4.2,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 182,
@@ -103,7 +138,52 @@
       "lat": 37.69,
       "lng": 129.03,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 182,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 17.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 60.0,
+        "wind_ms": 2.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 17.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 60.0,
+          "wind_ms": 2.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 55.0,
+          "wind_ms": 3.7,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 198,
@@ -114,7 +194,52 @@
       "lat": 37.59,
       "lng": 129.09,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 198,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 13.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 80.0,
+        "wind_ms": 1.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 13.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 80.0,
+          "wind_ms": 1.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 19.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 55.0,
+          "wind_ms": 4.1,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 195,
@@ -125,7 +250,52 @@
       "lat": 37.48,
       "lng": 129.16,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 195,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 17.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 55.0,
+        "wind_ms": 2.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 17.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 55.0,
+          "wind_ms": 2.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 19.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 55.0,
+          "wind_ms": 4.1,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 201,
@@ -136,7 +306,52 @@
       "lat": 38.19,
       "lng": 128.6,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 201,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 18.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 55.0,
+        "wind_ms": 2.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 55.0,
+          "wind_ms": 2.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 55.0,
+          "wind_ms": 4.2,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 202,
@@ -147,7 +362,52 @@
       "lat": 38.18,
       "lng": 128.61,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 202,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 18.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 55.0,
+        "wind_ms": 2.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 55.0,
+          "wind_ms": 2.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 55.0,
+          "wind_ms": 4.2,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 203,
@@ -169,7 +429,52 @@
       "lat": 38.12,
       "lng": 128.63,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 262,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 18.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 50.0,
+        "wind_ms": 3.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 50.0,
+          "wind_ms": 3.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 55.0,
+          "wind_ms": 3.7,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 249,
@@ -180,7 +485,52 @@
       "lat": 38.02,
       "lng": 128.73,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 249,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 17.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 65.0,
+        "wind_ms": 1.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 17.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 65.0,
+          "wind_ms": 1.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 18.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 55.0,
+          "wind_ms": 4.8,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     },
     {
       "beach_num": 231,
@@ -191,7 +541,52 @@
       "lat": 38.33,
       "lng": 128.53,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 231,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 17.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 45.0,
+        "wind_ms": 3.0,
+        "wave_m": 0.5,
+        "pop": 20.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 17.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 45.0,
+          "wind_ms": 3.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 18.0,
+          "sky": "3",
+          "pty": "0",
+          "pop": 20.0,
+          "humidity": 55.0,
+          "wind_ms": 5.2,
+          "wave_m": 0.5,
+          "label": "구름많음",
+          "cond": "partly_cloudy"
+        }
+      }
     },
     {
       "beach_num": 226,
@@ -202,7 +597,52 @@
       "lat": 38.48,
       "lng": 128.44,
       "coast": "동해안",
-      "weather": null
+      "weather": {
+        "beach_num": 226,
+        "source": "kma_BeachInfoservice",
+        "base": {
+          "ultra": "202610051830",
+          "vilage": "202610051700",
+          "date": "20261005"
+        },
+        "temp_c": 15.0,
+        "label": "맑음",
+        "cond": "sunny",
+        "humidity": 65.0,
+        "wind_ms": 1.0,
+        "wave_m": 0.5,
+        "pop": 0.0,
+        "tide": [],
+        "sun": {
+          "sunrise": ":",
+          "sunset": ":",
+          "raw": {
+            "sunrise": ":",
+            "sunset": ":"
+          }
+        },
+        "ultra": {
+          "temp_c": 15.0,
+          "sky": "1",
+          "pty": "0",
+          "humidity": 65.0,
+          "wind_ms": 1.0,
+          "precip": "강수없음",
+          "label": "맑음",
+          "cond": "sunny"
+        },
+        "vilage": {
+          "temp_c": 17.0,
+          "sky": "1",
+          "pty": "0",
+          "pop": 0.0,
+          "humidity": 60.0,
+          "wind_ms": 5.0,
+          "wave_m": 0.5,
+          "label": "맑음",
+          "cond": "sunny"
+        }
+      }
     }
   ]
 }

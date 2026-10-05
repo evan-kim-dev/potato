@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T18:53+09:00",
+  "updated_at": "2026-10-05T19:07+09:00",
   "api": "https://apis.data.go.kr/1360000/VilageFcstMsgService",
   "ops": [
     "getWthrSituation",
@@ -14,39 +14,40 @@
     "notice": "본 저작물은 공공누리 제1유형에 따라 기상청에서 공공누리로 개방한 「단기예보 통보문」을 이용하였으며, 출처는 기상청입니다."
   },
   "stub": false,
-  "ok": 0,
+  "ok": 1,
   "errors": [
     {
       "op": "getWthrSituation",
-      "id": "105",
-      "error": "getWthrSituation network: <urlopen error timed out>"
-    },
-    {
-      "op": "getWthrSituation",
       "id": "101",
-      "error": "getWthrSituation network: <urlopen error timed out>"
+      "error": "getWthrSituation 03: NO_DATA"
     },
     {
       "op": "getLandFcst",
       "id": "11D20000",
-      "error": "getLandFcst network: <urlopen error timed out>"
+      "error": "getLandFcst 03: NO_DATA"
     },
     {
       "op": "getLandFcst",
       "id": "11D10000",
-      "error": "getLandFcst network: <urlopen error timed out>"
+      "error": "getLandFcst 03: NO_DATA"
     },
     {
       "op": "getSeaFcst",
       "id": "12C20000",
-      "error": "getSeaFcst network: <urlopen error timed out>"
+      "error": "getSeaFcst 03: NO_DATA"
     }
   ],
   "situation": [
     {
       "stnId": "105",
       "label": "강원영동(강릉)",
-      "data": null
+      "data": {
+        "stnId": "105",
+        "tmFc": "2026-10-05 17:00",
+        "overview": "□ (종합) 당분간 아침 기온 낮아 쌀쌀, 낮과 밤의 기온차 큼, 모레까지 강원내륙.산지 서리와 일부 강원산지 얼음 유의, 오늘 밤부터 동해중부먼바다 풍랑 유의\n ○ (오늘, 5일) 구름많다가 차차 맑아짐\n ○ (내일~그글피, 6~9일) 대체로 맑음",
+        "warning": "※ 특보 및 예비특보 발표현황은 아래의 사이트를 참고하시기 바랍니다.\n- 기상청 날씨누리(www.weather.go.kr)\n- 방재기상정보시스템(afso.kma.go.kr)\n※ 특정관리해역 특보현황(afso.kma.go.kr/m/wrnSpec.jsp)",
+        "pre_warning": "o 없음"
+      }
     },
     {
       "stnId": "101",

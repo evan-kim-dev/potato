@@ -1,26 +1,115 @@
 {
-  "updated_at": "2026-09-28",
-  "regions": {},
+  "updated_at": "2026-10-05",
+  "regions": {
+    "춘천시": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "원주시": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "강릉시": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "동해시": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "태백시": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "속초시": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "삼척시": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "홍천군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "횡성군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "영월군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "평창군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "정선군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "철원군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "화천군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "양구군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "인제군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "고성군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    },
+    "양양군": {
+      "tourist_diversity": null,
+      "international_diversity": null,
+      "score": null,
+      "level": "unknown"
+    }
+  },
   "source": "TourAPI AreaTarDivService areaTouDivList/areaIntlDivList",
-  "baseYm": "202608",
-  "failed_regions": [
-    "춘천시",
-    "원주시",
-    "강릉시",
-    "동해시",
-    "태백시",
-    "속초시",
-    "삼척시",
-    "홍천군",
-    "횡성군",
-    "영월군",
-    "평창군",
-    "정선군",
-    "철원군",
-    "화천군",
-    "양구군",
-    "인제군",
-    "고성군",
-    "양양군"
-  ]
+  "baseYm": "202609"
 }
