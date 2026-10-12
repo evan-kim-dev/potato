@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05",
+  "updated_at": "2026-10-12",
   "regions": {
     "춘천시": [
       {
@@ -170,21 +170,6 @@
         "eventEndDate": "20260505"
       },
       {
-        "id": "3011178",
-        "title": "원주용수골가을꽃축제",
-        "addr": "강원특별자치도 원주시 판부면 용수골길 311",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/72/4114672_image2_1.jpg",
-        "tel": "033-764-4443",
-        "typeId": "15",
-        "mapX": "127.9406302724",
-        "mapY": "37.2851467030",
-        "place": "원주시",
-        "period": "09.23 ~ 10.05",
-        "desc": "강원특별자치도 원주시 판부면 용수골길 311",
-        "eventStartDate": "20260923",
-        "eventEndDate": "20261005"
-      },
-      {
         "id": "2602974",
         "title": "원주용수골꽃양귀비축제",
         "addr": "강원특별자치도 원주시 용수골길 311",
@@ -198,21 +183,6 @@
         "desc": "강원특별자치도 원주시 용수골길 311",
         "eventStartDate": "20260520",
         "eventEndDate": "20260607"
-      },
-      {
-        "id": "4046174",
-        "title": "치악산 한우축제",
-        "addr": "강원특별자치도 원주시 단구로 170",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/93/4095093_image2_1.png",
-        "tel": "033-744-6801",
-        "typeId": "15",
-        "mapX": "127.9455500000",
-        "mapY": "37.3350920000",
-        "place": "원주시",
-        "period": "10.22 ~ 10.25",
-        "desc": "강원특별자치도 원주시 단구로 170",
-        "eventStartDate": "20261022",
-        "eventEndDate": "20261025"
       },
       {
         "id": "1402009",
@@ -320,21 +290,6 @@
         "desc": "강원특별자치도 강릉시 경강로 2111 (임당동)",
         "eventStartDate": "20261015",
         "eventEndDate": "20261018"
-      },
-      {
-        "id": "4114312",
-        "title": "강릉 빵굽는 마을, 오죽",
-        "addr": "강원특별자치도 강릉시 죽헌길 114 (죽헌동)",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/13/4114313_image2_1.jpg",
-        "tel": "033-640-9852",
-        "typeId": "15",
-        "mapX": "128.8795728573",
-        "mapY": "37.7774966640",
-        "place": "강릉시",
-        "period": "10.09 ~ 10.11",
-        "desc": "강원특별자치도 강릉시 죽헌길 114 (죽헌동)",
-        "eventStartDate": "20261009",
-        "eventEndDate": "20261011"
       },
       {
         "id": "531391",
@@ -966,6 +921,21 @@
         "desc": "강원특별자치도 정선군 고한읍 하이원길 265-1",
         "eventStartDate": "20260516",
         "eventEndDate": "20260516"
+      },
+      {
+        "id": "4116722",
+        "title": "탄광문화축제",
+        "addr": "강원특별자치도 정선군 사북읍 사북리 392-1",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/14/4117714_image2_1.png",
+        "tel": "070-5226-1950",
+        "typeId": "15",
+        "mapX": "128.8167643240",
+        "mapY": "37.2207131882",
+        "place": "정선군",
+        "period": "10.07 ~ 10.10",
+        "desc": "강원특별자치도 정선군 사북읍 사북리 392-1",
+        "eventStartDate": "20261007",
+        "eventEndDate": "20261010"
       }
     ],
     "철원군": [
@@ -1058,28 +1028,13 @@
         "mapX": "128.3096920000",
         "mapY": "38.1858390000",
         "place": "인제군",
-        "period": "09.24 ~ 10.11",
+        "period": "09.24 ~ 10.18",
         "desc": "강원특별자치도 인제군 북면 용대리",
         "eventStartDate": "20260924",
-        "eventEndDate": "20261011"
+        "eventEndDate": "20261018"
       }
     ],
     "고성군": [
-      {
-        "id": "421977",
-        "title": "고성명태축제",
-        "addr": "강원특별자치도 고성군 거진읍 해오름해변길 125",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/00/4102200_image2_1.JPG",
-        "tel": "033-682-8008",
-        "typeId": "15",
-        "mapX": "128.4542520129",
-        "mapY": "38.4395315630",
-        "place": "고성군",
-        "period": "10.02 ~ 10.05",
-        "desc": "강원특별자치도 고성군 거진읍 해오름해변길 125",
-        "eventStartDate": "20261002",
-        "eventEndDate": "20261005"
-      },
       {
         "id": "2488259",
         "title": "저도 대문어축제",
@@ -2019,21 +1974,6 @@
       "eventEndDate": "20260920"
     },
     {
-      "id": "3011178",
-      "title": "원주용수골가을꽃축제",
-      "addr": "강원특별자치도 원주시 판부면 용수골길 311",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/72/4114672_image2_1.jpg",
-      "tel": "033-764-4443",
-      "typeId": "15",
-      "mapX": "127.9406302724",
-      "mapY": "37.2851467030",
-      "place": "원주시",
-      "period": "09.23 ~ 10.05",
-      "desc": "강원특별자치도 원주시 판부면 용수골길 311",
-      "eventStartDate": "20260923",
-      "eventEndDate": "20261005"
-    },
-    {
       "id": "2618014",
       "title": "인제가을꽃축제",
       "addr": "강원특별자치도 인제군 북면 용대리",
@@ -2043,10 +1983,10 @@
       "mapX": "128.3096920000",
       "mapY": "38.1858390000",
       "place": "인제군",
-      "period": "09.24 ~ 10.11",
+      "period": "09.24 ~ 10.18",
       "desc": "강원특별자치도 인제군 북면 용대리",
       "eventStartDate": "20260924",
-      "eventEndDate": "20261011"
+      "eventEndDate": "20261018"
     },
     {
       "id": "506895",
@@ -2079,21 +2019,6 @@
       "eventEndDate": "20261004"
     },
     {
-      "id": "421977",
-      "title": "고성명태축제",
-      "addr": "강원특별자치도 고성군 거진읍 해오름해변길 125",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/00/4102200_image2_1.JPG",
-      "tel": "033-682-8008",
-      "typeId": "15",
-      "mapX": "128.4542520129",
-      "mapY": "38.4395315630",
-      "place": "고성군",
-      "period": "10.02 ~ 10.05",
-      "desc": "강원특별자치도 고성군 거진읍 해오름해변길 125",
-      "eventStartDate": "20261002",
-      "eventEndDate": "20261005"
-    },
-    {
       "id": "1718491",
       "title": "설악문화제",
       "addr": "강원특별자치도 속초시 엑스포로 72 (조양동)",
@@ -2124,6 +2049,21 @@
       "eventEndDate": "20261004"
     },
     {
+      "id": "4116722",
+      "title": "탄광문화축제",
+      "addr": "강원특별자치도 정선군 사북읍 사북리 392-1",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/14/4117714_image2_1.png",
+      "tel": "070-5226-1950",
+      "typeId": "15",
+      "mapX": "128.8167643240",
+      "mapY": "37.2207131882",
+      "place": "정선군",
+      "period": "10.07 ~ 10.10",
+      "desc": "강원특별자치도 정선군 사북읍 사북리 392-1",
+      "eventStartDate": "20261007",
+      "eventEndDate": "20261010"
+    },
+    {
       "id": "232325",
       "title": "횡성한우축제",
       "addr": "강원특별자치도 횡성군 횡성읍 북천리",
@@ -2151,21 +2091,6 @@
       "period": "10.08 ~ 10.11",
       "desc": "강원특별자치도 홍천군 홍천읍 갈마곡리",
       "eventStartDate": "20261008",
-      "eventEndDate": "20261011"
-    },
-    {
-      "id": "4114312",
-      "title": "강릉 빵굽는 마을, 오죽",
-      "addr": "강원특별자치도 강릉시 죽헌길 114 (죽헌동)",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/13/4114313_image2_1.jpg",
-      "tel": "033-640-9852",
-      "typeId": "15",
-      "mapX": "128.8795728573",
-      "mapY": "37.7774966640",
-      "place": "강릉시",
-      "period": "10.09 ~ 10.11",
-      "desc": "강원특별자치도 강릉시 죽헌길 114 (죽헌동)",
-      "eventStartDate": "20261009",
       "eventEndDate": "20261011"
     },
     {
@@ -2241,21 +2166,6 @@
       "period": "10.21 ~ 10.25",
       "desc": "강원특별자치도 강릉시 창해로14번길 20-1 (견소동)",
       "eventStartDate": "20261021",
-      "eventEndDate": "20261025"
-    },
-    {
-      "id": "4046174",
-      "title": "치악산 한우축제",
-      "addr": "강원특별자치도 원주시 단구로 170",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/93/4095093_image2_1.png",
-      "tel": "033-744-6801",
-      "typeId": "15",
-      "mapX": "127.9455500000",
-      "mapY": "37.3350920000",
-      "place": "원주시",
-      "period": "10.22 ~ 10.25",
-      "desc": "강원특별자치도 원주시 단구로 170",
-      "eventStartDate": "20261022",
       "eventEndDate": "20261025"
     }
   ]
