@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12",
+  "updated_at": "2026-10-19",
   "regions": {
     "춘천시": [
       {
@@ -170,6 +170,36 @@
         "eventEndDate": "20260505"
       },
       {
+        "id": "3379752",
+        "title": "원주농협 치악산 고구마축제",
+        "addr": "강원특별자치도 원주시 지정면 소금산길 12",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/26/4122226_image2_1.jpg",
+        "tel": "033-742-0114",
+        "typeId": "15",
+        "mapX": "127.8340379931",
+        "mapY": "37.3645764311",
+        "place": "원주시",
+        "period": "10.17 ~ 10.18",
+        "desc": "강원특별자치도 원주시 지정면 소금산길 12",
+        "eventStartDate": "20261017",
+        "eventEndDate": "20261018"
+      },
+      {
+        "id": "3386679",
+        "title": "원주만두축제",
+        "addr": "강원특별자치도 원주시 평원동 54",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/16/4127316_image2_1.jpg",
+        "tel": "033-760-9862",
+        "typeId": "15",
+        "mapX": "127.9487801889",
+        "mapY": "37.3500713745",
+        "place": "원주시",
+        "period": "10.23 ~ 10.25",
+        "desc": "강원특별자치도 원주시 평원동 54",
+        "eventStartDate": "20261023",
+        "eventEndDate": "20261025"
+      },
+      {
         "id": "2602974",
         "title": "원주용수골꽃양귀비축제",
         "addr": "강원특별자치도 원주시 용수골길 311",
@@ -292,6 +322,21 @@
         "eventEndDate": "20261018"
       },
       {
+        "id": "4114312",
+        "title": "강릉 빵굽는 마을, 오죽",
+        "addr": "강원특별자치도 강릉시 죽헌길 114 (죽헌동)",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/13/4114313_image2_1.jpg",
+        "tel": "033-640-9852",
+        "typeId": "15",
+        "mapX": "128.8795728573",
+        "mapY": "37.7774966640",
+        "place": "강릉시",
+        "period": "10.09 ~ 10.11",
+        "desc": "강원특별자치도 강릉시 죽헌길 114 (죽헌동)",
+        "eventStartDate": "20261009",
+        "eventEndDate": "20261011"
+      },
+      {
         "id": "531391",
         "title": "강릉단오제",
         "addr": "강원특별자치도 강릉시 단오장길 1",
@@ -334,6 +379,21 @@
         "period": "10.21 ~ 10.25",
         "desc": "강원특별자치도 강릉시 창해로14번길 20-1 (견소동)",
         "eventStartDate": "20261021",
+        "eventEndDate": "20261025"
+      },
+      {
+        "id": "4127769",
+        "title": "강원한돈페스타",
+        "addr": "강원특별자치도 강릉시 경강로 2111 (임당동)",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/51/4127851_image2_1.png",
+        "tel": "033-242-1825",
+        "typeId": "15",
+        "mapX": "128.8974540518",
+        "mapY": "37.7558959137",
+        "place": "강릉시",
+        "period": "10.23 ~ 10.25",
+        "desc": "강원특별자치도 강릉시 경강로 2111 (임당동)",
+        "eventStartDate": "20261023",
         "eventEndDate": "20261025"
       },
       {
@@ -410,6 +470,21 @@
         "desc": "강원특별자치도 강릉시 단오장길 1 (노암동)",
         "eventStartDate": "20260904",
         "eventEndDate": "20260905"
+      },
+      {
+        "id": "2853386",
+        "title": "2026 단단단페스티벌",
+        "addr": "강원특별자치도 강릉시 단오장길 1 (노암동)",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/82/4124982_image2_1.jpg",
+        "tel": "033-641-1593",
+        "typeId": "15",
+        "mapX": "128.8950411936",
+        "mapY": "37.7482018271",
+        "place": "강릉시",
+        "period": "11.26 ~ 11.28",
+        "desc": "강원특별자치도 강릉시 단오장길 1 (노암동)",
+        "eventStartDate": "20261126",
+        "eventEndDate": "20261128"
       },
       {
         "id": "4116994",
@@ -570,21 +645,6 @@
         "eventEndDate": "20260503"
       },
       {
-        "id": "790124",
-        "title": "홍천 인삼한우 명품축제",
-        "addr": "강원특별자치도 홍천군 홍천읍 갈마곡리",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/66/3561066_image2_1.jpg",
-        "tel": "033-439-5800",
-        "typeId": "15",
-        "mapX": "127.8934680000",
-        "mapY": "37.6894110000",
-        "place": "홍천군",
-        "period": "10.08 ~ 10.11",
-        "desc": "강원특별자치도 홍천군 홍천읍 갈마곡리",
-        "eventStartDate": "20261008",
-        "eventEndDate": "20261011"
-      },
-      {
         "id": "140833",
         "title": "홍천 찰옥수수 축제",
         "addr": "강원 홍천군 홍천읍 갈마곡리 501",
@@ -690,21 +750,6 @@
         "desc": "강원특별자치도 횡성군 횡성읍 북천리",
         "eventStartDate": "20260619",
         "eventEndDate": "20260620"
-      },
-      {
-        "id": "232325",
-        "title": "횡성한우축제",
-        "addr": "강원특별자치도 횡성군 횡성읍 북천리",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/42/4064642_image2_1.jpg",
-        "tel": "033-808-8007033-808-8009",
-        "typeId": "15",
-        "mapX": "127.9925190000",
-        "mapY": "37.5004630000",
-        "place": "횡성군",
-        "period": "10.07 ~ 10.11",
-        "desc": "강원특별자치도 횡성군 횡성읍 북천리",
-        "eventStartDate": "20261007",
-        "eventEndDate": "20261011"
       },
       {
         "id": "3489648",
@@ -878,6 +923,21 @@
         "eventEndDate": "20260510"
       },
       {
+        "id": "4126870",
+        "title": "정선 국가유산야행",
+        "addr": "강원특별자치도 정선군 정선읍 봉양3길 22-8",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/71/4126871_image2_1.jpg",
+        "tel": "033-563-3254",
+        "typeId": "15",
+        "mapX": "128.6609285137",
+        "mapY": "37.3797648464",
+        "place": "정선군",
+        "period": "10.16 ~ 10.18",
+        "desc": "강원특별자치도 정선군 정선읍 봉양3길 22-8",
+        "eventStartDate": "20261016",
+        "eventEndDate": "20261018"
+      },
+      {
         "id": "4025523",
         "title": "정선메밀전병축제",
         "addr": "강원특별자치도 정선군 정선읍 봉양7길 43",
@@ -1015,6 +1075,21 @@
         "desc": "강원특별자치도 양구군 양구읍 상리",
         "eventStartDate": "20260502",
         "eventEndDate": "20260505"
+      },
+      {
+        "id": "1122739",
+        "title": "청춘양구 펀치볼 시래기사과축제",
+        "addr": "강원특별자치도 양구군 해안면 해안서화로 15",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/97/3543397_image2_1.jpg",
+        "tel": "033-482-9174",
+        "typeId": "15",
+        "mapX": "128.1434711832",
+        "mapY": "38.2910926046",
+        "place": "양구군",
+        "period": "11.06 ~ 11.08",
+        "desc": "강원특별자치도 양구군 해안면 해안서화로 15",
+        "eventStartDate": "20261106",
+        "eventEndDate": "20261108"
       }
     ],
     "인제군": [
@@ -2064,33 +2139,18 @@
       "eventEndDate": "20261010"
     },
     {
-      "id": "232325",
-      "title": "횡성한우축제",
-      "addr": "강원특별자치도 횡성군 횡성읍 북천리",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/42/4064642_image2_1.jpg",
-      "tel": "033-808-8007033-808-8009",
+      "id": "4114312",
+      "title": "강릉 빵굽는 마을, 오죽",
+      "addr": "강원특별자치도 강릉시 죽헌길 114 (죽헌동)",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/13/4114313_image2_1.jpg",
+      "tel": "033-640-9852",
       "typeId": "15",
-      "mapX": "127.9925190000",
-      "mapY": "37.5004630000",
-      "place": "횡성군",
-      "period": "10.07 ~ 10.11",
-      "desc": "강원특별자치도 횡성군 횡성읍 북천리",
-      "eventStartDate": "20261007",
-      "eventEndDate": "20261011"
-    },
-    {
-      "id": "790124",
-      "title": "홍천 인삼한우 명품축제",
-      "addr": "강원특별자치도 홍천군 홍천읍 갈마곡리",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/66/3561066_image2_1.jpg",
-      "tel": "033-439-5800",
-      "typeId": "15",
-      "mapX": "127.8934680000",
-      "mapY": "37.6894110000",
-      "place": "홍천군",
-      "period": "10.08 ~ 10.11",
-      "desc": "강원특별자치도 홍천군 홍천읍 갈마곡리",
-      "eventStartDate": "20261008",
+      "mapX": "128.8795728573",
+      "mapY": "37.7774966640",
+      "place": "강릉시",
+      "period": "10.09 ~ 10.11",
+      "desc": "강원특별자치도 강릉시 죽헌길 114 (죽헌동)",
+      "eventStartDate": "20261009",
       "eventEndDate": "20261011"
     },
     {
@@ -2139,6 +2199,36 @@
       "eventEndDate": "20261018"
     },
     {
+      "id": "4126870",
+      "title": "정선 국가유산야행",
+      "addr": "강원특별자치도 정선군 정선읍 봉양3길 22-8",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/71/4126871_image2_1.jpg",
+      "tel": "033-563-3254",
+      "typeId": "15",
+      "mapX": "128.6609285137",
+      "mapY": "37.3797648464",
+      "place": "정선군",
+      "period": "10.16 ~ 10.18",
+      "desc": "강원특별자치도 정선군 정선읍 봉양3길 22-8",
+      "eventStartDate": "20261016",
+      "eventEndDate": "20261018"
+    },
+    {
+      "id": "3379752",
+      "title": "원주농협 치악산 고구마축제",
+      "addr": "강원특별자치도 원주시 지정면 소금산길 12",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/26/4122226_image2_1.jpg",
+      "tel": "033-742-0114",
+      "typeId": "15",
+      "mapX": "127.8340379931",
+      "mapY": "37.3645764311",
+      "place": "원주시",
+      "period": "10.17 ~ 10.18",
+      "desc": "강원특별자치도 원주시 지정면 소금산길 12",
+      "eventStartDate": "20261017",
+      "eventEndDate": "20261018"
+    },
+    {
       "id": "4116994",
       "title": "K-Drone Festival",
       "addr": "강원특별자치도 강릉시 수리골길 102 (포남동)",
@@ -2167,6 +2257,66 @@
       "desc": "강원특별자치도 강릉시 창해로14번길 20-1 (견소동)",
       "eventStartDate": "20261021",
       "eventEndDate": "20261025"
+    },
+    {
+      "id": "4127769",
+      "title": "강원한돈페스타",
+      "addr": "강원특별자치도 강릉시 경강로 2111 (임당동)",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/51/4127851_image2_1.png",
+      "tel": "033-242-1825",
+      "typeId": "15",
+      "mapX": "128.8974540518",
+      "mapY": "37.7558959137",
+      "place": "강릉시",
+      "period": "10.23 ~ 10.25",
+      "desc": "강원특별자치도 강릉시 경강로 2111 (임당동)",
+      "eventStartDate": "20261023",
+      "eventEndDate": "20261025"
+    },
+    {
+      "id": "3386679",
+      "title": "원주만두축제",
+      "addr": "강원특별자치도 원주시 평원동 54",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/16/4127316_image2_1.jpg",
+      "tel": "033-760-9862",
+      "typeId": "15",
+      "mapX": "127.9487801889",
+      "mapY": "37.3500713745",
+      "place": "원주시",
+      "period": "10.23 ~ 10.25",
+      "desc": "강원특별자치도 원주시 평원동 54",
+      "eventStartDate": "20261023",
+      "eventEndDate": "20261025"
+    },
+    {
+      "id": "1122739",
+      "title": "청춘양구 펀치볼 시래기사과축제",
+      "addr": "강원특별자치도 양구군 해안면 해안서화로 15",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/97/3543397_image2_1.jpg",
+      "tel": "033-482-9174",
+      "typeId": "15",
+      "mapX": "128.1434711832",
+      "mapY": "38.2910926046",
+      "place": "양구군",
+      "period": "11.06 ~ 11.08",
+      "desc": "강원특별자치도 양구군 해안면 해안서화로 15",
+      "eventStartDate": "20261106",
+      "eventEndDate": "20261108"
+    },
+    {
+      "id": "2853386",
+      "title": "2026 단단단페스티벌",
+      "addr": "강원특별자치도 강릉시 단오장길 1 (노암동)",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/82/4124982_image2_1.jpg",
+      "tel": "033-641-1593",
+      "typeId": "15",
+      "mapX": "128.8950411936",
+      "mapY": "37.7482018271",
+      "place": "강릉시",
+      "period": "11.26 ~ 11.28",
+      "desc": "강원특별자치도 강릉시 단오장길 1 (노암동)",
+      "eventStartDate": "20261126",
+      "eventEndDate": "20261128"
     }
   ]
 }

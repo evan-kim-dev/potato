@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12",
+  "updated_at": "2026-10-19",
   "regions": {
     "춘천시": [
       {
@@ -113,8 +113,8 @@
         "image": "https://tong.visitkorea.or.kr/cms/resource/94/3577794_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.9074522961403",
-        "mapY": "37.74360448211877"
+        "mapX": "128.9074522961",
+        "mapY": "37.7436044821"
       },
       {
         "id": "2900682",
@@ -130,11 +130,11 @@
         "id": "125790",
         "title": "강릉 경포대",
         "addr": "강원특별자치도 강릉시 경포로 365",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/52/3501452_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/32/4119532_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.896483966593",
-        "mapY": "37.7955136762197"
+        "mapX": "128.8964839666",
+        "mapY": "37.7955136762"
       },
       {
         "id": "125769",
@@ -367,16 +367,6 @@
     ],
     "홍천군": [
       {
-        "id": "2761729",
-        "title": "가람리조트",
-        "addr": "강원특별자치도 홍천군 두촌면 부채들길 29",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/68/2762468_image2_1.JPG",
-        "tel": "",
-        "typeId": "12",
-        "mapX": "128.0184630062",
-        "mapY": "37.8364309102"
-      },
-      {
         "id": "125658",
         "title": "가령폭포",
         "addr": "강원특별자치도 홍천군 내촌면 와야리",
@@ -415,6 +405,16 @@
         "typeId": "12",
         "mapX": "127.9546942303",
         "mapY": "37.6964770923"
+      },
+      {
+        "id": "125420",
+        "title": "국립삼봉자연휴양림",
+        "addr": "강원특별자치도 홍천군 내면 삼봉휴양길 276",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/53/3494153_image2_1.jpg",
+        "tel": "",
+        "typeId": "12",
+        "mapX": "128.464146",
+        "mapY": "37.858955"
       }
     ],
     "횡성군": [
@@ -462,11 +462,11 @@
         "id": "2789625",
         "title": "둔내자연휴양림",
         "addr": "강원특별자치도 횡성군 둔내면 청태산로154번길 334",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/32/3457832_image2_1.png",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/32/3457832_image2_1.png",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.2724941422",
-        "mapY": "37.5125926787"
+        "mapX": "128.2724711347",
+        "mapY": "37.5125400007"
       }
     ],
     "영월군": [
@@ -577,22 +577,22 @@
       {
         "id": "127508",
         "title": "가리왕산",
-        "addr": "강원특별자치도 평창군 진부면 장전리 산 1",
+        "addr": "강원특별자치도 정선군 정선읍",
         "image": "https://tong.visitkorea.or.kr/cms/resource_photo/98/3462498_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.5631000000",
-        "mapY": "37.4615000000"
+        "mapX": "128.5630176199",
+        "mapY": "37.4608013969"
       },
       {
         "id": "3068424",
         "title": "가리왕산케이블카",
         "addr": "강원특별자치도 정선군 북평면 중봉길 41-35",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/30/3533330_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/30/3533330_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.6097538017",
-        "mapY": "37.4742535268"
+        "mapX": "128.6097272302",
+        "mapY": "37.4742023747"
       },
       {
         "id": "129391",
@@ -670,11 +670,11 @@
         "id": "128174",
         "title": "국립 복주산자연휴양림",
         "addr": "강원특별자치도 철원군 근남면 하오재로 818",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/67/3040767_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/67/3040767_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.4732201929",
-        "mapY": "38.1437543593"
+        "mapX": "127.4732006246",
+        "mapY": "38.1436966005"
       }
     ],
     "화천군": [
@@ -692,11 +692,11 @@
         "id": "2774598",
         "title": "거례리사랑나무",
         "addr": "강원특별자치도 화천군 하남면 거례리 484-2",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/74/3538874_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/74/3538874_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.6885470236",
-        "mapY": "38.0744192401"
+        "mapX": "127.6885260810",
+        "mapY": "38.0743619134"
       },
       {
         "id": "2569346",
