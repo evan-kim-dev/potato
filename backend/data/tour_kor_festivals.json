@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19",
+  "updated_at": "2026-10-26",
   "regions": {
     "춘천시": [
       {
@@ -1075,21 +1075,6 @@
         "desc": "강원특별자치도 양구군 양구읍 상리",
         "eventStartDate": "20260502",
         "eventEndDate": "20260505"
-      },
-      {
-        "id": "1122739",
-        "title": "청춘양구 펀치볼 시래기사과축제",
-        "addr": "강원특별자치도 양구군 해안면 해안서화로 15",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/97/3543397_image2_1.jpg",
-        "tel": "033-482-9174",
-        "typeId": "15",
-        "mapX": "128.1434711832",
-        "mapY": "38.2910926046",
-        "place": "양구군",
-        "period": "11.06 ~ 11.08",
-        "desc": "강원특별자치도 양구군 해안면 해안서화로 15",
-        "eventStartDate": "20261106",
-        "eventEndDate": "20261108"
       }
     ],
     "인제군": [
@@ -1156,21 +1141,6 @@
         "desc": "강원특별자치도 양양군 양양읍 송암리 505-3",
         "eventStartDate": "20260404",
         "eventEndDate": "20260405"
-      },
-      {
-        "id": "506708",
-        "title": "양양송이연어축제",
-        "addr": "강원특별자치도 양양군 양양읍 일출로 589",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/70/4114370_image2_1.jpg",
-        "tel": "033-671-3803",
-        "typeId": "15",
-        "mapX": "128.6234986636",
-        "mapY": "38.0728218224",
-        "place": "양양군",
-        "period": "10.16 ~ 10.18",
-        "desc": "강원특별자치도 양양군 양양읍 일출로 589",
-        "eventStartDate": "20261016",
-        "eventEndDate": "20261018"
       }
     ]
   },
@@ -2184,21 +2154,6 @@
       "eventEndDate": "20261018"
     },
     {
-      "id": "506708",
-      "title": "양양송이연어축제",
-      "addr": "강원특별자치도 양양군 양양읍 일출로 589",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/70/4114370_image2_1.jpg",
-      "tel": "033-671-3803",
-      "typeId": "15",
-      "mapX": "128.6234986636",
-      "mapY": "38.0728218224",
-      "place": "양양군",
-      "period": "10.16 ~ 10.18",
-      "desc": "강원특별자치도 양양군 양양읍 일출로 589",
-      "eventStartDate": "20261016",
-      "eventEndDate": "20261018"
-    },
-    {
       "id": "4126870",
       "title": "정선 국가유산야행",
       "addr": "강원특별자치도 정선군 정선읍 봉양3길 22-8",
@@ -2287,21 +2242,6 @@
       "desc": "강원특별자치도 원주시 평원동 54",
       "eventStartDate": "20261023",
       "eventEndDate": "20261025"
-    },
-    {
-      "id": "1122739",
-      "title": "청춘양구 펀치볼 시래기사과축제",
-      "addr": "강원특별자치도 양구군 해안면 해안서화로 15",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/97/3543397_image2_1.jpg",
-      "tel": "033-482-9174",
-      "typeId": "15",
-      "mapX": "128.1434711832",
-      "mapY": "38.2910926046",
-      "place": "양구군",
-      "period": "11.06 ~ 11.08",
-      "desc": "강원특별자치도 양구군 해안면 해안서화로 15",
-      "eventStartDate": "20261106",
-      "eventEndDate": "20261108"
     },
     {
       "id": "2853386",

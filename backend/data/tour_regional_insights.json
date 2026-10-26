@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19",
+  "updated_at": "2026-10-26",
   "sources": [
     "TourAPI DataLab locgoRegnVisitrDDList",
     "TourAPI TatsCnctrRateService tatsCnctrRatedList",
@@ -24,11 +24,6 @@
           {
             "name": "강릉아트센터",
             "rate": 100.0,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "강릉아트센터",
-            "rate": 100.0,
             "baseYmd": "20261031"
           },
           {
@@ -45,6 +40,11 @@
             "name": "강릉아트센터",
             "rate": 100.0,
             "baseYmd": "20261114"
+          },
+          {
+            "name": "강릉아트센터",
+            "rate": 100.0,
+            "baseYmd": "20261121"
           }
         ]
       },
@@ -85,20 +85,15 @@
     },
     "고성군": {
       "congestion_level": "high",
-      "congestion_score": 77.6,
+      "congestion_score": 76.6,
       "concentration": {
-        "avg_rate": 90.2,
+        "avg_rate": 86.3,
         "peak_rate": 98.2,
         "top_spots": [
           {
             "name": "건봉사",
             "rate": 98.2,
             "baseYmd": "20261107"
-          },
-          {
-            "name": "거진1리해변",
-            "rate": 95.6,
-            "baseYmd": "20261024"
           },
           {
             "name": "건봉사",
@@ -112,8 +107,13 @@
           },
           {
             "name": "건봉사",
-            "rate": 93.9,
-            "baseYmd": "20261024"
+            "rate": 82.0,
+            "baseYmd": "20261121"
+          },
+          {
+            "name": "능파대 (강원평화지역 국가지질공원)",
+            "rate": 81.7,
+            "baseYmd": "20261031"
           }
         ]
       },
@@ -154,21 +154,11 @@
     },
     "동해시": {
       "congestion_level": "high",
-      "congestion_score": 75.2,
+      "congestion_score": 74.9,
       "concentration": {
-        "avg_rate": 98.3,
+        "avg_rate": 97.2,
         "peak_rate": 100.0,
         "top_spots": [
-          {
-            "name": "두타산성",
-            "rate": 100.0,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "두타산성",
-            "rate": 100.0,
-            "baseYmd": "20261025"
-          },
           {
             "name": "두타산성",
             "rate": 100.0,
@@ -183,6 +173,16 @@
             "name": "금란정",
             "rate": 97.4,
             "baseYmd": "20261108"
+          },
+          {
+            "name": "금란정",
+            "rate": 96.8,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "논골담길",
+            "rate": 96.7,
+            "baseYmd": "20261031"
           }
         ]
       },
@@ -223,16 +223,11 @@
     },
     "삼척시": {
       "congestion_level": "high",
-      "congestion_score": 76.3,
+      "congestion_score": 74.9,
       "concentration": {
-        "avg_rate": 97.3,
-        "peak_rate": 99.5,
+        "avg_rate": 92.0,
+        "peak_rate": 98.8,
         "top_spots": [
-          {
-            "name": "궁촌해변(궁촌해수욕장)",
-            "rate": 99.5,
-            "baseYmd": "20261025"
-          },
           {
             "name": "궁촌해변(궁촌해수욕장)",
             "rate": 98.8,
@@ -249,9 +244,14 @@
             "baseYmd": "20261031"
           },
           {
-            "name": "궁촌해변(궁촌해수욕장)",
-            "rate": 98.1,
-            "baseYmd": "20261024"
+            "name": "궁촌항",
+            "rate": 95.4,
+            "baseYmd": "20261031"
+          },
+          {
+            "name": "맹방해변",
+            "rate": 88.8,
+            "baseYmd": "20261101"
           }
         ]
       },
@@ -292,35 +292,35 @@
     },
     "속초시": {
       "congestion_level": "high",
-      "congestion_score": 86.4,
+      "congestion_score": 85.8,
       "concentration": {
-        "avg_rate": 99.4,
-        "peak_rate": 100.0,
+        "avg_rate": 97.0,
+        "peak_rate": 99.9,
         "top_spots": [
           {
             "name": "설악 흔들바위",
-            "rate": 100.0,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "설악 흔들바위",
-            "rate": 100.0,
-            "baseYmd": "20261025"
-          },
-          {
-            "name": "설악 흔들바위",
             "rate": 99.9,
             "baseYmd": "20261031"
           },
           {
             "name": "설악산 대청봉",
             "rate": 99.9,
-            "baseYmd": "20261024"
+            "baseYmd": "20261031"
           },
           {
-            "name": "설악산 대청봉",
-            "rate": 99.9,
-            "baseYmd": "20261031"
+            "name": "설악 흔들바위",
+            "rate": 98.4,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "금호리조트㈜ 설악",
+            "rate": 97.0,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "등대해변",
+            "rate": 96.9,
+            "baseYmd": "20261101"
           }
         ]
       },
@@ -361,20 +361,15 @@
     },
     "양구군": {
       "congestion_level": "high",
-      "congestion_score": 70.6,
+      "congestion_score": 70.5,
       "concentration": {
-        "avg_rate": 98.3,
+        "avg_rate": 98.1,
         "peak_rate": 99.5,
         "top_spots": [
           {
             "name": "양구선사박물관",
             "rate": 99.5,
             "baseYmd": "20261107"
-          },
-          {
-            "name": "박수근미술관",
-            "rate": 99.4,
-            "baseYmd": "20261024"
           },
           {
             "name": "박수근미술관",
@@ -390,6 +385,11 @@
             "name": "양구선사박물관",
             "rate": 98.3,
             "baseYmd": "20261114"
+          },
+          {
+            "name": "양구선사박물관",
+            "rate": 98.1,
+            "baseYmd": "20261121"
           }
         ]
       },
@@ -430,9 +430,9 @@
     },
     "양양군": {
       "congestion_level": "high",
-      "congestion_score": 77.4,
+      "congestion_score": 76.6,
       "concentration": {
-        "avg_rate": 91.7,
+        "avg_rate": 88.5,
         "peak_rate": 97.1,
         "top_spots": [
           {
@@ -447,18 +447,18 @@
           },
           {
             "name": "내수면 생명 자원센터",
-            "rate": 94.5,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "내수면 생명 자원센터",
             "rate": 94.0,
             "baseYmd": "20261031"
           },
           {
+            "name": "내수면 생명 자원센터",
+            "rate": 88.5,
+            "baseYmd": "20261107"
+          },
+          {
             "name": "낙산 해수욕장",
-            "rate": 90.5,
-            "baseYmd": "20261025"
+            "rate": 87.8,
+            "baseYmd": "20261031"
           }
         ]
       },
@@ -499,9 +499,9 @@
     },
     "영월군": {
       "congestion_level": "high",
-      "congestion_score": 72.9,
+      "congestion_score": 72.4,
       "concentration": {
-        "avg_rate": 92.4,
+        "avg_rate": 90.4,
         "peak_rate": 99.8,
         "top_spots": [
           {
@@ -515,19 +515,19 @@
             "baseYmd": "20261107"
           },
           {
-            "name": "단종역사관",
-            "rate": 94.6,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "강변저류지",
-            "rate": 91.2,
-            "baseYmd": "20261024"
-          },
-          {
             "name": "강변저류지 홍보관",
             "rate": 90.9,
             "baseYmd": "20261107"
+          },
+          {
+            "name": "구봉대산",
+            "rate": 89.0,
+            "baseYmd": "20261108"
+          },
+          {
+            "name": "강변저류지",
+            "rate": 88.7,
+            "baseYmd": "20261031"
           }
         ]
       },
@@ -574,21 +574,6 @@
         "peak_rate": 100.0,
         "top_spots": [
           {
-            "name": "구룡사",
-            "rate": 100.0,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "뮤지엄산",
-            "rate": 100.0,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "뮤지엄산",
-            "rate": 100.0,
-            "baseYmd": "20261025"
-          },
-          {
             "name": "뮤지엄산",
             "rate": 100.0,
             "baseYmd": "20261030"
@@ -597,6 +582,21 @@
             "name": "뮤지엄산",
             "rate": 100.0,
             "baseYmd": "20261031"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261101"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261106"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261107"
           }
         ]
       },
@@ -637,35 +637,35 @@
     },
     "인제군": {
       "congestion_level": "high",
-      "congestion_score": 75.1,
+      "congestion_score": 74.6,
       "concentration": {
-        "avg_rate": 99.8,
+        "avg_rate": 97.9,
         "peak_rate": 100.0,
         "top_spots": [
-          {
-            "name": "설악산국립공원(내설악)",
-            "rate": 100.0,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "설악산국립공원(내설악)",
-            "rate": 100.0,
-            "baseYmd": "20261025"
-          },
           {
             "name": "설악산국립공원(내설악)",
             "rate": 100.0,
             "baseYmd": "20261031"
           },
           {
-            "name": "대승령과 대승폭포",
-            "rate": 99.8,
-            "baseYmd": "20261025"
-          },
-          {
             "name": "백담사",
             "rate": 99.8,
-            "baseYmd": "20261024"
+            "baseYmd": "20261031"
+          },
+          {
+            "name": "대승령과 대승폭포",
+            "rate": 99.4,
+            "baseYmd": "20261031"
+          },
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 99.1,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 97.5,
+            "baseYmd": "20261026"
           }
         ]
       },
@@ -706,21 +706,11 @@
     },
     "정선군": {
       "congestion_level": "high",
-      "congestion_score": 77.6,
+      "congestion_score": 77.1,
       "concentration": {
-        "avg_rate": 99.4,
+        "avg_rate": 97.5,
         "peak_rate": 99.9,
         "top_spots": [
-          {
-            "name": "괘병산(정선)",
-            "rate": 99.9,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "괘병산(정선)",
-            "rate": 99.9,
-            "baseYmd": "20261025"
-          },
           {
             "name": "괘병산(정선)",
             "rate": 99.9,
@@ -735,6 +725,16 @@
             "name": "백석봉(정선)",
             "rate": 99.6,
             "baseYmd": "20261107"
+          },
+          {
+            "name": "민둥산",
+            "rate": 97.8,
+            "baseYmd": "20261031"
+          },
+          {
+            "name": "만항재",
+            "rate": 96.1,
+            "baseYmd": "20261031"
           }
         ]
       },
@@ -775,9 +775,9 @@
     },
     "철원군": {
       "congestion_level": "high",
-      "congestion_score": 73.2,
+      "congestion_score": 73.1,
       "concentration": {
-        "avg_rate": 99.8,
+        "avg_rate": 99.3,
         "peak_rate": 100.0,
         "top_spots": [
           {
@@ -786,24 +786,24 @@
             "baseYmd": "20261031"
           },
           {
-            "name": "고석정 (한탄강 유네스코 세계지질공원)",
-            "rate": 99.9,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "구 철원제일교회",
-            "rate": 99.9,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "고석정국민관광지",
-            "rate": 99.8,
-            "baseYmd": "20261024"
-          },
-          {
             "name": "구 철원제일교회",
             "rate": 99.8,
             "baseYmd": "20261107"
+          },
+          {
+            "name": "고석정 꽃밭",
+            "rate": 99.7,
+            "baseYmd": "20261031"
+          },
+          {
+            "name": "고석정국민관광지",
+            "rate": 99.6,
+            "baseYmd": "20261031"
+          },
+          {
+            "name": "구 철원제일교회",
+            "rate": 99.2,
+            "baseYmd": "20261031"
           }
         ]
       },
@@ -839,9 +839,9 @@
     },
     "춘천시": {
       "congestion_level": "high",
-      "congestion_score": 87.2,
+      "congestion_score": 87.1,
       "concentration": {
-        "avg_rate": 98.9,
+        "avg_rate": 98.5,
         "peak_rate": 100.0,
         "top_spots": [
           {
@@ -860,14 +860,14 @@
             "baseYmd": "20261031"
           },
           {
-            "name": "김유정역 폐역",
-            "rate": 99.4,
-            "baseYmd": "20261024"
+            "name": "KT&G 상상마당 춘천",
+            "rate": 97.9,
+            "baseYmd": "20261101"
           },
           {
             "name": "KT&G 상상마당 춘천",
-            "rate": 98.4,
-            "baseYmd": "20261025"
+            "rate": 97.8,
+            "baseYmd": "20261108"
           }
         ]
       },
@@ -908,16 +908,11 @@
     },
     "태백시": {
       "congestion_level": "high",
-      "congestion_score": 72.3,
+      "congestion_score": 71.7,
       "concentration": {
-        "avg_rate": 97.0,
-        "peak_rate": 99.8,
+        "avg_rate": 94.8,
+        "peak_rate": 99.6,
         "top_spots": [
-          {
-            "name": "365세이프타운",
-            "rate": 99.8,
-            "baseYmd": "20261024"
-          },
           {
             "name": "365세이프타운",
             "rate": 99.6,
@@ -925,8 +920,8 @@
           },
           {
             "name": "태백 고생대 자연사박물관",
-            "rate": 99.1,
-            "baseYmd": "20261025"
+            "rate": 97.6,
+            "baseYmd": "20261114"
           },
           {
             "name": "태백 고생대 자연사박물관",
@@ -936,7 +931,12 @@
           {
             "name": "태백 고생대 자연사박물관",
             "rate": 96.5,
-            "baseYmd": "20261024"
+            "baseYmd": "20261031"
+          },
+          {
+            "name": "구문소 (강원고생대 국가지질공원)",
+            "rate": 93.4,
+            "baseYmd": "20261031"
           }
         ]
       },
@@ -977,9 +977,9 @@
     },
     "홍천군": {
       "congestion_level": "high",
-      "congestion_score": 78.2,
+      "congestion_score": 78.1,
       "concentration": {
-        "avg_rate": 97.0,
+        "avg_rate": 96.5,
         "peak_rate": 98.8,
         "top_spots": [
           {
@@ -1054,11 +1054,6 @@
           {
             "name": "산타우체국",
             "rate": 99.6,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "산타우체국",
-            "rate": 99.6,
             "baseYmd": "20261107"
           },
           {
@@ -1067,9 +1062,14 @@
             "baseYmd": "20261114"
           },
           {
+            "name": "산타우체국",
+            "rate": 99.5,
+            "baseYmd": "20261121"
+          },
+          {
             "name": "산천어커피박물관",
-            "rate": 99.2,
-            "baseYmd": "20261024"
+            "rate": 99.3,
+            "baseYmd": "20261121"
           },
           {
             "name": "산천어커피박물관",
@@ -1115,9 +1115,9 @@
     },
     "횡성군": {
       "congestion_level": "high",
-      "congestion_score": 74.0,
+      "congestion_score": 73.8,
       "concentration": {
-        "avg_rate": 96.8,
+        "avg_rate": 95.9,
         "peak_rate": 98.0,
         "top_spots": [
           {
@@ -1132,18 +1132,18 @@
           },
           {
             "name": "국립횡성숲체원",
-            "rate": 97.4,
-            "baseYmd": "20261024"
-          },
-          {
-            "name": "국립횡성숲체원",
             "rate": 97.3,
             "baseYmd": "20261031"
           },
           {
             "name": "국립 청태산자연휴양림",
-            "rate": 97.0,
-            "baseYmd": "20261024"
+            "rate": 96.5,
+            "baseYmd": "20261031"
+          },
+          {
+            "name": "망향의 동산(횡성)",
+            "rate": 96.2,
+            "baseYmd": "20261031"
           }
         ]
       },
@@ -1184,9 +1184,9 @@
     },
     "평창군": {
       "congestion_level": "high",
-      "congestion_score": 78.5,
+      "congestion_score": 77.3,
       "concentration": {
-        "avg_rate": 92.0,
+        "avg_rate": 87.2,
         "peak_rate": 97.5,
         "top_spots": [
           {
@@ -1200,19 +1200,19 @@
             "baseYmd": "20261031"
           },
           {
-            "name": "모나용평",
-            "rate": 96.4,
-            "baseYmd": "20261024"
-          },
-          {
             "name": "대관령양떼목장",
             "rate": 94.6,
             "baseYmd": "20261107"
           },
           {
-            "name": "국립평창청소년수련원",
-            "rate": 90.4,
-            "baseYmd": "20261025"
+            "name": "모나용평",
+            "rate": 87.4,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "물레방아(이효석길)",
+            "rate": 82.0,
+            "baseYmd": "20261031"
           }
         ]
       },
