@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26",
+  "updated_at": "2026-11-02",
   "sources": [
     "TourAPI DataLab locgoRegnVisitrDDList",
     "TourAPI TatsCnctrRateService tatsCnctrRatedList",
@@ -16,21 +16,11 @@
   "regions": {
     "강릉시": {
       "congestion_level": "high",
-      "congestion_score": 93.3,
+      "congestion_score": 100.0,
       "concentration": {
         "avg_rate": 100.0,
         "peak_rate": 100.0,
         "top_spots": [
-          {
-            "name": "강릉아트센터",
-            "rate": 100.0,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "강릉아트센터",
-            "rate": 100.0,
-            "baseYmd": "20261101"
-          },
           {
             "name": "강릉아트센터",
             "rate": 100.0,
@@ -45,23 +35,27 @@
             "name": "강릉아트센터",
             "rate": 100.0,
             "baseYmd": "20261121"
+          },
+          {
+            "name": "강릉아트센터",
+            "rate": 100.0,
+            "baseYmd": "20261128"
+          },
+          {
+            "name": "강릉올림픽파크(하키센터,아이스아레나,스피드스케이팅경기장)",
+            "rate": 100.0,
+            "baseYmd": "20261121"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 99.95,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 85.21,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 85.21,
-        "level": "high"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 88.01,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": false,
       "label": "혼잡 예상",
@@ -85,9 +79,9 @@
     },
     "고성군": {
       "congestion_level": "high",
-      "congestion_score": 76.6,
+      "congestion_score": 79.0,
       "concentration": {
-        "avg_rate": 86.3,
+        "avg_rate": 79.0,
         "peak_rate": 98.2,
         "top_spots": [
           {
@@ -97,40 +91,34 @@
           },
           {
             "name": "건봉사",
-            "rate": 95.6,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "거진1리해변",
-            "rate": 95.2,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "건봉사",
             "rate": 82.0,
             "baseYmd": "20261121"
           },
           {
-            "name": "능파대 (강원평화지역 국가지질공원)",
-            "rate": 81.7,
-            "baseYmd": "20261031"
+            "name": "김일성 별장",
+            "rate": 80.3,
+            "baseYmd": "20261128"
+          },
+          {
+            "name": "거진항",
+            "rate": 78.0,
+            "baseYmd": "20261128"
+          },
+          {
+            "name": "고성 통일전망타워",
+            "rate": 75.1,
+            "baseYmd": "20261114"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 84.2,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 61.18,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 61.18,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 74.83,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -154,16 +142,11 @@
     },
     "동해시": {
       "congestion_level": "high",
-      "congestion_score": 74.9,
+      "congestion_score": 94.8,
       "concentration": {
-        "avg_rate": 97.2,
-        "peak_rate": 100.0,
+        "avg_rate": 94.8,
+        "peak_rate": 98.9,
         "top_spots": [
-          {
-            "name": "두타산성",
-            "rate": 100.0,
-            "baseYmd": "20261031"
-          },
           {
             "name": "두타산성",
             "rate": 98.9,
@@ -180,26 +163,25 @@
             "baseYmd": "20261107"
           },
           {
-            "name": "논골담길",
-            "rate": 96.7,
-            "baseYmd": "20261031"
+            "name": "두타산성",
+            "rate": 95.9,
+            "baseYmd": "20261108"
+          },
+          {
+            "name": "감추사",
+            "rate": 92.6,
+            "baseYmd": "20261121"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 70.46,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 66.09,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 66.09,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 65.99,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": false,
       "label": "혼잡 예상",
@@ -223,52 +205,46 @@
     },
     "삼척시": {
       "congestion_level": "high",
-      "congestion_score": 74.9,
+      "congestion_score": 86.5,
       "concentration": {
-        "avg_rate": 92.0,
-        "peak_rate": 98.8,
+        "avg_rate": 86.5,
+        "peak_rate": 98.6,
         "top_spots": [
-          {
-            "name": "궁촌해변(궁촌해수욕장)",
-            "rate": 98.8,
-            "baseYmd": "20261031"
-          },
           {
             "name": "맹방해변",
             "rate": 98.6,
             "baseYmd": "20261107"
           },
           {
-            "name": "문암해변",
-            "rate": 98.3,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "궁촌항",
-            "rate": 95.4,
-            "baseYmd": "20261031"
+            "name": "맹방해변",
+            "rate": 85.7,
+            "baseYmd": "20261108"
           },
           {
             "name": "맹방해변",
-            "rate": 88.8,
-            "baseYmd": "20261101"
+            "rate": 85.4,
+            "baseYmd": "20261114"
+          },
+          {
+            "name": "강원종합박물관",
+            "rate": 85.0,
+            "baseYmd": "20261108"
+          },
+          {
+            "name": "맹방해변",
+            "rate": 84.7,
+            "baseYmd": "20261128"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 76.32,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 63.24,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 63.24,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 68.16,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": false,
       "label": "혼잡 예상",
@@ -292,21 +268,11 @@
     },
     "속초시": {
       "congestion_level": "high",
-      "congestion_score": 85.8,
+      "congestion_score": 95.0,
       "concentration": {
-        "avg_rate": 97.0,
-        "peak_rate": 99.9,
+        "avg_rate": 95.0,
+        "peak_rate": 98.4,
         "top_spots": [
-          {
-            "name": "설악 흔들바위",
-            "rate": 99.9,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "설악산 대청봉",
-            "rate": 99.9,
-            "baseYmd": "20261031"
-          },
           {
             "name": "설악 흔들바위",
             "rate": 98.4,
@@ -318,26 +284,30 @@
             "baseYmd": "20261107"
           },
           {
-            "name": "등대해변",
-            "rate": 96.9,
-            "baseYmd": "20261101"
+            "name": "더케이설악산 가족호텔",
+            "rate": 96.6,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "대포항 전망대",
+            "rate": 95.5,
+            "baseYmd": "20261128"
+          },
+          {
+            "name": "금호리조트㈜ 설악",
+            "rate": 93.5,
+            "baseYmd": "20261128"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 90.66,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 69.69,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 69.69,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 85.71,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": false,
       "label": "혼잡 예상",
@@ -361,25 +331,15 @@
     },
     "양구군": {
       "congestion_level": "high",
-      "congestion_score": 70.5,
+      "congestion_score": 97.4,
       "concentration": {
-        "avg_rate": 98.1,
+        "avg_rate": 97.4,
         "peak_rate": 99.5,
         "top_spots": [
           {
             "name": "양구선사박물관",
             "rate": 99.5,
             "baseYmd": "20261107"
-          },
-          {
-            "name": "박수근미술관",
-            "rate": 99.4,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "양구통일관",
-            "rate": 99.0,
-            "baseYmd": "20261101"
           },
           {
             "name": "양구선사박물관",
@@ -390,23 +350,27 @@
             "name": "양구선사박물관",
             "rate": 98.1,
             "baseYmd": "20261121"
+          },
+          {
+            "name": "양구통일관",
+            "rate": 97.4,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "양구근현대사박물관",
+            "rate": 96.8,
+            "baseYmd": "20261121"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 63.33,
-        "level": "mid"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 57.47,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 57.47,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 63.25,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -430,9 +394,9 @@
     },
     "양양군": {
       "congestion_level": "high",
-      "congestion_score": 76.6,
+      "congestion_score": 83.2,
       "concentration": {
-        "avg_rate": 88.5,
+        "avg_rate": 83.2,
         "peak_rate": 97.1,
         "top_spots": [
           {
@@ -441,41 +405,35 @@
             "baseYmd": "20261107"
           },
           {
-            "name": "낙산사",
-            "rate": 95.7,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "내수면 생명 자원센터",
-            "rate": 94.0,
-            "baseYmd": "20261031"
-          },
-          {
             "name": "내수면 생명 자원센터",
             "rate": 88.5,
             "baseYmd": "20261107"
           },
           {
-            "name": "낙산 해수욕장",
-            "rate": 87.8,
-            "baseYmd": "20261031"
+            "name": "낙산사",
+            "rate": 87.2,
+            "baseYmd": "20261128"
+          },
+          {
+            "name": "낙산도립공원",
+            "rate": 79.4,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "낙산항",
+            "rate": 79.4,
+            "baseYmd": "20261122"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 81.35,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 62.38,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 62.38,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 74.3,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": false,
       "label": "혼잡 예상",
@@ -499,15 +457,20 @@
     },
     "영월군": {
       "congestion_level": "high",
-      "congestion_score": 72.4,
+      "congestion_score": 90.8,
       "concentration": {
-        "avg_rate": 90.4,
+        "avg_rate": 90.8,
         "peak_rate": 99.8,
         "top_spots": [
           {
             "name": "구룡산(강원)",
             "rate": 99.8,
-            "baseYmd": "20261029"
+            "baseYmd": "20261129"
+          },
+          {
+            "name": "강변저류지",
+            "rate": 95.8,
+            "baseYmd": "20261128"
           },
           {
             "name": "단종역사관",
@@ -523,28 +486,17 @@
             "name": "구봉대산",
             "rate": 89.0,
             "baseYmd": "20261108"
-          },
-          {
-            "name": "강변저류지",
-            "rate": 88.7,
-            "baseYmd": "20261031"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 72.48,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 59.51,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 59.51,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 67.1,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -568,26 +520,11 @@
     },
     "원주시": {
       "congestion_level": "high",
-      "congestion_score": 88.3,
+      "congestion_score": 100.0,
       "concentration": {
         "avg_rate": 100.0,
         "peak_rate": 100.0,
         "top_spots": [
-          {
-            "name": "뮤지엄산",
-            "rate": 100.0,
-            "baseYmd": "20261030"
-          },
-          {
-            "name": "뮤지엄산",
-            "rate": 100.0,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "뮤지엄산",
-            "rate": 100.0,
-            "baseYmd": "20261101"
-          },
           {
             "name": "뮤지엄산",
             "rate": 100.0,
@@ -597,23 +534,32 @@
             "name": "뮤지엄산",
             "rate": 100.0,
             "baseYmd": "20261107"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261108"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261114"
+          },
+          {
+            "name": "뮤지엄산",
+            "rate": 100.0,
+            "baseYmd": "20261115"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 85.38,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 92.65,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 92.65,
-        "level": "high"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 75.33,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": false,
       "label": "혼잡 예상",
@@ -637,26 +583,11 @@
     },
     "인제군": {
       "congestion_level": "high",
-      "congestion_score": 74.6,
+      "congestion_score": 92.9,
       "concentration": {
-        "avg_rate": 97.9,
-        "peak_rate": 100.0,
+        "avg_rate": 92.9,
+        "peak_rate": 99.1,
         "top_spots": [
-          {
-            "name": "설악산국립공원(내설악)",
-            "rate": 100.0,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "백담사",
-            "rate": 99.8,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "대승령과 대승폭포",
-            "rate": 99.4,
-            "baseYmd": "20261031"
-          },
           {
             "name": "설악산국립공원(내설악)",
             "rate": 99.1,
@@ -664,25 +595,34 @@
           },
           {
             "name": "설악산국립공원(내설악)",
-            "rate": 97.5,
-            "baseYmd": "20261026"
+            "rate": 95.0,
+            "baseYmd": "20261108"
+          },
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 94.0,
+            "baseYmd": "20261115"
+          },
+          {
+            "name": "백담사",
+            "rate": 92.4,
+            "baseYmd": "20261107"
+          },
+          {
+            "name": "설악산국립공원(내설악)",
+            "rate": 91.8,
+            "baseYmd": "20261114"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 70.14,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 60.57,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 60.57,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 69.74,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -706,16 +646,11 @@
     },
     "정선군": {
       "congestion_level": "high",
-      "congestion_score": 77.1,
+      "congestion_score": 95.4,
       "concentration": {
-        "avg_rate": 97.5,
-        "peak_rate": 99.9,
+        "avg_rate": 95.4,
+        "peak_rate": 99.8,
         "top_spots": [
-          {
-            "name": "괘병산(정선)",
-            "rate": 99.9,
-            "baseYmd": "20261031"
-          },
           {
             "name": "민둥산",
             "rate": 99.8,
@@ -728,30 +663,29 @@
           },
           {
             "name": "민둥산",
-            "rate": 97.8,
-            "baseYmd": "20261031"
+            "rate": 95.9,
+            "baseYmd": "20261108"
           },
           {
-            "name": "만항재",
-            "rate": 96.1,
-            "baseYmd": "20261031"
+            "name": "민둥산",
+            "rate": 95.2,
+            "baseYmd": "20261122"
+          },
+          {
+            "name": "민둥산",
+            "rate": 94.5,
+            "baseYmd": "20261115"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 79.2,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 60.44,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 60.44,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 71.23,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -775,52 +709,46 @@
     },
     "철원군": {
       "congestion_level": "high",
-      "congestion_score": 73.1,
+      "congestion_score": 98.4,
       "concentration": {
-        "avg_rate": 99.3,
-        "peak_rate": 100.0,
+        "avg_rate": 98.4,
+        "peak_rate": 99.8,
         "top_spots": [
-          {
-            "name": "고석정 (한탄강 유네스코 세계지질공원)",
-            "rate": 100.0,
-            "baseYmd": "20261031"
-          },
           {
             "name": "구 철원제일교회",
             "rate": 99.8,
             "baseYmd": "20261107"
           },
           {
-            "name": "고석정 꽃밭",
-            "rate": 99.7,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "고석정국민관광지",
-            "rate": 99.6,
-            "baseYmd": "20261031"
+            "name": "구 철원제일교회",
+            "rate": 99.0,
+            "baseYmd": "20261114"
           },
           {
             "name": "구 철원제일교회",
-            "rate": 99.2,
-            "baseYmd": "20261031"
+            "rate": 98.9,
+            "baseYmd": "20261121"
+          },
+          {
+            "name": "구 철원제일교회",
+            "rate": 98.5,
+            "baseYmd": "20261122"
+          },
+          {
+            "name": "고석정국민관광지",
+            "rate": 98.4,
+            "baseYmd": "20261114"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 66.79,
-        "level": "mid"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 60.24,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 60.24,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 66.04,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -839,52 +767,46 @@
     },
     "춘천시": {
       "congestion_level": "high",
-      "congestion_score": 87.1,
+      "congestion_score": 98.1,
       "concentration": {
-        "avg_rate": 98.5,
-        "peak_rate": 100.0,
+        "avg_rate": 98.1,
+        "peak_rate": 99.8,
         "top_spots": [
-          {
-            "name": "공지천 조각공원",
-            "rate": 100.0,
-            "baseYmd": "20261031"
-          },
           {
             "name": "김유정문학촌",
             "rate": 99.8,
             "baseYmd": "20261107"
           },
           {
-            "name": "김유정역 폐역",
-            "rate": 99.7,
-            "baseYmd": "20261031"
+            "name": "김유정문학촌",
+            "rate": 99.1,
+            "baseYmd": "20261129"
           },
           {
-            "name": "KT&G 상상마당 춘천",
-            "rate": 97.9,
-            "baseYmd": "20261101"
+            "name": "김유정문학촌",
+            "rate": 98.3,
+            "baseYmd": "20261128"
           },
           {
             "name": "KT&G 상상마당 춘천",
             "rate": 97.8,
             "baseYmd": "20261108"
+          },
+          {
+            "name": "김유정역 폐역",
+            "rate": 97.8,
+            "baseYmd": "20261107"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 84.08,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 88.28,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 88.28,
-        "level": "high"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 77.7,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": false,
       "label": "혼잡 예상",
@@ -908,15 +830,15 @@
     },
     "태백시": {
       "congestion_level": "high",
-      "congestion_score": 71.7,
+      "congestion_score": 94.6,
       "concentration": {
-        "avg_rate": 94.8,
-        "peak_rate": 99.6,
+        "avg_rate": 94.6,
+        "peak_rate": 99.7,
         "top_spots": [
           {
-            "name": "365세이프타운",
-            "rate": 99.6,
-            "baseYmd": "20261031"
+            "name": "태백 고생대 자연사박물관",
+            "rate": 99.7,
+            "baseYmd": "20261121"
           },
           {
             "name": "태백 고생대 자연사박물관",
@@ -924,36 +846,30 @@
             "baseYmd": "20261114"
           },
           {
+            "name": "구문소 (강원고생대 국가지질공원)",
+            "rate": 97.3,
+            "baseYmd": "20261128"
+          },
+          {
             "name": "태백 고생대 자연사박물관",
             "rate": 96.7,
             "baseYmd": "20261107"
           },
           {
-            "name": "태백 고생대 자연사박물관",
-            "rate": 96.5,
-            "baseYmd": "20261031"
-          },
-          {
             "name": "구문소 (강원고생대 국가지질공원)",
-            "rate": 93.4,
-            "baseYmd": "20261031"
+            "rate": 92.5,
+            "baseYmd": "20261121"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 65.81,
-        "level": "mid"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 60.35,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 60.35,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 65.86,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -977,9 +893,9 @@
     },
     "홍천군": {
       "congestion_level": "high",
-      "congestion_score": 78.1,
+      "congestion_score": 91.3,
       "concentration": {
-        "avg_rate": 96.5,
+        "avg_rate": 91.3,
         "peak_rate": 98.8,
         "top_spots": [
           {
@@ -989,40 +905,34 @@
           },
           {
             "name": "수타사 농촌테마파크",
-            "rate": 98.5,
-            "baseYmd": "20261031"
-          },
-          {
-            "name": "수타사",
-            "rate": 98.0,
-            "baseYmd": "20261031"
+            "rate": 96.0,
+            "baseYmd": "20261107"
           },
           {
             "name": "알파카월드",
-            "rate": 96.7,
-            "baseYmd": "20261101"
+            "rate": 93.8,
+            "baseYmd": "20261106"
           },
           {
-            "name": "모곡밤벌유원지",
-            "rate": 96.6,
-            "baseYmd": "20261031"
+            "name": "알파카월드",
+            "rate": 90.6,
+            "baseYmd": "20261108"
+          },
+          {
+            "name": "알파카월드",
+            "rate": 89.2,
+            "baseYmd": "20261114"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 78.7,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 65.5,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 65.5,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 71.52,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": false,
       "label": "혼잡 예상",
@@ -1046,9 +956,9 @@
     },
     "화천군": {
       "congestion_level": "high",
-      "congestion_score": 71.3,
+      "congestion_score": 98.6,
       "concentration": {
-        "avg_rate": 98.5,
+        "avg_rate": 98.6,
         "peak_rate": 99.6,
         "top_spots": [
           {
@@ -1078,20 +988,14 @@
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 64.61,
-        "level": "mid"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 57.69,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 57.69,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 64.41,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -1115,9 +1019,9 @@
     },
     "횡성군": {
       "congestion_level": "high",
-      "congestion_score": 73.8,
+      "congestion_score": 93.2,
       "concentration": {
-        "avg_rate": 95.9,
+        "avg_rate": 93.2,
         "peak_rate": 98.0,
         "top_spots": [
           {
@@ -1132,35 +1036,29 @@
           },
           {
             "name": "국립횡성숲체원",
-            "rate": 97.3,
-            "baseYmd": "20261031"
+            "rate": 94.4,
+            "baseYmd": "20261107"
           },
           {
             "name": "국립 청태산자연휴양림",
-            "rate": 96.5,
-            "baseYmd": "20261031"
+            "rate": 94.1,
+            "baseYmd": "20261121"
           },
           {
-            "name": "망향의 동산(횡성)",
-            "rate": 96.2,
-            "baseYmd": "20261031"
+            "name": "국립 청태산자연휴양림",
+            "rate": 93.1,
+            "baseYmd": "20261122"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 70.07,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 61.46,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 61.46,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 67.58,
-        "level": "mid"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
@@ -1184,20 +1082,15 @@
     },
     "평창군": {
       "congestion_level": "high",
-      "congestion_score": 77.3,
+      "congestion_score": 85.5,
       "concentration": {
-        "avg_rate": 87.2,
+        "avg_rate": 85.5,
         "peak_rate": 97.5,
         "top_spots": [
           {
             "name": "물레방아(이효석길)",
             "rate": 97.5,
             "baseYmd": "20261107"
-          },
-          {
-            "name": "모나용평",
-            "rate": 96.5,
-            "baseYmd": "20261031"
           },
           {
             "name": "대관령양떼목장",
@@ -1210,26 +1103,25 @@
             "baseYmd": "20261107"
           },
           {
-            "name": "물레방아(이효석길)",
-            "rate": 82.0,
-            "baseYmd": "20261031"
+            "name": "모나용평",
+            "rate": 86.8,
+            "baseYmd": "20261128"
+          },
+          {
+            "name": "강원 신재생에너지전시관",
+            "rate": 79.8,
+            "baseYmd": "20261115"
           }
         ]
       },
-      "demand": {
-        "stay_intensity": 81.58,
-        "level": "high"
-      },
+      "demand": {},
       "diversity": {
-        "tourist_diversity": 63.32,
+        "tourist_diversity": null,
         "international_diversity": null,
-        "score": 63.32,
-        "level": "mid"
+        "score": null,
+        "level": "unknown"
       },
-      "resource": {
-        "service_demand": 77.05,
-        "level": "high"
-      },
+      "resource": {},
       "visitors": {},
       "is_population_decline": true,
       "label": "혼잡 예상",
