@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02",
+  "updated_at": "2026-11-09",
   "regions": {
     "춘천시": [
       {
@@ -846,21 +846,6 @@
         "eventEndDate": "20260802"
       },
       {
-        "id": "386053",
-        "title": "평창송어축제",
-        "addr": "강원특별자치도 평창군 진부면 경강로 3562",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/81/4002581_image2_1.jpg",
-        "tel": "033-336-4000",
-        "typeId": "15",
-        "mapX": "128.556991232543",
-        "mapY": "37.6331795130163",
-        "place": "평창군",
-        "period": "01.09 ~ 02.09",
-        "desc": "강원특별자치도 평창군 진부면 경강로 3562",
-        "eventStartDate": "20260109",
-        "eventEndDate": "20260209"
-      },
-      {
         "id": "507635",
         "title": "평창효석문화제",
         "addr": "강원특별자치도 평창군 봉평면 이효석길 157",
@@ -1013,21 +998,6 @@
         "desc": "강원특별자치도 철원군 김화읍 청양로 651",
         "eventStartDate": "20260815",
         "eventEndDate": "20260817"
-      },
-      {
-        "id": "1882134",
-        "title": "철원 한탄강 얼음트레킹 축제",
-        "addr": "강원특별자치도 철원군 동송읍 장흥리 725",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/18/4016918_image2_1.jpg",
-        "tel": "033-455-7072",
-        "typeId": "15",
-        "mapX": "127.270036297712",
-        "mapY": "38.2034447207908",
-        "place": "철원군",
-        "period": "01.17 ~ 01.25",
-        "desc": "강원특별자치도 철원군 동송읍 장흥리 725",
-        "eventStartDate": "20260117",
-        "eventEndDate": "20260125"
       }
     ],
     "양구군": [
@@ -1149,21 +1119,6 @@
       "eventEndDate": "20260101"
     },
     {
-      "id": "386053",
-      "title": "평창송어축제",
-      "addr": "강원특별자치도 평창군 진부면 경강로 3562",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/81/4002581_image2_1.jpg",
-      "tel": "033-336-4000",
-      "typeId": "15",
-      "mapX": "128.556991232543",
-      "mapY": "37.6331795130163",
-      "place": "평창군",
-      "period": "01.09 ~ 02.09",
-      "desc": "강원특별자치도 평창군 진부면 경강로 3562",
-      "eventStartDate": "20260109",
-      "eventEndDate": "20260209"
-    },
-    {
       "id": "1769697",
       "title": "홍천강 꽁꽁축제",
       "addr": "강원특별자치도 홍천군 홍천읍 갈마곡리",
@@ -1176,21 +1131,6 @@
       "period": "01.09 ~ 01.25",
       "desc": "강원특별자치도 홍천군 홍천읍 갈마곡리",
       "eventStartDate": "20260109",
-      "eventEndDate": "20260125"
-    },
-    {
-      "id": "1882134",
-      "title": "철원 한탄강 얼음트레킹 축제",
-      "addr": "강원특별자치도 철원군 동송읍 장흥리 725",
-      "image": "https://tong.visitkorea.or.kr/cms/resource/18/4016918_image2_1.jpg",
-      "tel": "033-455-7072",
-      "typeId": "15",
-      "mapX": "127.270036297712",
-      "mapY": "38.2034447207908",
-      "place": "철원군",
-      "period": "01.17 ~ 01.25",
-      "desc": "강원특별자치도 철원군 동송읍 장흥리 725",
-      "eventStartDate": "20260117",
       "eventEndDate": "20260125"
     },
     {

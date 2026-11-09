@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02",
+  "updated_at": "2026-11-09",
   "regions": {
     "춘천시": [
       {
@@ -120,7 +120,7 @@
         "id": "2900682",
         "title": "강릉 3·1운동 기념공원",
         "addr": "강원특별자치도 강릉시 경포로 349 (저동)",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/61/4076861_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/74/4145174_image2_1.jpg",
         "tel": "",
         "typeId": "12",
         "mapX": "128.8964365109",
@@ -172,11 +172,11 @@
         "id": "2735620",
         "title": "감추사",
         "addr": "강원특별자치도 동해시 해안로 120 (용정동)",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/98/3569498_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/98/3569498_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "129.1262895236",
-        "mapY": "37.5148310688"
+        "mapX": "129.1262612438",
+        "mapY": "37.5147785170"
       },
       {
         "id": "2714641",
@@ -234,11 +234,11 @@
         "id": "2610122",
         "title": "구문소마을",
         "addr": "강원특별자치도 태백시 사군드리길 7",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/23/3400123_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/23/3400123_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "129.0380047012",
-        "mapY": "37.0932944861"
+        "mapX": "129.0379754224",
+        "mapY": "37.0932430469"
       },
       {
         "id": "617327",
@@ -826,11 +826,11 @@
         "id": "125412",
         "title": "국립 용대자연휴양림",
         "addr": "강원특별자치도 인제군 북면 연화동길 7",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/53/3042453_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/53/3042453_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.3646639310",
-        "mapY": "38.2316443099"
+        "mapX": "128.3646388110",
+        "mapY": "38.2315872556"
       }
     ],
     "고성군": [
@@ -899,12 +899,12 @@
       {
         "id": "2714611",
         "title": "갯마을해변",
-        "addr": "강원특별자치도 양양군 현남면 안남애길 48",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/76/3387376_image2_1.JPG",
+        "addr": "강원특별자치도 양양군 현남면 남애리 600-14",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/76/3387376_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.7854485550",
-        "mapY": "37.9448496992"
+        "mapX": "128.7854205720",
+        "mapY": "37.9447933388"
       },
       {
         "id": "125651",
@@ -923,8 +923,8 @@
         "image": "https://tong.visitkorea.or.kr/cms/resource/60/3518260_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.7643376618066",
-        "mapY": "37.96536073191619"
+        "mapX": "128.7643376618",
+        "mapY": "37.9653607319"
       },
       {
         "id": "127805",
