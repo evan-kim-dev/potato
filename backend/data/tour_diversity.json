@@ -1,113 +1,113 @@
 {
-  "updated_at": "2026-11-09",
+  "updated_at": "2026-11-16",
   "regions": {
     "춘천시": {
-      "tourist_diversity": null,
+      "tourist_diversity": 88.82,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 88.82,
+      "level": "high"
     },
     "원주시": {
-      "tourist_diversity": null,
+      "tourist_diversity": 93.92,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 93.92,
+      "level": "high"
     },
     "강릉시": {
-      "tourist_diversity": null,
+      "tourist_diversity": 86.36,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 86.36,
+      "level": "high"
     },
     "동해시": {
-      "tourist_diversity": null,
+      "tourist_diversity": 66.36,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 66.36,
+      "level": "mid"
     },
     "태백시": {
-      "tourist_diversity": null,
+      "tourist_diversity": 60.42,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 60.42,
+      "level": "mid"
     },
     "속초시": {
-      "tourist_diversity": null,
+      "tourist_diversity": 72.03,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 72.03,
+      "level": "high"
     },
     "삼척시": {
-      "tourist_diversity": null,
+      "tourist_diversity": 63.23,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 63.23,
+      "level": "mid"
     },
     "홍천군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 66.44,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 66.44,
+      "level": "mid"
     },
     "횡성군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 62.04,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 62.04,
+      "level": "mid"
     },
     "영월군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 59.84,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 59.84,
+      "level": "mid"
     },
     "평창군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 64.24,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 64.24,
+      "level": "mid"
     },
     "정선군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 60.92,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 60.92,
+      "level": "mid"
     },
     "철원군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 60.9,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 60.9,
+      "level": "mid"
     },
     "화천군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 57.89,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 57.89,
+      "level": "mid"
     },
     "양구군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 57.55,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 57.55,
+      "level": "mid"
     },
     "인제군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 62.43,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 62.43,
+      "level": "mid"
     },
     "고성군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 62.2,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 62.2,
+      "level": "mid"
     },
     "양양군": {
-      "tourist_diversity": null,
+      "tourist_diversity": 63.96,
       "international_diversity": null,
-      "score": null,
-      "level": "unknown"
+      "score": 63.96,
+      "level": "mid"
     }
   },
   "source": "TourAPI AreaTarDivService areaTouDivList/areaIntlDivList",

@@ -1,9 +1,9 @@
 {
   "source": "TourAPI DataLab locgoRegnVisitrDDList",
-  "updated_at": "2026-11-09",
+  "updated_at": "2026-11-16",
   "period": {
-    "startYmd": "20261102",
-    "endYmd": "20261108",
+    "startYmd": "20261109",
+    "endYmd": "20261115",
     "days": 7
   },
   "regions": {}

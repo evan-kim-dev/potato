@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-09",
+  "updated_at": "2026-11-16",
   "regions": {
     "춘천시": [
       {
@@ -46,11 +46,11 @@
         "id": "2706334",
         "title": "강촌 출렁다리공원",
         "addr": "강원특별자치도 춘천시 남산면 강촌리",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/96/3382296_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/96/3382296_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.6358095763",
-        "mapY": "37.8136014070"
+        "mapX": "127.6357890467",
+        "mapY": "37.8135455589"
       }
     ],
     "원주시": [
@@ -263,6 +263,16 @@
     ],
     "속초시": [
       {
+        "id": "3041720",
+        "title": "간이해수욕장",
+        "addr": "강원특별자치도 속초시 아바이마을1길 86-1 (청호동)",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/90/4153290_image2_1.jpg",
+        "tel": "",
+        "typeId": "12",
+        "mapX": "128.5946002209",
+        "mapY": "38.2041247760"
+      },
+      {
         "id": "3468741",
         "title": "과자의성",
         "addr": "강원특별자치도 속초시 미시령로 3010 (노학동)",
@@ -296,21 +306,11 @@
         "id": "129032",
         "title": "대포마을",
         "addr": "강원특별자치도 속초시 대포항1길 6-13",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/20/3394120_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/20/3394120_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.6072936101",
-        "mapY": "38.1758166221"
-      },
-      {
-        "id": "129596",
-        "title": "대포항",
-        "addr": "강원특별자치도 속초시 대포항길 64",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/56/4066656_image2_1.jpg",
-        "tel": "",
-        "typeId": "12",
-        "mapX": "128.607433369894",
-        "mapY": "38.1748951238747"
+        "mapX": "128.6072666922",
+        "mapY": "38.1757589041"
       }
     ],
     "삼척시": [
@@ -338,11 +338,11 @@
         "id": "2715990",
         "title": "갈남항",
         "addr": "강원특별자치도 삼척시 원덕읍 갈남리 99-20",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/12/3394112_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/12/3394112_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "129.3251150597",
-        "mapY": "37.2807757781"
+        "mapX": "129.3250838748",
+        "mapY": "37.2807233410"
       },
       {
         "id": "2820184",
@@ -358,11 +358,11 @@
         "id": "2715985",
         "title": "고천마을",
         "addr": "강원특별자치도 삼척시 미로면 고천길 6",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/66/3387166_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/66/3387166_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "129.0625565368",
-        "mapY": "37.4181715152"
+        "mapX": "129.0625269751",
+        "mapY": "37.4181182262"
       }
     ],
     "홍천군": [
@@ -400,11 +400,11 @@
         "id": "125735",
         "title": "강재구공원",
         "addr": "강원특별자치도 홍천군 북방면 성동로 275",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/72/3584672_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/72/3584672_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.8684937219",
-        "mapY": "37.7285545094"
+        "mapX": "127.8684723611",
+        "mapY": "37.7284999196"
       },
       {
         "id": "126904",
@@ -484,11 +484,11 @@
         "id": "1857095",
         "title": "강원 영월 김삿갓면 [슬로시티]",
         "addr": "강원특별자치도 영월군 김삿갓면 옥동장터길 36",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/26/3585026_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/26/3585026_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.5698983480",
-        "mapY": "37.1256151474"
+        "mapX": "128.5698726544",
+        "mapY": "37.1255642520"
       },
       {
         "id": "895963",
@@ -630,11 +630,11 @@
         "id": "2615225",
         "title": "고석정 (한탄강 유네스코 세계지질공원)",
         "addr": "강원특별자치도 철원군 동송읍 태봉로 1825",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/67/3351667_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/67/3351667_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.2869221163",
-        "mapY": "38.1860265295"
+        "mapX": "127.2869037442",
+        "mapY": "38.1859684995"
       },
       {
         "id": "2749319",
@@ -670,11 +670,11 @@
         "id": "1955957",
         "title": "구은사",
         "addr": "강원특별자치도 철원군 근남면 호국로 7003-23",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/01/3342401_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/01/3342401_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.4737918063",
-        "mapY": "38.2554690921"
+        "mapX": "127.4737724526",
+        "mapY": "38.2554123408"
       }
     ],
     "화천군": [
@@ -682,11 +682,11 @@
         "id": "2570295",
         "title": "거례리 수목공원&반지교",
         "addr": "강원특별자치도 화천군 하남면 거례리 514-1",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/59/3484959_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/59/3484959_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.6897357562",
-        "mapY": "38.0760051882"
+        "mapX": "127.6897148058",
+        "mapY": "38.0759478530"
       },
       {
         "id": "2774598",
@@ -796,11 +796,11 @@
         "id": "128365",
         "title": "고로쇠마을(미산마을)",
         "addr": "강원특별자치도 인제군 상남면 내린천로 1484",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/31/3397331_image2_1.JPG",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/31/3397331_image2_1.JPG",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.3287284610",
-        "mapY": "37.8646557440"
+        "mapX": "128.3287061880",
+        "mapY": "37.8646014364"
       },
       {
         "id": "125630",
@@ -933,8 +933,8 @@
         "image": "https://tong.visitkorea.or.kr/cms/resource/31/3493231_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.527966",
-        "mapY": "37.93902"
+        "mapX": "128.5279660000",
+        "mapY": "37.9390200000"
       }
     ]
   },

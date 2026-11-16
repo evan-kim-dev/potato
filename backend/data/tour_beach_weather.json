@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-09T20:01+09:00",
+  "updated_at": "2026-11-16T19:46+09:00",
   "api": "https://apis.data.go.kr/1360000/BeachInfoservice",
   "ops": [
     "getUltraSrtFcstBeach",
@@ -24,17 +24,17 @@
         "beach_num": 176,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 8.0,
-        "label": "구름많음",
-        "cond": "partly_cloudy",
-        "humidity": 85.0,
-        "wind_ms": 2.0,
+        "temp_c": 10.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 90.0,
+        "wind_ms": 1.0,
         "wave_m": 1.5,
-        "pop": 20.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -45,25 +45,25 @@
           }
         },
         "ultra": {
-          "temp_c": 8.0,
-          "sky": "3",
-          "pty": "0",
-          "humidity": 85.0,
-          "wind_ms": 2.0,
-          "precip": "강수없음",
-          "label": "구름많음",
-          "cond": "partly_cloudy"
-        },
-        "vilage": {
           "temp_c": 10.0,
           "sky": "3",
-          "pty": "0",
-          "pop": 20.0,
-          "humidity": 80.0,
-          "wind_ms": 3.0,
+          "pty": "1",
+          "humidity": 90.0,
+          "wind_ms": 1.0,
+          "precip": "1mm 미만",
+          "label": "비",
+          "cond": "rain"
+        },
+        "vilage": {
+          "temp_c": 12.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
+          "humidity": 85.0,
+          "wind_ms": 5.0,
           "wave_m": 1.5,
-          "label": "구름많음",
-          "cond": "partly_cloudy"
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -80,17 +80,17 @@
         "beach_num": 179,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 6.0,
-        "label": "흐림",
-        "cond": "cloudy",
+        "temp_c": 9.0,
+        "label": "비",
+        "cond": "rain",
         "humidity": 90.0,
         "wind_ms": 1.0,
-        "wave_m": 0.5,
-        "pop": 20.0,
+        "wave_m": 1.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -101,25 +101,25 @@
           }
         },
         "ultra": {
-          "temp_c": 6.0,
+          "temp_c": 9.0,
           "sky": "4",
-          "pty": "0",
+          "pty": "1",
           "humidity": 90.0,
           "wind_ms": 1.0,
-          "precip": "강수없음",
-          "label": "흐림",
-          "cond": "cloudy"
+          "precip": "2.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 9.0,
-          "sky": "3",
-          "pty": "0",
-          "pop": 20.0,
-          "humidity": 85.0,
-          "wind_ms": 2.8,
-          "wave_m": 0.5,
-          "label": "구름많음",
-          "cond": "partly_cloudy"
+          "temp_c": 11.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
+          "humidity": 90.0,
+          "wind_ms": 5.1,
+          "wave_m": 1.0,
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -136,17 +136,17 @@
         "beach_num": 182,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 8.0,
-        "label": "구름많음",
-        "cond": "partly_cloudy",
-        "humidity": 85.0,
+        "temp_c": 10.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 95.0,
         "wind_ms": 3.0,
         "wave_m": 1.0,
-        "pop": 30.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -157,25 +157,25 @@
           }
         },
         "ultra": {
-          "temp_c": 8.0,
-          "sky": "3",
-          "pty": "0",
-          "humidity": 85.0,
+          "temp_c": 10.0,
+          "sky": "4",
+          "pty": "1",
+          "humidity": 95.0,
           "wind_ms": 3.0,
-          "precip": "강수없음",
-          "label": "구름많음",
-          "cond": "partly_cloudy"
+          "precip": "2.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 9.0,
+          "temp_c": 11.0,
           "sky": "4",
-          "pty": "0",
-          "pop": 30.0,
-          "humidity": 85.0,
-          "wind_ms": 3.2,
+          "pty": "1",
+          "pop": 60.0,
+          "humidity": 90.0,
+          "wind_ms": 5.3,
           "wave_m": 1.0,
-          "label": "흐림",
-          "cond": "cloudy"
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -192,17 +192,17 @@
         "beach_num": 198,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 8.0,
-        "label": "맑음",
-        "cond": "sunny",
-        "humidity": 80.0,
+        "temp_c": 10.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 90.0,
         "wind_ms": 3.0,
         "wave_m": 0.5,
-        "pop": 30.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -213,25 +213,25 @@
           }
         },
         "ultra": {
-          "temp_c": 8.0,
-          "sky": "1",
-          "pty": "0",
-          "humidity": 80.0,
-          "wind_ms": 3.0,
-          "precip": "강수없음",
-          "label": "맑음",
-          "cond": "sunny"
-        },
-        "vilage": {
           "temp_c": 10.0,
           "sky": "4",
-          "pty": "0",
-          "pop": 30.0,
+          "pty": "1",
+          "humidity": 90.0,
+          "wind_ms": 3.0,
+          "precip": "2.0mm",
+          "label": "비",
+          "cond": "rain"
+        },
+        "vilage": {
+          "temp_c": 11.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
           "humidity": 85.0,
-          "wind_ms": 4.0,
+          "wind_ms": 5.0,
           "wave_m": 0.5,
-          "label": "흐림",
-          "cond": "cloudy"
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -248,15 +248,15 @@
         "beach_num": 195,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
         "temp_c": 10.0,
-        "label": "구름많음",
-        "cond": "partly_cloudy",
-        "humidity": 75.0,
-        "wind_ms": 1.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 95.0,
+        "wind_ms": 2.0,
         "wave_m": 0.5,
         "pop": 60.0,
         "tide": [],
@@ -270,21 +270,21 @@
         },
         "ultra": {
           "temp_c": 10.0,
-          "sky": "3",
-          "pty": "0",
-          "humidity": 75.0,
-          "wind_ms": 1.0,
-          "precip": "강수없음",
-          "label": "구름많음",
-          "cond": "partly_cloudy"
+          "sky": "4",
+          "pty": "1",
+          "humidity": 95.0,
+          "wind_ms": 2.0,
+          "precip": "3.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 10.0,
+          "temp_c": 11.0,
           "sky": "4",
           "pty": "1",
           "pop": 60.0,
           "humidity": 85.0,
-          "wind_ms": 4.3,
+          "wind_ms": 5.0,
           "wave_m": 0.5,
           "label": "비",
           "cond": "rain"
@@ -304,17 +304,17 @@
         "beach_num": 201,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 7.0,
-        "label": "맑음",
-        "cond": "sunny",
-        "humidity": 90.0,
-        "wind_ms": 1.0,
+        "temp_c": 10.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 100.0,
+        "wind_ms": 3.0,
         "wave_m": 0.5,
-        "pop": 0.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -325,25 +325,25 @@
           }
         },
         "ultra": {
-          "temp_c": 7.0,
-          "sky": "1",
-          "pty": "0",
-          "humidity": 90.0,
-          "wind_ms": 1.0,
-          "precip": "강수없음",
-          "label": "맑음",
-          "cond": "sunny"
+          "temp_c": 10.0,
+          "sky": "4",
+          "pty": "1",
+          "humidity": 100.0,
+          "wind_ms": 3.0,
+          "precip": "12.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 9.0,
-          "sky": "1",
-          "pty": "0",
-          "pop": 0.0,
-          "humidity": 80.0,
-          "wind_ms": 1.8,
+          "temp_c": 11.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
+          "humidity": 85.0,
+          "wind_ms": 4.6,
           "wave_m": 0.5,
-          "label": "맑음",
-          "cond": "sunny"
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -360,17 +360,17 @@
         "beach_num": 202,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 7.0,
-        "label": "맑음",
-        "cond": "sunny",
-        "humidity": 90.0,
-        "wind_ms": 1.0,
+        "temp_c": 10.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 100.0,
+        "wind_ms": 3.0,
         "wave_m": 0.5,
-        "pop": 0.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -381,25 +381,25 @@
           }
         },
         "ultra": {
-          "temp_c": 7.0,
-          "sky": "1",
-          "pty": "0",
-          "humidity": 90.0,
-          "wind_ms": 1.0,
-          "precip": "강수없음",
-          "label": "맑음",
-          "cond": "sunny"
+          "temp_c": 10.0,
+          "sky": "4",
+          "pty": "1",
+          "humidity": 100.0,
+          "wind_ms": 3.0,
+          "precip": "12.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 9.0,
-          "sky": "1",
-          "pty": "0",
-          "pop": 0.0,
-          "humidity": 80.0,
-          "wind_ms": 1.8,
+          "temp_c": 11.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
+          "humidity": 85.0,
+          "wind_ms": 4.6,
           "wave_m": 0.5,
-          "label": "맑음",
-          "cond": "sunny"
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -416,16 +416,16 @@
         "beach_num": 203,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 11.0,
-        "label": "흐림",
-        "cond": "cloudy",
-        "humidity": 85.0,
-        "wind_ms": 5.0,
-        "wave_m": 1.5,
+        "temp_c": 12.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 80.0,
+        "wind_ms": 7.0,
+        "wave_m": 2.0,
         "pop": 60.0,
         "tide": [],
         "sun": {
@@ -437,23 +437,23 @@
           }
         },
         "ultra": {
-          "temp_c": 11.0,
+          "temp_c": 12.0,
           "sky": "4",
-          "pty": "0",
-          "humidity": 85.0,
-          "wind_ms": 5.0,
-          "precip": "강수없음",
-          "label": "흐림",
-          "cond": "cloudy"
+          "pty": "1",
+          "humidity": 80.0,
+          "wind_ms": 7.0,
+          "precip": "2.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 11.0,
+          "temp_c": 12.0,
           "sky": "4",
           "pty": "1",
           "pop": 60.0,
-          "humidity": 85.0,
-          "wind_ms": 6.2,
-          "wave_m": 1.5,
+          "humidity": 80.0,
+          "wind_ms": 6.1,
+          "wave_m": 2.0,
           "label": "비",
           "cond": "rain"
         }
@@ -472,17 +472,17 @@
         "beach_num": 262,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 8.0,
-        "label": "맑음",
-        "cond": "sunny",
-        "humidity": 80.0,
-        "wind_ms": 1.0,
-        "wave_m": 0.5,
-        "pop": 20.0,
+        "temp_c": 10.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 95.0,
+        "wind_ms": 0.1,
+        "wave_m": 1.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -493,25 +493,25 @@
           }
         },
         "ultra": {
-          "temp_c": 8.0,
-          "sky": "1",
-          "pty": "0",
-          "humidity": 80.0,
-          "wind_ms": 1.0,
-          "precip": "강수없음",
-          "label": "맑음",
-          "cond": "sunny"
+          "temp_c": 10.0,
+          "sky": "4",
+          "pty": "1",
+          "humidity": 95.0,
+          "wind_ms": 0.1,
+          "precip": "2.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 9.0,
-          "sky": "3",
-          "pty": "0",
-          "pop": 20.0,
-          "humidity": 80.0,
-          "wind_ms": 1.7,
-          "wave_m": 0.5,
-          "label": "구름많음",
-          "cond": "partly_cloudy"
+          "temp_c": 11.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
+          "humidity": 85.0,
+          "wind_ms": 4.5,
+          "wave_m": 1.0,
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -528,17 +528,17 @@
         "beach_num": 249,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 8.0,
-        "label": "구름많음",
-        "cond": "partly_cloudy",
-        "humidity": 85.0,
-        "wind_ms": 1.0,
-        "wave_m": 1.0,
-        "pop": 0.0,
+        "temp_c": 10.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 95.0,
+        "wind_ms": 2.0,
+        "wave_m": 1.5,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -549,25 +549,25 @@
           }
         },
         "ultra": {
-          "temp_c": 8.0,
-          "sky": "3",
-          "pty": "0",
-          "humidity": 85.0,
-          "wind_ms": 1.0,
-          "precip": "강수없음",
-          "label": "구름많음",
-          "cond": "partly_cloudy"
+          "temp_c": 10.0,
+          "sky": "4",
+          "pty": "1",
+          "humidity": 95.0,
+          "wind_ms": 2.0,
+          "precip": "2.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 10.0,
-          "sky": "1",
-          "pty": "0",
-          "pop": 0.0,
-          "humidity": 80.0,
-          "wind_ms": 3.1,
-          "wave_m": 1.0,
-          "label": "맑음",
-          "cond": "sunny"
+          "temp_c": 11.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
+          "humidity": 85.0,
+          "wind_ms": 5.3,
+          "wave_m": 1.5,
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -584,17 +584,17 @@
         "beach_num": 231,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 8.0,
-        "label": "맑음",
-        "cond": "sunny",
-        "humidity": 80.0,
-        "wind_ms": 2.0,
-        "wave_m": 0.5,
-        "pop": 0.0,
+        "temp_c": 10.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 90.0,
+        "wind_ms": 5.0,
+        "wave_m": 1.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -605,25 +605,25 @@
           }
         },
         "ultra": {
-          "temp_c": 8.0,
-          "sky": "1",
-          "pty": "0",
-          "humidity": 80.0,
-          "wind_ms": 2.0,
-          "precip": "강수없음",
-          "label": "맑음",
-          "cond": "sunny"
+          "temp_c": 10.0,
+          "sky": "4",
+          "pty": "1",
+          "humidity": 90.0,
+          "wind_ms": 5.0,
+          "precip": "3.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 9.0,
-          "sky": "1",
-          "pty": "0",
-          "pop": 0.0,
+          "temp_c": 11.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
           "humidity": 80.0,
-          "wind_ms": 1.8,
-          "wave_m": 0.5,
-          "label": "맑음",
-          "cond": "sunny"
+          "wind_ms": 5.0,
+          "wave_m": 1.0,
+          "label": "비",
+          "cond": "rain"
         }
       }
     },
@@ -640,17 +640,17 @@
         "beach_num": 226,
         "source": "kma_BeachInfoservice",
         "base": {
-          "ultra": "202611091930",
-          "vilage": "202611091700",
-          "date": "20261109"
+          "ultra": "202611161930",
+          "vilage": "202611161700",
+          "date": "20261116"
         },
-        "temp_c": 6.0,
-        "label": "맑음",
-        "cond": "sunny",
-        "humidity": 90.0,
-        "wind_ms": 1.0,
+        "temp_c": 9.0,
+        "label": "비",
+        "cond": "rain",
+        "humidity": 95.0,
+        "wind_ms": 0.1,
         "wave_m": 0.5,
-        "pop": 0.0,
+        "pop": 60.0,
         "tide": [],
         "sun": {
           "sunrise": ":",
@@ -661,25 +661,25 @@
           }
         },
         "ultra": {
-          "temp_c": 6.0,
-          "sky": "1",
-          "pty": "0",
-          "humidity": 90.0,
-          "wind_ms": 1.0,
-          "precip": "강수없음",
-          "label": "맑음",
-          "cond": "sunny"
+          "temp_c": 9.0,
+          "sky": "3",
+          "pty": "1",
+          "humidity": 95.0,
+          "wind_ms": 0.1,
+          "precip": "1.0mm",
+          "label": "비",
+          "cond": "rain"
         },
         "vilage": {
-          "temp_c": 8.0,
-          "sky": "1",
-          "pty": "0",
-          "pop": 0.0,
-          "humidity": 80.0,
-          "wind_ms": 1.5,
+          "temp_c": 10.0,
+          "sky": "4",
+          "pty": "1",
+          "pop": 60.0,
+          "humidity": 85.0,
+          "wind_ms": 4.0,
           "wave_m": 0.5,
-          "label": "맑음",
-          "cond": "sunny"
+          "label": "비",
+          "cond": "rain"
         }
       }
     }

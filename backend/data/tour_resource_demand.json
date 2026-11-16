@@ -1,6 +1,79 @@
 {
-  "updated_at": "2026-11-09",
-  "regions": {},
+  "updated_at": "2026-11-16",
+  "regions": {
+    "춘천시": {
+      "service_demand": 83.48,
+      "level": "high"
+    },
+    "원주시": {
+      "service_demand": 78.72,
+      "level": "high"
+    },
+    "강릉시": {
+      "service_demand": 93.85,
+      "level": "high"
+    },
+    "동해시": {
+      "service_demand": 67.96,
+      "level": "mid"
+    },
+    "태백시": {
+      "service_demand": 66.49,
+      "level": "mid"
+    },
+    "속초시": {
+      "service_demand": 91.78,
+      "level": "high"
+    },
+    "삼척시": {
+      "service_demand": 67.78,
+      "level": "mid"
+    },
+    "홍천군": {
+      "service_demand": 73.88,
+      "level": "high"
+    },
+    "횡성군": {
+      "service_demand": 68.58,
+      "level": "mid"
+    },
+    "영월군": {
+      "service_demand": 68.08,
+      "level": "mid"
+    },
+    "평창군": {
+      "service_demand": 78.5,
+      "level": "high"
+    },
+    "정선군": {
+      "service_demand": 73.88,
+      "level": "high"
+    },
+    "철원군": {
+      "service_demand": 66.77,
+      "level": "mid"
+    },
+    "화천군": {
+      "service_demand": 64.44,
+      "level": "mid"
+    },
+    "양구군": {
+      "service_demand": 63.46,
+      "level": "mid"
+    },
+    "인제군": {
+      "service_demand": 71.27,
+      "level": "high"
+    },
+    "고성군": {
+      "service_demand": 75.23,
+      "level": "high"
+    },
+    "양양군": {
+      "service_demand": 76.93,
+      "level": "high"
+    }
+  },
   "source": "TourAPI AreaTarResDemService areaTarSvcDemList",
   "baseYm": "202610"
 }
