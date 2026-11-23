@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-16",
+  "updated_at": "2026-11-23",
   "source_status": {
     "concentration": {
       "ok": true,
@@ -184,11 +184,11 @@
         "theme": "culture",
         "rank": 104,
         "source": "공식관광지",
-        "lat": 37.74732001026134,
-        "lng": 128.8934279040127,
+        "lat": 37.7473200103,
+        "lng": 128.893427904,
         "categoryLabel": "문화/예술",
         "description": "강원특별자치도 강릉시 강변로 224-12 (노암동)",
-        "imageUrl": "https://tong.visitkorea.or.kr/cms/resource/08/3022208_image2_1.jpg",
+        "imageUrl": "https://tong.visitkorea.or.kr/cms/resource/46/4132046_image2_1.jpeg",
         "related": [],
         "visitorCount": "—"
       }
@@ -2314,11 +2314,11 @@
         "theme": "culture",
         "rank": 104,
         "source": "공식관광지",
-        "lat": 38.2111480088,
-        "lng": 127.851075284,
+        "lat": 38.2106339243,
+        "lng": 127.8517104259,
         "categoryLabel": "문화/예술",
         "description": "강원특별자치도 화천군 화천읍 평화로 3518",
-        "imageUrl": "http://tong.visitkorea.or.kr/cms/resource/99/2921699_image2_1.jpg",
+        "imageUrl": "https://tong.visitkorea.or.kr/cms/resource/75/4153075_image2_1.jpg",
         "related": [],
         "visitorCount": "—"
       }

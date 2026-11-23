@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-16",
+  "updated_at": "2026-11-23",
   "regions": {
     "춘천시": [
       {
@@ -150,11 +150,11 @@
         "id": "3022373",
         "title": "강릉 남산공원",
         "addr": "강원특별자치도 강릉시 강변로 224-12 (노암동)",
-        "image": "https://tong.visitkorea.or.kr/cms/resource/08/3022208_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/46/4132046_image2_1.jpeg",
         "tel": "",
         "typeId": "12",
-        "mapX": "128.8934279040127",
-        "mapY": "37.74732001026134"
+        "mapX": "128.8934279040",
+        "mapY": "37.7473200103"
       }
     ],
     "동해시": [
@@ -722,11 +722,11 @@
         "id": "2764833",
         "title": "국제평화아트파크",
         "addr": "강원특별자치도 화천군 화천읍 평화로 3518",
-        "image": "http://tong.visitkorea.or.kr/cms/resource/99/2921699_image2_1.jpg",
+        "image": "https://tong.visitkorea.or.kr/cms/resource/75/4153075_image2_1.jpg",
         "tel": "",
         "typeId": "12",
-        "mapX": "127.8510752840",
-        "mapY": "38.2111480088"
+        "mapX": "127.8517104259",
+        "mapY": "38.2106339243"
       }
     ],
     "양구군": [
